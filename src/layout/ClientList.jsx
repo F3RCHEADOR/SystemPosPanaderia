@@ -11,7 +11,7 @@ const ClientList = () => {
   }, []);
 
   return (
-    <div className="fixed overflow-y-auto p-6 bg-gray-100 max-h-full min-h-screen border-r-4 w-56">
+    <div className="fixed overflow-y-auto p-6 bg-gray-100 max-h-full min-h-screen border-r-4 w-56 ">
       <h1 className="text-3xl font-bold mb-6 text-center">Clientes</h1>
       <div className="space-y-6">
         {clientes.map((cliente) => (

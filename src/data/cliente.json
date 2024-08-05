@@ -37,6 +37,15 @@
       { "nombre": "Jugo", "precio": 2.5 }
     ],
     "valorAcumulado": 5.5
+  },
+  {
+    "codigo": "C005",
+    "horaLlegada": "17:30",
+    "productos": [
+      { "nombre": "Avena", "precio": 3.0 },
+      { "nombre": "Jugo", "precio": 2.5 }
+    ],
+    "valorAcumulado": 5.5
   }
   
 ]
