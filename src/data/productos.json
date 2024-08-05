@@ -1,0 +1,32 @@
+{
+  "categorias": [
+    {
+      "id": "1",
+      "imagen": "./assets/juices.png",
+      "nombre": "Bebidas Frías",
+      "productos": [
+        { "id": "1", "nombre": "Avena", "precio": 3.0 },
+        { "id": "2", "nombre": "Jugo", "precio": 2.5 },
+        { "id": "3", "nombre": "Grappe", "precio": 3.5 }
+      ]
+    },
+    {
+      "id": "2",
+      "imagen": "./assets/coffe.png",
+      "nombre": "Bebidas Calientes",
+      "productos": [
+        { "id": "4", "nombre": "Café", "precio": 2.0 },
+        { "id": "5", "nombre": "Capuchino", "precio": 3.0 }
+      ]
+    },
+    {
+      "id": "3",
+      "imagen": "./assets/croissant.png",
+      "nombre": "Hojaldros",
+      "productos": [
+        { "id": "6", "nombre": "Croasanes", "precio": 2.5 },
+        { "id": "7", "nombre": "Pastel Gloria", "precio": 4.0 }
+      ]
+    }
+  ]
+}
