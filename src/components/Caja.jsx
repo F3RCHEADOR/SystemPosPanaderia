@@ -9,11 +9,11 @@ function Caja() {
   return (
     <div>
       <div className="relative flex my-2.5 bg-white items-center justify-center "><img src={CajaRegistradora} alt="" className="size-20" />
-        <div className="absolute bg-white translate-y-20 mt-20 w-[450px] h-44 border-4 rounded-xl p-2">
+        <div className="absolute bg-white translate-y-20 mt-20 w-[450px] h-44 border-4 rounded-xl p-2 z-20">
           <div className="grid grid-cols-3 gap-4 font-bold text-sm text-center">
-            <div><img src={Client} alt="pago" className="size-24 mx-auto" /><span >Crear Cliente</span></div>
-            <div><img src={Money} alt="pago" className="size-24 mx-auto" /><span >Pagar</span></div>
-            <div className="border-4"><img src={Inventory} alt="pago" className="size-24 mx-auto" /><span >Agregar Inventario</span></div>
+            <div className="border-4 p-1 rounded-xl"><img src={Client} alt="pago" className="size-24 mx-auto" /><span >Agregar Cliente</span></div>
+            <div className="border-4 p-1 rounded-xl"><img src={Money} alt="pago" className="size-24 mx-auto" /><span >Efectuar Pago</span></div>
+            <div className="border-4 p-1 rounded-xl"><img src={Inventory} alt="pago" className="size-24 mx-auto" /><span >Agregar Inventario</span></div>
           </div>
         </div>
       </div>
