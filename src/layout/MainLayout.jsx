@@ -6,7 +6,7 @@ const MainLayout = ({
   return (
     <main>
       <div className="flex flex-row">
-     
+
       </div>
       <div className="select-none">{children}</div>
     </main>
