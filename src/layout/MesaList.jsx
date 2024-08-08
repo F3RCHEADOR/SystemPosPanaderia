@@ -1,10 +1,9 @@
 // src/components/MesaList.jsx
 import React, { useState, useEffect } from 'react';
 import mesasData from '../data/mesas.json';
-import InfoMesa from '../components/infoMesa'; // Importa el nuevo componente
 import MesaImagen from '../assets/mesa.png';
 
-const MesaList = () => {
+const MesaList = ({ clientes, onClienteDrop }) => {
   const [mesas, setMesas] = useState([]);
   const [selectedMesa, setSelectedMesa] = useState(null);
 
@@ -16,6 +15,30 @@ const MesaList = () => {
     setSelectedMesa(selectedMesa === codigo ? null : codigo);
   };
 
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e, mesa) => {
+    e.preventDefault();
+    const clienteData = JSON.parse(e.dataTransfer.getData('application/json'));
+
+    // Actualiza los datos de la mesa con la información del cliente
+    setMesas(mesas.map(m => 
+      m.codigo === mesa.codigo 
+      ? {
+        ...m,
+        horaOcupado: clienteData.horaLlegada,
+        productos: clienteData.productos,
+        valorAcumulado: clienteData.valorAcumulado
+      }
+      : m
+    ));
+
+    // Notificar que el cliente ha sido movido
+    onClienteDrop(clienteData.codigo);
+  };
+
   const mesaSeleccionada = mesas.find(mesa => mesa.codigo === selectedMesa);
 
   return (
@@ -23,21 +46,34 @@ const MesaList = () => {
       <h2 className="text-2xl font-bold mb-6 text-center">Lista de Mesas</h2>
       <div className="grid grid-cols-3 max-w-screen-xl mx-auto gap-8 my-12">
         {mesas.map((mesa) => (
-          <div key={mesa.codigo} className='relative border rounded-xl'>
+          <div
+            key={mesa.codigo}
+            className='relative border rounded-xl'
+            onDragOver={handleDragOver}
+            onDrop={(e) => handleDrop(e, mesa)}
+          >
             <button className='flex items-center justify-center w-full' onClick={() => handleMesaClick(mesa.codigo)}>
               <img src={MesaImagen} alt="" className='w-28 mx-auto' />
             </button>
+
+            {selectedMesa === mesa.codigo && (
+              <div className="p-4 bg-white shadow-md rounded">
+                <h3 className="text-xl font-semibold text-center bg-orange-300">Mesa {mesa.codigo}</h3>
+                <p><strong>Hora Ocupado:</strong> {new Date(mesa.horaOcupado).toLocaleString()}</p>
+                <p><strong>Valor Acumulado:</strong> ${mesa.valorAcumulado.toFixed(2)}</p>
+                <h4 className="mt-2 font-semibold">Productos:</h4>
+                <ul className="list-disc list-inside ml-4">
+                  {mesa.productos.map((producto, index) => (
+                    <li key={index}>{producto.nombre} - ${producto.precio.toFixed(2)}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             <div className="absolute top-4 left-1/2 transform -translate-x-1/2 font-bold">{mesa.codigo}</div>
           </div>
         ))}
       </div>
-      {mesaSeleccionada && (
-        <InfoMesa
-          mesa={mesaSeleccionada}
-          onClose={() => setSelectedMesa(null)}
-        />
-      )}
     </div>
   );
 };
