@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import mesasData from '../data/mesas.json';
 import MesaImagen from '../assets/mesa.png';
 
-const MesaList = ({ clientes, onClienteDrop }) => {
+const MesaList = ({ onClienteDrop }) => {
   const [mesas, setMesas] = useState([]);
   const [selectedMesa, setSelectedMesa] = useState(null);
 
@@ -17,22 +17,30 @@ const MesaList = ({ clientes, onClienteDrop }) => {
 
   const handleDragOver = (e) => {
     e.preventDefault();
+    e.currentTarget.classList.add('scale-110', 'bg-gray-100');
+  };
+
+  const handleDragLeave = (e) => {
+    e.currentTarget.classList.remove('scale-110', 'bg-gray-100');
   };
 
   const handleDrop = (e, mesa) => {
     e.preventDefault();
+    e.currentTarget.classList.remove('scale-110', 'bg-gray-100');
+    e.currentTarget.classList.add('bg-green-200');
+
     const clienteData = JSON.parse(e.dataTransfer.getData('application/json'));
 
     // Actualiza los datos de la mesa con la información del cliente
-    setMesas(mesas.map(m => 
-      m.codigo === mesa.codigo 
-      ? {
-        ...m,
-        horaOcupado: clienteData.horaLlegada,
-        productos: clienteData.productos,
-        valorAcumulado: clienteData.valorAcumulado
-      }
-      : m
+    setMesas(mesas.map(m =>
+      m.codigo === mesa.codigo
+        ? {
+          ...m,
+          horaOcupado: clienteData.horaLlegada,
+          productos: clienteData.productos,
+          valorAcumulado: clienteData.valorAcumulado
+        }
+        : m
     ));
 
     // Notificar que el cliente ha sido movido
@@ -48,12 +56,16 @@ const MesaList = ({ clientes, onClienteDrop }) => {
         {mesas.map((mesa) => (
           <div
             key={mesa.codigo}
-            className='relative border rounded-xl'
+            className="relative border rounded-xl p-4"
             onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
             onDrop={(e) => handleDrop(e, mesa)}
           >
-            <button className='flex items-center justify-center w-full' onClick={() => handleMesaClick(mesa.codigo)}>
-              <img src={MesaImagen} alt="" className='w-28 mx-auto' />
+            <button
+              className="flex items-center justify-center w-full"
+              onClick={() => handleMesaClick(mesa.codigo)}
+            >
+              <img src={MesaImagen} alt={`Mesa ${mesa.codigo}`} className="w-28 mx-auto transition-all" />
             </button>
 
             {selectedMesa === mesa.codigo && (
@@ -70,7 +82,7 @@ const MesaList = ({ clientes, onClienteDrop }) => {
               </div>
             )}
 
-            <div className="absolute top-4 left-1/2 transform -translate-x-1/2 font-bold">{mesa.codigo}</div>
+            <div className="absolute top-8 left-1/2 transform -translate-x-1/2 font-bold">{mesa.codigo}</div>
           </div>
         ))}
       </div>

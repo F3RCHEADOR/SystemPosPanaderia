@@ -1,7 +1,7 @@
 // src/components/ClientList.jsx
 import React, { useState, useEffect } from 'react';
 import clientesData from '../data/cliente.json';
-import ClientInfo from '../components/infoClient';
+import ClientInfo from '../components/infoClient'; // Asegúrate de que el nombre de archivo es correcto
 import clienteImagen from "../assets/client.png";
 
 const ClientList = ({ onDropCliente }) => {
@@ -18,12 +18,21 @@ const ClientList = ({ onDropCliente }) => {
 
   const handleDragStart = (e, cliente) => {
     e.dataTransfer.setData('application/json', JSON.stringify(cliente));
+    e.target.classList.add('scale-125', 'bg-gray-100', 'rotate-12'); // Agregar estilos para el arrastre
+  };
+
+  const handleDragEnd = (e) => {
+    e.target.classList.remove('scale-125', 'bg-gray-100', 'rotate-12'); // Restaurar estilos después del arrastre
   };
 
   const handleClienteDrop = (codigo) => {
-    // Handle drop to remove client
+    // Manejar la caída del cliente en una mesa
     setClientes(prevClientes => prevClientes.filter(cliente => cliente.codigo !== codigo));
     setSelectedCliente(null);
+
+    if (onDropCliente) {
+      onDropCliente(codigo); // Notificar al padre que el cliente ha sido soltado
+    }
   };
 
   const clienteSeleccionado = clientes.find(cliente => cliente.codigo === selectedCliente);
@@ -38,9 +47,12 @@ const ClientList = ({ onDropCliente }) => {
             className={`relative p-4 w-28 h-32 z-0 font-bold text-gray-700 cursor-pointer bg-white shadow-md rounded mx-auto transition-all`}
             draggable
             onDragStart={(e) => handleDragStart(e, cliente)}
+            onDragEnd={handleDragEnd}
             onClick={() => handleClienteClick(cliente.codigo)}
+            onDrop={(e) => handleClienteDrop(cliente.codigo)}
+            onDragOver={(e) => e.preventDefault()} // Permitir que el drop ocurra
           >
-            <img src={clienteImagen} alt={cliente.codigo} className="w-20 mx-auto" />
+            <img src={clienteImagen} alt={cliente.codigo} className="w-20 mx-auto transition-all" />
             <h2 className="text-base font-semibold mb-2 text-center">{cliente.codigo}</h2>
           </div>
         ))}
