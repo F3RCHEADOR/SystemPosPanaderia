@@ -51,7 +51,12 @@ const MesaList = ({ onClienteDrop }) => {
 
   return (
     <div className="p-6 bg-gray-100 h-full w-full">
-      <h2 className="text-2xl font-bold mb-6 text-center">Lista de Mesas</h2>
+      <div className='flex items-center justify-between'>
+        <h2 className="text-2xl font-bold mb-6 text-center">Lista de Mesas</h2>
+        <div><span className='p-2.5 rounded-full w-4 h-4 bg-green-400 mx-2 font-bold'>Ocupado</span>
+          </div>
+
+      </div>
       <div className="grid grid-cols-3 max-w-screen-xl mx-auto gap-8 my-12">
         {mesas.map((mesa) => (
           <div

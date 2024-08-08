@@ -12,7 +12,7 @@ function Footer() {
     <>
       <button
         id="toggleFooter"
-        className={`absolute ${isFooterVisible ? 'bottom-20' : 'bottom-2'} left-1/2 transform -translate-x-1/2 p-1 m-2 bg-white rounded-full transition-transform ${isFooterVisible ? 'rotate-180' : 'rotate-0'
+        className={`fixed ${isFooterVisible ? 'bottom-20' : '-bottom-2'} left-1/2 transform -translate-x-1/2 p-1 m-2 bg-white rounded-full transition-transform ${isFooterVisible ? 'rotate-180' : 'rotate-0'
           }`}
         onClick={toggleFooter}
       >
