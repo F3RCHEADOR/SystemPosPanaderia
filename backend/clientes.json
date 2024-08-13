@@ -158,5 +158,24 @@
       }
     ],
     "valorAcumulado": 15
+  },
+  {
+    "codigo": "C009",
+    "horaLlegada": "16:44:36",
+    "productos": [
+      {
+        "nombre": "Avena",
+        "precio": 3
+      },
+      {
+        "nombre": "Café",
+        "precio": 2
+      },
+      {
+        "nombre": "Pastel Gloria",
+        "precio": 4
+      }
+    ],
+    "valorAcumulado": 18
   }
 ]

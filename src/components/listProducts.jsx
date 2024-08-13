@@ -141,7 +141,7 @@ const ListProducts = () => {
           </div>
         </div>
         <div className="w-full px-4 mt-auto mb-16">
-          <Button label="Crear Cliente" icon="pi pi-check" onClick={createClient} className="p-button-rounded p-button-success" />
+          <Button label="Crear Cliente" onClick={createClient} className="p-button-success p-4 flex items-center justify-center mx-auto bg-blue-500 text-white" />
         </div>
       </aside>
       <div className="ml-56">
