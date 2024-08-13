@@ -1,59 +1,143 @@
+import Client from "../assets/client.png";
 import React, { useState, useEffect } from 'react';
 import productosData from '../data/productos.json'; // Asegúrate de que la ruta sea correcta
+import Slider from 'react-slick'; // Importa Slider de react-slick
+import "slick-carousel/slick/slick.css"; // Importa estilos de slick-carousel
+import "slick-carousel/slick/slick-theme.css";
 
-const listProducts = () => {
+const ListProducts = () => {
   const [categorias, setCategorias] = useState([]);
-  const [activeCategoriaId, setActiveCategoriaId] = useState(null); // Para rastrear la categoría activa
+  const [activeCategoriaId, setActiveCategoriaId] = useState(null);
+  const [quantities, setQuantities] = useState({}); // Estado para las cantidades
 
   useEffect(() => {
-    // Simular la carga de datos desde un archivo JSON
+    // Simula la carga de datos desde un archivo JSON
     setCategorias(productosData.categorias);
+
+    // Inicializa las cantidades en 0
+    const initialQuantities = {};
+    productosData.categorias.forEach(categoria => {
+      categoria.productos.forEach(producto => {
+        initialQuantities[producto.id] = 0;
+      });
+    });
+    setQuantities(initialQuantities);
   }, []);
 
   const handleCategoriaClick = (id) => {
-    setActiveCategoriaId(activeCategoriaId === id ? null : id); // Alternar entre mostrar y ocultar la categoría
+    console.log(`Clicked category ID: ${id}`); // Log para verificar el ID de categoría
+    setActiveCategoriaId(activeCategoriaId === id ? null : id);
   };
 
+  const handleIncrement = (productId) => {
+    setQuantities(prevQuantities => ({
+      ...prevQuantities,
+      [productId]: prevQuantities[productId] + 1,
+    }));
+  };
+
+  const handleDecrement = (productId) => {
+    setQuantities(prevQuantities => ({
+      ...prevQuantities,
+      [productId]: Math.max(prevQuantities[productId] - 1, 0), // No permite que la cantidad sea negativa
+    }));
+  };
+
+  const calculateTotal = () => {
+    return categorias.reduce((acc, categoria) => {
+      const totalCategoria = categoria.productos.reduce((total, producto) => {
+        return total + producto.precio * quantities[producto.id];
+      }, 0);
+      return acc + totalCategoria;
+    }, 0);
+  };
+
+  // Configuración del slider
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
 
   return (
     <>
-      <h1 className="my-2.5 bg-gray-100">Tittle Categories</h1>
-      <article>
-
-
-        {categorias.map((categoria) => (
-          <div key={categoria.id} className="mb-4 group">
-            <h2 className="text-2xl font-semibold mb-4 text-center group-hover:font-bold group-hover:bg-gray-200">{categoria.nombre}</h2>
-            <button className='w-full group-hover:scale-110 duration-150' onClick={() => handleCategoriaClick(categoria.id)}>
-              <img
-                src={categoria.imagen}
-                alt={categoria.nombre}
-                className="mx-auto object-cover rounded mb-4"
-              />
-            </button>
-
-            {activeCategoriaId === categoria.id && (
-              <div className=''>
-                {categoria.productos.map((producto) => (
-                  <div className='flex items-center justify-between'>
-                    <span>Name</span>
-                    <span>Cost</span>
-                    <div className='flex space-x-2 items-center justify-between'>
-                      <buton>+</buton>
-                      <span>0</span>
-                      <button>-</button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+      <aside className='fixed h-full w-56 bg-white border-r-4 flex flex-col items-center justify-start overflow-auto'>
+        <h1 className='w-full text-center mt-4 font-bold bg-red-100'>Cliente Nuevo</h1>
+        <img src={Client} alt="client" className='mx-auto my-4' />
+        <h2 className="text-lg font-bold mb-4">Selección:</h2>
+        <ul className="w-full px-4">
+          {categorias.flatMap(categoria => categoria.productos.filter(producto => quantities[producto.id] > 0).map(producto => (
+            <li key={producto.id} className="flex justify-between items-center mb-2">
+              <span className="font-semibold text-base" >{producto.nombre}</span>
+              <span className="text-nowrap bg-green-300 p-1 font-bold" >{quantities[producto.id]} x ${producto.precio.toFixed(2)}</span>
+            </li>
+          )))}
+        </ul>
+        <div className="w-full px-4 mb-2">
+          <hr className="my-2" />
+          <div className="flex justify-between items-center font-bold text-xl">
+            <span>Total:</span>
+            <span >${calculateTotal().toFixed(2)}</span>
           </div>
-        ))}
-      </article>
+        </div>
+        <div className="w-full px-4 mt-auto mb-16">
+          <button className="bg-blue-500 text-white rounded-xl py-2.5 px-2 m-1 font-semibold text-lg text-center flex items-center justify-center mx-auto border-2 hover:scale-110 duration-150 ">Crear Cliente</button></div>
+      </aside>
+      <div className="ml-56">
+        <h1 className="my-2.5 bg-gray-100 text-center text-xl font-bold">Categorías</h1>
+        <Slider {...sliderSettings}>
+          {categorias.map((categoria) => (
+            <div key={categoria.id} className="p-4">
+              <h2 className="text-2xl font-semibold mb-4 text-center">{categoria.nombre}</h2>
+              <button className="w-full group-hover:scale-110 duration-150" onClick={() => handleCategoriaClick(categoria.id)}>
+                <img
+                  src={categoria.imagen}
+                  alt={categoria.nombre}
+                  className="mx-auto object-cover rounded mb-4"
+                />
+              </button>
+
+              {activeCategoriaId === categoria.id && (
+                <div className="border-4 px-1 bg-gray-100 rounded">
+                  {categoria.productos.map((producto) => (
+                    <div key={producto.id} className="grid grid-cols-3 items-center gap-1 my-1 ">
+                      <span className="text-sm font-semibold">{producto.nombre}</span>
+                      <span className="bg-green-300 text-center font-bold">${producto.precio.toFixed(2)}</span>
+                      <div className="flex space-x-2 items-center justify-between">
+                        <button onClick={() => handleIncrement(producto.id)} className="px-1 py-1 bg-blue-500 text-white rounded">+</button>
+                        <span className="font-semibold">{quantities[producto.id]}</span>
+                        <button onClick={() => handleDecrement(producto.id)} className="px-1 py-1 bg-red-500 text-white rounded">-</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </Slider>
+      </div>
     </>
-  )
+  );
+};
 
-}
-
-
-export default listProducts;
+export default ListProducts;

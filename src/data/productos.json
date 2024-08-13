@@ -5,13 +5,11 @@
       "imagen": "./assets/juices.png",
       "nombre": "Bebidas Frías",
       "productos": [
-        { "id": "1", "nombre": "Avena", "precio": 3.0 },
-        { "id": "2", "nombre": "Jugo", "precio": 2.5 },
-        { "id": "3", "nombre": "Gaseosa Pequeña", "precio": 3.5 },
-        { "id": "4", "nombre": "Gaseosa Personal", "precio": 4.5 },
-        { "id": "3", "nombre": "Gaseosa Litro", "precio": 6.0 }
-
-
+        { "id": "1-1", "nombre": "Avena", "precio": 3.0 },
+        { "id": "1-2", "nombre": "Jugo", "precio": 2.5 },
+        { "id": "1-3", "nombre": "Gaseosa Pequeña", "precio": 3.5 },
+        { "id": "1-4", "nombre": "Gaseosa Personal", "precio": 4.5 },
+        { "id": "1-5", "nombre": "Gaseosa Litro", "precio": 6.0 }
       ]
     },
     {
@@ -19,8 +17,8 @@
       "imagen": "./assets/coffe.png",
       "nombre": "Bebidas Calientes",
       "productos": [
-        { "id": "1", "nombre": "Café", "precio": 2.0 },
-        { "id": "2", "nombre": "Capuchino", "precio": 3.0 }
+        { "id": "2-1", "nombre": "Café", "precio": 2.0 },
+        { "id": "2-2", "nombre": "Capuchino", "precio": 3.0 }
       ]
     },
     {
@@ -28,9 +26,9 @@
       "imagen": "./assets/croissant.png",
       "nombre": "Hojaldras",
       "productos": [
-        { "id": "1", "nombre": "croissant ", "precio": 2.5 },
-        { "id": "2", "nombre": "Pastel Gloria", "precio": 4.0 },
-        { "id": "3", "nombre": "Hojaldra Bocadillo", "precio": 3.0 }
+        { "id": "3-1", "nombre": "croissant ", "precio": 2.5 },
+        { "id": "3-2", "nombre": "Pastel Gloria", "precio": 4.0 },
+        { "id": "3-3", "nombre": "Hojaldra Bocadillo", "precio": 3.0 }
       ]
     },
     {
@@ -38,7 +36,7 @@
       "imagen": "./assets/pan.png",
       "nombre": "Panes",
       "productos": [
-        { "id": "1", "nombre": "Pan de Queso", "precio": 2.5 }
+        { "id": "4-1", "nombre": "Pan de Queso", "precio": 2.5 }
       ]
     },
     {
@@ -46,15 +44,15 @@
       "imagen": "./assets/beer.png",
       "nombre": "Cervezas",
       "productos": [
-        { "id": "1", "nombre": "Aguila", "precio": 2.5 }
+        { "id": "5-1", "nombre": "Aguila", "precio": 2.5 }
       ]
     },
     {
       "id": "6",
       "imagen": "./assets/desser.png",
-      "nombre": "Cervezas",
+      "nombre": "Postres",
       "productos": [
-        { "id": "1", "nombre": "Brownie", "precio": 2.5 }
+        { "id": "6-1", "nombre": "Brownie", "precio": 2.5 }
       ]
     }
   ]
