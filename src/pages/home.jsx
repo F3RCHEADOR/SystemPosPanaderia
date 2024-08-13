@@ -11,8 +11,7 @@ const Home = () => {
     // Elimina el cliente de la lista cuando se coloca en una mesa
     setClientes(prevClientes => prevClientes.filter(cliente => cliente.codigo !== codigo));
   };
-
-
+  
   return (
     <div className='w-full'>
  

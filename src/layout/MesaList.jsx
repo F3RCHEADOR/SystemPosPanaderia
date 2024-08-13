@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import mesasData from '../data/mesas.json';
 import MesaImagen from '../assets/mesa.png';
+import InfoMesa from '../components/infoMesa';
 
 const MesaList = ({ onClienteDrop }) => {
   const [mesas, setMesas] = useState([]);
@@ -74,17 +75,10 @@ const MesaList = ({ onClienteDrop }) => {
             </button>
 
             {selectedMesa === mesa.codigo && (
-              <div className="p-4 bg-white shadow-md rounded">
-                <h3 className="text-xl font-semibold text-center bg-orange-300">Mesa {mesa.codigo}</h3>
-                <p><strong>Hora Ocupado:</strong> {new Date(mesa.horaOcupado).toLocaleString()}</p>
-                <p><strong>Valor Acumulado:</strong> ${mesa.valorAcumulado.toFixed(2)}</p>
-                <h4 className="mt-2 font-semibold">Productos:</h4>
-                <ul className="list-disc list-inside ml-4">
-                  {mesa.productos.map((producto, index) => (
-                    <li key={index}>{producto.nombre} - ${producto.precio.toFixed(2)}</li>
-                  ))}
-                </ul>
-              </div>
+               <InfoMesa
+               mesa={mesaSeleccionada}
+               onClose={() => setSelectedMesa(null)}
+             />
             )}
 
             <div className="absolute top-8 left-1/2 transform -translate-x-1/2 font-bold">{mesa.codigo}</div>
