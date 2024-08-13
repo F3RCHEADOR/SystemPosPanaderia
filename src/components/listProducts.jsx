@@ -1,20 +1,22 @@
+
 import Client from "../assets/client.png";
-import React, { useState, useEffect } from 'react';
-import productosData from '../data/productos.json'; // Asegúrate de que la ruta sea correcta
-import Slider from 'react-slick'; // Importa Slider de react-slick
-import "slick-carousel/slick/slick.css"; // Importa estilos de slick-carousel
+import React, { useState, useEffect, useRef } from 'react';
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+import { Toast } from 'primereact/toast';
+import productosData from '../data/productos.json';
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Button } from 'primereact/button';
 
 const ListProducts = () => {
   const [categorias, setCategorias] = useState([]);
   const [activeCategoriaId, setActiveCategoriaId] = useState(null);
-  const [quantities, setQuantities] = useState({}); // Estado para las cantidades
+  const [quantities, setQuantities] = useState({});
+  const toast = useRef(null);
 
   useEffect(() => {
-    // Simula la carga de datos desde un archivo JSON
     setCategorias(productosData.categorias);
-
-    // Inicializa las cantidades en 0
     const initialQuantities = {};
     productosData.categorias.forEach(categoria => {
       categoria.productos.forEach(producto => {
@@ -25,7 +27,6 @@ const ListProducts = () => {
   }, []);
 
   const handleCategoriaClick = (id) => {
-    console.log(`Clicked category ID: ${id}`); // Log para verificar el ID de categoría
     setActiveCategoriaId(activeCategoriaId === id ? null : id);
   };
 
@@ -39,7 +40,7 @@ const ListProducts = () => {
   const handleDecrement = (productId) => {
     setQuantities(prevQuantities => ({
       ...prevQuantities,
-      [productId]: Math.max(prevQuantities[productId] - 1, 0), // No permite que la cantidad sea negativa
+      [productId]: Math.max(prevQuantities[productId] - 1, 0),
     }));
   };
 
@@ -52,7 +53,45 @@ const ListProducts = () => {
     }, 0);
   };
 
-  // Configuración del slider
+  const createClient = async () => {
+    const cliente = {
+      codigo: `C${String(Date.now()).slice(-4)}`, // Ejemplo de código autoincremental basado en timestamp
+      horaLlegada: new Date().toLocaleTimeString(),
+      productos: categorias.flatMap(categoria =>
+        categoria.productos
+          .filter(producto => quantities[producto.id] > 0)
+          .map(producto => ({
+            nombre: producto.nombre,
+            precio: producto.precio
+          })
+        )
+      ),
+      valorAcumulado: calculateTotal()
+    };
+
+    try {
+      const response = await fetch('http://localhost:5000/api/clientes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(cliente)
+      });
+
+      if (response.ok) {
+        const newClient = await response.json();
+        toast.current.show({ severity: "success", summary: 'Cliente Creado', detail: `Código: ${newClient.codigo}`, life: 15000 });
+        console.log('Cliente creado:', newClient);
+      } else {
+        toast.current.show({ severity: 'error', summary: 'Error', detail: 'No se pudo crear el cliente', life: 3000 });
+        console.error('Error al crear cliente:', response.statusText);
+      }
+    } catch (error) {
+      toast.current.show({ severity: 'error', summary: 'Error', detail: 'Error en la conexión', life: 3000 });
+      console.error('Error en la conexión:', error);
+    }
+  };
+
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -81,6 +120,7 @@ const ListProducts = () => {
 
   return (
     <>
+      <Toast ref={toast} />
       <aside className='fixed h-full w-56 bg-white border-r-4 flex flex-col items-center justify-start overflow-auto'>
         <h1 className='w-full text-center mt-4 font-bold bg-red-100'>Cliente Nuevo</h1>
         <img src={Client} alt="client" className='mx-auto my-4' />
@@ -101,7 +141,8 @@ const ListProducts = () => {
           </div>
         </div>
         <div className="w-full px-4 mt-auto mb-16">
-          <button className="bg-blue-500 text-white rounded-xl py-2.5 px-2 m-1 font-semibold text-lg text-center flex items-center justify-center mx-auto border-2 hover:scale-110 duration-150 ">Crear Cliente</button></div>
+          <Button label="Crear Cliente" icon="pi pi-check" onClick={createClient} className="p-button-rounded p-button-success" />
+        </div>
       </aside>
       <div className="ml-56">
         <h1 className="my-2.5 bg-gray-100 text-center text-xl font-bold">Categorías</h1>
