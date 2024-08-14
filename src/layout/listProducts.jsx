@@ -144,8 +144,8 @@ const ListProducts = () => {
           <Button label="Crear Cliente" onClick={createClient} className="p-button-success p-4 flex items-center justify-center mx-auto bg-blue-500 text-white" />
         </div>
       </aside>
-      <div className="ml-56 h-full my-24">
-        <h1 className="my-2.5 bg-gray-100 text-center text-xl font-bold">Categorías</h1>
+      <div className="ml-56 h-full my-16">
+        <h1 className="my-2.5 bg-gray-200 text-center text-3xl font-bold ">Categorías</h1>
         <Slider {...sliderSettings}>
           {categorias.map((categoria) => (
             <div key={categoria.id} className="p-4 border rounded-xl ">
@@ -159,7 +159,7 @@ const ListProducts = () => {
               </button>
 
               {activeCategoriaId === categoria.id && (
-                <div className="border-4 px-1 bg-gray-100 rounded">
+                <div className="border-4 px-1 bg-gray-100 rounded max-h-56 overflow-auto">
                   {categoria.productos.map((producto) => (
                     <div key={producto.id} className="grid grid-cols-3 items-center gap-1 my-1 ">
                       <span className="text-sm font-semibold">{producto.nombre}</span>

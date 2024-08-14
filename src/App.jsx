@@ -4,6 +4,8 @@ import MainLayout from './layout/MainLayout';
 import Second from './pages/second.jsx';
 import Home from './pages/home.jsx';
 import AddClient from './pages/AddClient.jsx';
+import Inventories from './pages/Inventories.jsx';
+
 
 function App() {
   return (
@@ -14,6 +16,7 @@ function App() {
           <Route path="/second" element={<Second />} />
           <Route path="/home" element={<Home />} />
           <Route path="/AddClient" element={<AddClient />} />
+          <Route path="/Inventories" element={<Inventories />} />
         </Routes>
       </MainLayout>
 

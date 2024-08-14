@@ -24,11 +24,11 @@ function Footer() {
           }`}
       >
         <article className='flex my-4 items-center justify-around font-bold'>
-          <div className=' rounded-2xl border-4 bg-purple-300 border-purple-500 w-56 h-12 flex flex-col items-center justify-center'>
+          <a href='/AddClient' className=' rounded-2xl border-4 bg-purple-300 border-purple-500 w-56 h-12 flex flex-col items-center justify-center hover:scale-110 duration-100'>
             <span>Crear Producto</span>
-          </div>
-          <div className=' rounded-2xl border-4 bg-green-300 border-green-400 w-56 h-12 flex items-center justify-center'><span>Crear Cliente</span></div>
-          <div className=' rounded-2xl border-4 bg-red-300 border-red-400 w-56 h-12 flex items-center justify-center'><span>Agregar Producto</span></div>
+          </a>
+          <a href='/' className=' rounded-2xl border-4 bg-green-300 border-green-400 w-56 h-12 flex items-center justify-center hover:scale-110 duration-100'><span>Inicio</span></a>
+          <a href='/Inventories' className=' rounded-2xl border-4 bg-red-300 border-red-400 w-56 h-12 flex items-center justify-center hover:scale-110 duration-100'><span>Inventarios</span></a>
         </article>
       </footer>
     </>

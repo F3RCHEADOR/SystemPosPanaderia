@@ -1,15 +1,11 @@
 [
   {
-    "codigo": "fsa2",
-    "horaLlegada": "18:00",
+    "codigo": "C001",
+    "horaLlegada": "08:35:49",
     "productos": [
       {
         "nombre": "Avena",
         "precio": 3
-      },
-      {
-        "nombre": "Gaseosa Pequeña",
-        "precio": 3.5
       },
       {
         "nombre": "Café",
@@ -20,167 +16,11 @@
         "precio": 4
       }
     ],
-    "valorAcumulado": 28
+    "valorAcumulado": 9
   },
   {
     "codigo": "C002",
-    "horaLlegada": "16:21:00",
-    "productos": [
-      {
-        "nombre": "Avena",
-        "precio": 3
-      },
-      {
-        "nombre": "Capuchino",
-        "precio": 3
-      },
-      {
-        "nombre": "croissant ",
-        "precio": 2.5
-      }
-    ],
-    "valorAcumulado": 14
-  },
-  {
-    "codigo": "C003",
-    "horaLlegada": "16:28:13",
-    "productos": [
-      {
-        "nombre": "Avena",
-        "precio": 3
-      },
-      {
-        "nombre": "Capuchino",
-        "precio": 3
-      },
-      {
-        "nombre": "croissant ",
-        "precio": 2.5
-      },
-      {
-        "nombre": "Pan de Queso",
-        "precio": 2.5
-      },
-      {
-        "nombre": "Aguila",
-        "precio": 2.5
-      }
-    ],
-    "valorAcumulado": 29.5
-  },
-  {
-    "codigo": "C004",
-    "horaLlegada": "16:28:21",
-    "productos": [
-      {
-        "nombre": "Avena",
-        "precio": 3
-      },
-      {
-        "nombre": "Capuchino",
-        "precio": 3
-      },
-      {
-        "nombre": "croissant ",
-        "precio": 2.5
-      },
-      {
-        "nombre": "Pan de Queso",
-        "precio": 2.5
-      },
-      {
-        "nombre": "Aguila",
-        "precio": 2.5
-      }
-    ],
-    "valorAcumulado": 29.5
-  },
-  {
-    "codigo": "C005",
-    "horaLlegada": "16:37:15",
-    "productos": [
-      {
-        "nombre": "Avena",
-        "precio": 3
-      },
-      {
-        "nombre": "Capuchino",
-        "precio": 3
-      },
-      {
-        "nombre": "Pastel Gloria",
-        "precio": 4
-      }
-    ],
-    "valorAcumulado": 20
-  },
-  {
-    "codigo": "C006",
-    "horaLlegada": "16:39:04",
-    "productos": [
-      {
-        "nombre": "Avena",
-        "precio": 3
-      },
-      {
-        "nombre": "Jugo",
-        "precio": 2.5
-      }
-    ],
-    "valorAcumulado": 8.5
-  },
-  {
-    "codigo": "C007",
-    "horaLlegada": "16:40:55",
-    "productos": [
-      {
-        "nombre": "Avena",
-        "precio": 3
-      }
-    ],
-    "valorAcumulado": 6
-  },
-  {
-    "codigo": "C008",
-    "horaLlegada": "16:41:06",
-    "productos": [
-      {
-        "nombre": "Avena",
-        "precio": 3
-      },
-      {
-        "nombre": "Café",
-        "precio": 2
-      },
-      {
-        "nombre": "croissant ",
-        "precio": 2.5
-      }
-    ],
-    "valorAcumulado": 15
-  },
-  {
-    "codigo": "C009",
-    "horaLlegada": "16:44:36",
-    "productos": [
-      {
-        "nombre": "Avena",
-        "precio": 3
-      },
-      {
-        "nombre": "Café",
-        "precio": 2
-      },
-      {
-        "nombre": "Pastel Gloria",
-        "precio": 4
-      }
-    ],
-    "valorAcumulado": 18
-  },
-  {
-    "codigo": "C010",
-    "horaLlegada": "21:20:51",
+    "horaLlegada": "09:27:33",
     "productos": [
       {
         "nombre": "Café",
@@ -189,35 +29,12 @@
       {
         "nombre": "Pastel Gloria",
         "precio": 4
-      },
-      {
-        "nombre": "Pan de Queso",
-        "precio": 2.5
-      }
-    ],
-    "valorAcumulado": 21
-  },
-  {
-    "codigo": "C011",
-    "horaLlegada": "21:31:28",
-    "productos": [
-      {
-        "nombre": "Gaseosa Pequeña",
-        "precio": 3.5
-      },
-      {
-        "nombre": "Pastel Gloria",
-        "precio": 4
-      },
-      {
-        "nombre": "Pan de Queso",
-        "precio": 2.5
       },
       {
         "nombre": "Brownie",
         "precio": 2.5
       }
     ],
-    "valorAcumulado": 27.5
+    "valorAcumulado": 19
   }
 ]
