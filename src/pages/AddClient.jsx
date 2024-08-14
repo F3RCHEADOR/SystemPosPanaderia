@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ListProduct from '../components/listProducts';
+import ListProduct from '../layout/listProducts';
 
 const AddClient = () => {
  

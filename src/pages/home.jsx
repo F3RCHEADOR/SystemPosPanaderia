@@ -11,17 +11,17 @@ const Home = () => {
     // Elimina el cliente de la lista cuando se coloca en una mesa
     setClientes(prevClientes => prevClientes.filter(cliente => cliente.codigo !== codigo));
   };
-  
+
   return (
     <div className='w-full'>
- 
-        <div className=''><ClientList  onDropCliente={handleClienteDrop} /></div>
 
-        <div className='ml-56 '>
-          <Caja />
-          <MesaList clientes={clientes} onClienteDrop={handleClienteDrop} />
-        </div>
-      
+      <div className='relative z-50'><ClientList onDropCliente={handleClienteDrop} /></div>
+
+      <div className='ml-56  z-0'>
+        <Caja />
+        <MesaList clientes={clientes} onClienteDrop={handleClienteDrop} />
+      </div>
+
     </div>
   );
 };

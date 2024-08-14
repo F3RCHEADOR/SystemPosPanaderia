@@ -95,7 +95,7 @@ const ListProducts = () => {
   const sliderSettings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 400,
     slidesToShow: 3,
     slidesToScroll: 1,
     responsive: [
@@ -144,12 +144,12 @@ const ListProducts = () => {
           <Button label="Crear Cliente" onClick={createClient} className="p-button-success p-4 flex items-center justify-center mx-auto bg-blue-500 text-white" />
         </div>
       </aside>
-      <div className="ml-56">
+      <div className="ml-56 h-full my-24">
         <h1 className="my-2.5 bg-gray-100 text-center text-xl font-bold">Categorías</h1>
         <Slider {...sliderSettings}>
           {categorias.map((categoria) => (
-            <div key={categoria.id} className="p-4">
-              <h2 className="text-2xl font-semibold mb-4 text-center">{categoria.nombre}</h2>
+            <div key={categoria.id} className="p-4 border rounded-xl ">
+              <h2 className="text-2xl font-semibold mb-4 text-center ">{categoria.nombre}</h2>
               <button className="w-full group-hover:scale-110 duration-150" onClick={() => handleCategoriaClick(categoria.id)}>
                 <img
                   src={categoria.imagen}

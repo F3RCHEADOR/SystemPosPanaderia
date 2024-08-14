@@ -58,7 +58,7 @@ const MesaList = ({ onClienteDrop }) => {
           </div>
 
       </div>
-      <div className="grid grid-cols-3 max-w-screen-xl mx-auto gap-8 my-12">
+      <div className="relative z-auto grid grid-cols-3 max-w-screen-xl mx-auto gap-8 my-12">
         {mesas.map((mesa) => (
           <div
             key={mesa.codigo}
@@ -80,7 +80,6 @@ const MesaList = ({ onClienteDrop }) => {
                onClose={() => setSelectedMesa(null)}
              />
             )}
-
             <div className="absolute top-8 left-1/2 transform -translate-x-1/2 font-bold">{mesa.codigo}</div>
           </div>
         ))}

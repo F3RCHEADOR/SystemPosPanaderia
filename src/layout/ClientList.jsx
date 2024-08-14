@@ -1,6 +1,4 @@
-// src/components/ClientList.jsx
 import React, { useState, useEffect } from 'react';
-import clientesData from '../data/cliente.json';
 import ClientInfo from '../components/infoClient'; // Asegúrate de que el nombre de archivo es correcto
 import clienteImagen from "../assets/client.png";
 
@@ -9,7 +7,11 @@ const ClientList = ({ onDropCliente }) => {
   const [selectedCliente, setSelectedCliente] = useState(null);
 
   useEffect(() => {
-    setClientes(clientesData);
+    // Realiza la solicitud para obtener los clientes
+    fetch('http://localhost:5000/api/clientes')
+      .then(response => response.json())
+      .then(data => setClientes(data))
+      .catch(error => console.error('Error al cargar los clientes:', error));
   }, []);
 
   const handleClienteClick = (codigo) => {

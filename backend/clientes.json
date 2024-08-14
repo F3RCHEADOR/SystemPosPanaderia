@@ -177,5 +177,47 @@
       }
     ],
     "valorAcumulado": 18
+  },
+  {
+    "codigo": "C010",
+    "horaLlegada": "21:20:51",
+    "productos": [
+      {
+        "nombre": "Café",
+        "precio": 2
+      },
+      {
+        "nombre": "Pastel Gloria",
+        "precio": 4
+      },
+      {
+        "nombre": "Pan de Queso",
+        "precio": 2.5
+      }
+    ],
+    "valorAcumulado": 21
+  },
+  {
+    "codigo": "C011",
+    "horaLlegada": "21:31:28",
+    "productos": [
+      {
+        "nombre": "Gaseosa Pequeña",
+        "precio": 3.5
+      },
+      {
+        "nombre": "Pastel Gloria",
+        "precio": 4
+      },
+      {
+        "nombre": "Pan de Queso",
+        "precio": 2.5
+      },
+      {
+        "nombre": "Brownie",
+        "precio": 2.5
+      }
+    ],
+    "valorAcumulado": 27.5
   }
 ]
