@@ -7,7 +7,7 @@ function FormInventories() {
     const addField = () => {
         setFields([...fields, { id: nextId, nombreProducto: '', cantidad: '', costo: '' }]);
         setNextId(nextId + 1); // Incrementar el ID para el próximo campo
-    };
+    };  
 
     const removeField = (id) => {
         setFields(fields.filter(field => field.id !== id));

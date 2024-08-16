@@ -36,5 +36,66 @@
       }
     ],
     "valorAcumulado": 19
+  },
+  {
+    "codigo": "C003",
+    "horaLlegada": "10:01:23",
+    "productos": [
+      {
+        "nombre": "Café",
+        "precio": 2
+      },
+      {
+        "nombre": "Té Verde",
+        "precio": 2.5
+      },
+      {
+        "nombre": "Pan de Queso",
+        "precio": 2.5
+      }
+    ],
+    "valorAcumulado": 14
+  },
+  {
+    "codigo": "C004",
+    "horaLlegada": "10:10:35",
+    "productos": [
+      {
+        "nombre": "Hojaldra Bocadillo",
+        "precio": 3
+      },
+      {
+        "nombre": "Pan de Queso",
+        "precio": 2.5
+      },
+      {
+        "nombre": "Aguila",
+        "precio": 2.5
+      }
+    ],
+    "valorAcumulado": 16
+  },
+  {
+    "codigo": "C005",
+    "horaLlegada": "10:27:09",
+    "productos": [
+      {
+        "nombre": "Croissant",
+        "precio": 2.5
+      },
+      {
+        "nombre": "Pan de Queso",
+        "precio": 2.5
+      },
+      {
+        "nombre": "Pan de Ajo",
+        "precio": 2
+      },
+      {
+        "nombre": "Aguila",
+        "precio": 2.5
+      }
+    ],
+    "valorAcumulado": 16.5
   }
 ]
