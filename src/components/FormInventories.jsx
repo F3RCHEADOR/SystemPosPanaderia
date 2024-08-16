@@ -97,6 +97,7 @@ function FormInventories() {
                     +
                 </button>
             </div>
+            <button className="px-6 py-4 rounded-full bg-green-400 border-4 border-gray-800 font-semibold hover:text-white duration-200 hover:bg-green-600 hover:scale-110 m-2 ">Registrar </button>
         </section>
     );
 }

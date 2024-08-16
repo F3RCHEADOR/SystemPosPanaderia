@@ -31,7 +31,8 @@ const ProductList = () => {
             </button>
 
             {activeCategoriaId === categoria.id && (
-              <div className='fixed top-1/2 z-30 left-1/2 bg-white transform -translate-y-1/2 -translate-x-1/2'><ul className=" space-y-2 w-96 bg-gray-400">
+              <div className='border-8 border-gray-400 rounded-xl fixed top-1/2 z-30 h-80 overflow-auto left-1/2 bg-white p-8 transform -translate-y-1/2 -translate-x-1/2'><ul className=" space-y-2 w-96 bg-gray-400">
+                <h2 className='font-bold underline m-4 text-center pt-4' > Lista de Productos de {categoria.nombre}</h2>
                 {categoria.productos.map((producto) => (
                   <li key={producto.id} className=" p-4 bg-white shadow-md rounded flex items-center justify-between">
                     <span className="font-semibold">{producto.nombre}</span>
@@ -39,7 +40,7 @@ const ProductList = () => {
                   </li>
                 ))}
               </ul>
-                <button className='flex items-center justify-center p-2 m-1 bg-green-400 mx-auto'><p className='space-x-2'>Agregar Mas<span className='px-2'>{categoria.nombre}</span></p></button>
+                <button className='flex items-center justify-center p-2 mt-6 rounded-xl border-4 font-bold bg-green-400 mx-auto'><p className='space-x-2'>Agregar Mas<span className='px-2'>{categoria.nombre}</span></p></button>
               </div>
 
             )}
