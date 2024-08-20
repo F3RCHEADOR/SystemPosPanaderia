@@ -8,7 +8,7 @@ const ClientList = ({ onDropCliente }) => {
 
   useEffect(() => {
     // Realiza la solicitud para obtener los clientes
-    fetch('http://localhost:5000/api/clientes')
+    fetch('/api/clientes') // La URL ahora coincide con el proxy
       .then(response => response.json())
       .then(data => setClientes(data))
       .catch(error => console.error('Error al cargar los clientes:', error));

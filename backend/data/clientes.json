@@ -97,5 +97,24 @@
       }
     ],
     "valorAcumulado": 16.5
+  },
+  {
+    "codigo": "C006",
+    "horaLlegada": "11:43:12",
+    "productos": [
+      {
+        "nombre": "Avena",
+        "precio": 3
+      },
+      {
+        "nombre": "Gaseosa Pequeña",
+        "precio": 3.5
+      },
+      {
+        "nombre": "Frappe",
+        "precio": 4.5
+      }
+    ],
+    "valorAcumulado": 15.5
   }
 ]
