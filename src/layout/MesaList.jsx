@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
 import MesaImagen from '../assets/mesa.png';
-import InfoMesa from '../components/InfoMesa';
+import InfoMesa from '../components/infoMesa';
 
 const ItemTypes = {
   CLIENT: 'client',
