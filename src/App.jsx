@@ -13,9 +13,9 @@ function App() {
     <DndProvider backend={HTML5Backend}>
       <MainLayout>
         <Routes>
-          <Route path="/" element={<Navigate to="/Home" />} />  {/* Redirige a /home */}
+          <Route path="/" element={<Navigate to="/home" />} />  {/* Redirige a /home */}
           <Route path="/second" element={<Second />} />
-          <Route path="/Home" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/AddClient" element={<AddClient />} />
           <Route path="/Inventories" element={<Inventories />} />
         </Routes>
