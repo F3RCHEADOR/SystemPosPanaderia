@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './layout/MainLayout';
 import Second from './pages/second.jsx';
-import Home from './pages/Home.jsx';
+import Home from './pages/home.jsx';
 import AddClient from './pages/AddClient.jsx';
 import Inventories from './pages/Inventories.jsx';
 import { DndProvider } from 'react-dnd';
