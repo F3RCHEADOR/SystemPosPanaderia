@@ -1,44 +1,6 @@
 [
   {
     "codigo": "C001",
-    "horaLlegada": "08:35:49",
-    "productos": [
-      {
-        "nombre": "Avena",
-        "precio": 3
-      },
-      {
-        "nombre": "Café",
-        "precio": 2
-      },
-      {
-        "nombre": "Pastel Gloria",
-        "precio": 4
-      }
-    ],
-    "valorAcumulado": 9
-  },
-  {
-    "codigo": "C002",
-    "horaLlegada": "09:27:33",
-    "productos": [
-      {
-        "nombre": "Café",
-        "precio": 2
-      },
-      {
-        "nombre": "Pastel Gloria",
-        "precio": 4
-      },
-      {
-        "nombre": "Brownie",
-        "precio": 2.5
-      }
-    ],
-    "valorAcumulado": 19
-  },
-  {
-    "codigo": "C003",
     "horaLlegada": "10:01:23",
     "productos": [
       {
@@ -57,26 +19,7 @@
     "valorAcumulado": 14
   },
   {
-    "codigo": "C004",
-    "horaLlegada": "10:10:35",
-    "productos": [
-      {
-        "nombre": "Hojaldra Bocadillo",
-        "precio": 3
-      },
-      {
-        "nombre": "Pan de Queso",
-        "precio": 2.5
-      },
-      {
-        "nombre": "Aguila",
-        "precio": 2.5
-      }
-    ],
-    "valorAcumulado": 16
-  },
-  {
-    "codigo": "C005",
+    "codigo": "C002",
     "horaLlegada": "10:27:09",
     "productos": [
       {
@@ -99,7 +42,7 @@
     "valorAcumulado": 16.5
   },
   {
-    "codigo": "C006",
+    "codigo": "C003",
     "horaLlegada": "11:43:12",
     "productos": [
       {
@@ -116,5 +59,39 @@
       }
     ],
     "valorAcumulado": 15.5
+  },
+  {
+    "codigo": "C004",
+    "horaLlegada": "11:29:13",
+    "productos": [
+      {
+        "nombre": "Avena",
+        "precio": 3
+      },
+      {
+        "nombre": "Gaseosa Personal",
+        "precio": 4.5
+      },
+      {
+        "nombre": "Capuchino",
+        "precio": 3
+      }
+    ],
+    "valorAcumulado": 21
+  },
+  {
+    "codigo": "C005",
+    "horaLlegada": "11:29:32",
+    "productos": [
+      {
+        "nombre": "Capuchino",
+        "precio": 3
+      },
+      {
+        "nombre": "Latte",
+        "precio": 3.5
+      }
+    ],
+    "valorAcumulado": 9.5
   }
 ]

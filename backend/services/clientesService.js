@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-// Obtén la ruta del archivo actual y construye la ruta al directorio de datos
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const CLIENTES_FILE = path.join(__dirname, '..', 'data', 'clientes.json');

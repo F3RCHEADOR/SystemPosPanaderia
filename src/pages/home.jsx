@@ -8,20 +8,19 @@ const Home = () => {
   const [clientes, setClientes] = useState(clientesData);
 
   const handleClienteDrop = (codigo) => {
+    console.log('Cliente soltado:', codigo);
     // Elimina el cliente de la lista cuando se coloca en una mesa
     setClientes(prevClientes => prevClientes.filter(cliente => cliente.codigo !== codigo));
   };
 
+
   return (
     <div className='w-full'>
-
       <div className='relative z-50'><ClientList onDropCliente={handleClienteDrop} /></div>
-
-      <div className='ml-56  z-0'>
+      <div className='ml-56 z-0'>
         <Caja />
         <MesaList clientes={clientes} onClienteDrop={handleClienteDrop} />
       </div>
-
     </div>
   );
 };
