@@ -15,7 +15,7 @@ function Caja() {
 
   return (
     <div>
-      <div className="relative flex my-2.5 bg-white items-center justify-center "><button onClick={toogleMenu}><img src={CajaRegistradora} alt="" className="size-20" /></button>
+      <div className="relative flex  bg-white items-center justify-center "><button onClick={toogleMenu}><img src={CajaRegistradora} alt="" className="size-20" /></button>
         <div className={`${isMenuVisibe ? 'block' : 'hidden'} absolute bg-white translate-y-20 mt-20 w-[450px] h-44 border-4 rounded-xl p-2 z-20`}>
           <div className="grid grid-cols-3 gap-4 font-bold text-sm text-center">
             <a href="/AddClient" className="border-4 p-1 rounded-xl hover:scale-110 duration-200"><img src={Client} alt="pago" className="size-24 mx-auto" /><span >Agregar Cliente</span></a>
@@ -24,7 +24,7 @@ function Caja() {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-4 w-full h-8 my-2.5">
+      <div className="grid grid-cols-4 w-full h-8 my-1">
         <div className="col-span-1 border-4 bg-slate-300 "></div>
         <div className="col-span-2 border-4 bg-slate-300"></div>
         <div className="col-span-1 border-4 bg-slate-300"></div>

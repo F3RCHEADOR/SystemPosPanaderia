@@ -1,6 +1,5 @@
 import React from "react";
 
-
 function ButtonPayment() {
   return ( 
    <div className='bg-green-100 '>

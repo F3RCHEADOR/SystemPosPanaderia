@@ -1,20 +1,21 @@
 import React from 'react';
 import MesaImagen from '../assets/mesa.png';
 import ButtonPayment from './ButtonPayment';
+import ButtonEditClient from './ButtonEditClient';
 
 const InfoMesa = ({ mesa, onClose }) => {
   if (!mesa) return null;
 
   // Asegúrate de que la propiedad `productos` existe y es un array
   const productos = mesa.productos || [];
-  
+
   // Asegúrate de que `valorAcumulado` sea un número
   const valorAcumulado = typeof mesa.valorAcumulado === 'number' ? mesa.valorAcumulado : 0;
 
   return (
     <div className="fixed top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 z-50 h-auto max-h-80 overflow-auto w-96 p-4 bg-white shadow-md rounded">
-      <button 
-        onClick={onClose} 
+      <button
+        onClick={onClose}
         className="absolute top-2 right-2 font-extrabold hover:scale-125 text-white p-2 m-1 rounded-full bg-red-300"
       >
         X
@@ -27,16 +28,33 @@ const InfoMesa = ({ mesa, onClose }) => {
       <p className='pl-4'>
         <strong>Valor Acumulado:</strong> ${valorAcumulado.toFixed(2)}
       </p>
-      <h4 className="mt-2 font-bold pl-4">Productos:</h4>
-      <ul className="list-disc list-inside ml-4 pl-2">
+      <div className='grid grid-cols-4 gap-4 pl-4 font-bold'>
+        <h4 className="col-span-2 ">Productos</h4>
+        <h4 className="mr-4">Cantidad</h4>
+        <h4 className="ml-2">Precio</h4>
+      </div>
+
+      <ul className="list-disc list-inside ml-4 pl-2 bg-gray-100">
         {productos.length > 0 ? (
-          productos.map((producto, index) => (
-            <li key={index}>{producto.nombre} - ${producto.precio.toFixed(2)}</li>
-          ))
+          <>
+            {productos.map((producto, index) => (
+              <li className="grid grid-cols-4 gap-6 hover:bg-white " key={index}>
+                <span className="col-span-2"> -{producto.nombre}</span>
+                <span className="text-center">{producto.cantidad}</span>
+                <span className="text-center">${producto.precio.toFixed(2)}</span>
+              </li>
+            ))}
+            <br />
+            <div className='flex items-center justify-between font-extrabold pr-1'>
+            <span>Total a Pagar:</span>
+            <span> ${valorAcumulado.toFixed(2)}</span>
+            </div>
+          </>
         ) : (
           <li>No hay productos</li>
         )}
       </ul>
+      <ButtonEditClient />
       <ButtonPayment />
     </div>
   );

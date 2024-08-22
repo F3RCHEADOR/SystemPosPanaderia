@@ -8,21 +8,28 @@ const ItemTypes = {
 };
 
 const Mesa = ({ mesa, onClienteDrop, selectedMesa, onMesaClick }) => {
-  const [{ isOver }, drop] = useDrop(() => ({
+  const [{ isOver, canDrop }, drop] = useDrop(() => ({
     accept: ItemTypes.CLIENT,
-    drop: (item) => onClienteDrop(item.codigo, mesa.codigo),
+    canDrop: () => mesa.estado !== 'Ocupado', // Solo permite dropear si la mesa no está ocupada
+    drop: (item) => {
+      if (mesa.estado !== 'Ocupado') {
+        onClienteDrop(item.codigo, mesa.codigo);
+      }
+    },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
+      canDrop: monitor.canDrop(),
     }),
   }), [onClienteDrop, mesa]);
 
   // Definir el color de fondo basado en el estado de la mesa
   const mesaBackgroundColor = mesa.estado === 'Ocupado' ? 'bg-red-500' : 'bg-green-500';
+  const overlayColor = isOver && canDrop ? 'scale:105' : '';
 
   return (
     <div
       ref={drop}
-      className={`relative border rounded-xl p-4 ${mesaBackgroundColor} ${isOver ? 'bg-green-200' : ''}`}
+      className={`relative border rounded-xl p-4 ${mesaBackgroundColor} ${overlayColor}`}
     >
       <button
         className="flex items-center justify-center w-full"
@@ -81,7 +88,7 @@ const MesaList = ({ onClienteDrop }) => {
       const clienteResponse = await fetch(`http://localhost:5000/api/clientes/${clienteCodigo}`);
       if (!clienteResponse.ok) throw new Error('Error al obtener datos del cliente');
       const clienteData = await clienteResponse.json();
-  
+
       // Actualizar la mesa con los datos del cliente
       const mesaUpdateResponse = await fetch(`http://localhost:5000/api/mesas/${mesaCodigo}`, {
         method: 'PUT',
@@ -97,16 +104,16 @@ const MesaList = ({ onClienteDrop }) => {
       });
       if (!mesaUpdateResponse.ok) throw new Error('Error al actualizar la mesa');
       const updatedMesa = await mesaUpdateResponse.json();
-  
+
       // Actualizar la lista de mesas en el estado
       setMesas(prevMesas => prevMesas.map(mesa => (mesa.codigo === mesaCodigo ? updatedMesa : mesa)));
-  
+
       // Eliminar el cliente
       const deleteResponse = await fetch(`http://localhost:5000/api/clientes/${clienteCodigo}`, {
         method: 'DELETE',
       });
       if (!deleteResponse.ok) throw new Error('Error al eliminar el cliente');
-  
+
       // Actualizar la lista de clientes en el estado
       setClientes(prevClientes => prevClientes.filter(cliente => cliente.codigo !== clienteCodigo));
       window.location.reload();
@@ -114,18 +121,18 @@ const MesaList = ({ onClienteDrop }) => {
       console.error('Error al manejar cliente:', error);
     }
   };
-  
+
 
   return (
-    <div className="p-6 bg-gray-100 h-full w-full">
+    <div className="px-6 pt-4 bg-gray-100 h-full w-full">
       <div className='flex items-center justify-between'>
-        <h2 className="text-2xl font-bold mb-6 text-center">Lista de Mesas</h2>
+        <h2 className="text-2xl font-bold  text-center">Lista de Mesas</h2>
         <div>
           <span className='p-2.5 rounded-full w-4 h-4 bg-red-400 mx-2 font-bold'>Ocupado</span>
-        <span className='p-2.5 rounded-full w-4 h-4 bg-green-400 mx-2 font-bold'>Desocupado</span>
+          <span className='p-2.5 rounded-full w-4 h-4 bg-green-400 mx-2 font-bold'>Desocupado</span>
         </div>
       </div>
-      <div className="grid grid-cols-3 max-w-screen-xl mx-auto gap-8 my-12">
+      <div className="grid grid-cols-3 max-w-screen-xl mx-auto gap-8 my-8">
         {mesas.map((mesa) => (
           <Mesa
             key={mesa.codigo}

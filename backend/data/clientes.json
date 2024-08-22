@@ -1,97 +1,19 @@
 [
   {
     "codigo": "C001",
-    "horaLlegada": "10:01:23",
+    "horaLlegada": "17:17:08",
     "productos": [
       {
-        "nombre": "Café",
-        "precio": 2
+        "nombre": "Jugo",
+        "precio": 2.5,
+        "cantidad": 2
       },
       {
         "nombre": "Té Verde",
-        "precio": 2.5
-      },
-      {
-        "nombre": "Pan de Queso",
-        "precio": 2.5
+        "precio": 2.5,
+        "cantidad": 2
       }
     ],
-    "valorAcumulado": 14
-  },
-  {
-    "codigo": "C002",
-    "horaLlegada": "10:27:09",
-    "productos": [
-      {
-        "nombre": "Croissant",
-        "precio": 2.5
-      },
-      {
-        "nombre": "Pan de Queso",
-        "precio": 2.5
-      },
-      {
-        "nombre": "Pan de Ajo",
-        "precio": 2
-      },
-      {
-        "nombre": "Aguila",
-        "precio": 2.5
-      }
-    ],
-    "valorAcumulado": 16.5
-  },
-  {
-    "codigo": "C003",
-    "horaLlegada": "11:43:12",
-    "productos": [
-      {
-        "nombre": "Avena",
-        "precio": 3
-      },
-      {
-        "nombre": "Gaseosa Pequeña",
-        "precio": 3.5
-      },
-      {
-        "nombre": "Frappe",
-        "precio": 4.5
-      }
-    ],
-    "valorAcumulado": 15.5
-  },
-  {
-    "codigo": "C004",
-    "horaLlegada": "11:29:13",
-    "productos": [
-      {
-        "nombre": "Avena",
-        "precio": 3
-      },
-      {
-        "nombre": "Gaseosa Personal",
-        "precio": 4.5
-      },
-      {
-        "nombre": "Capuchino",
-        "precio": 3
-      }
-    ],
-    "valorAcumulado": 21
-  },
-  {
-    "codigo": "C005",
-    "horaLlegada": "11:29:32",
-    "productos": [
-      {
-        "nombre": "Capuchino",
-        "precio": 3
-      },
-      {
-        "nombre": "Latte",
-        "precio": 3.5
-      }
-    ],
-    "valorAcumulado": 9.5
+    "valorAcumulado": 10
   }
 ]
