@@ -40,7 +40,7 @@ const Mesa = ({ mesa, onClienteDrop, selectedMesa, onMesaClick }) => {
       <div className="absolute top-8 left-1/2 transform -translate-x-1/2 font-bold text-gray-900">{mesa.codigo}</div>
       {mesa.cliente && (
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-white">
-          <span className="font-bold">Cliente:</span> {mesa.cliente.nombre}
+          <span className="font-bold">Cliente :</span> {mesa.cliente.nombre}
         </div>
       )}
     </div>
