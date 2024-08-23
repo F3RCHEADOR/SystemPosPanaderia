@@ -1,3 +1,4 @@
+// ClientInfo.js
 import React from 'react';
 import clienteImagen from '../assets/client.png';
 import ButtonPayment from './ButtonPayment';
@@ -23,7 +24,7 @@ const ClientInfo = ({ cliente, onClose }) => {
         <span>Total:</span>
         <span>${cliente.valorAcumulado.toFixed(2)}</span>
       </div>
-      <ButtonEditClient />
+      <ButtonEditClient cliente={cliente} />
       <ButtonPayment />
     </div>
   );

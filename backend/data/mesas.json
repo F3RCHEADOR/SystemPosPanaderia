@@ -24,8 +24,21 @@
   },
   {
     "codigo": "M03",
-    "horaOcupado": "",
-    "estado": "Desocupada"
+    "horaOcupado": "2024-08-23T15:34:15.910Z",
+    "estado": "Ocupado",
+    "productos": [
+      {
+        "nombre": "Hojaldra Bocadillo",
+        "precio": 3,
+        "cantidad": 2
+      },
+      {
+        "nombre": "Aguila",
+        "precio": 2.5,
+        "cantidad": 1
+      }
+    ],
+    "valorAcumulado": 8.5
   },
   {
     "codigo": "M04",
@@ -90,7 +103,25 @@
   },
   {
     "codigo": "M09",
-    "horaOcupado": "",
-    "estado": "Desocupada"
+    "horaOcupado": "2024-08-23T16:34:31.336Z",
+    "estado": "Ocupado",
+    "productos": [
+      {
+        "nombre": "Avena",
+        "precio": 3,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Jugo",
+        "precio": 2.5,
+        "cantidad": 2
+      },
+      {
+        "nombre": "Té Verde",
+        "precio": 2.5,
+        "cantidad": 2
+      }
+    ],
+    "valorAcumulado": 10
   }
 ]

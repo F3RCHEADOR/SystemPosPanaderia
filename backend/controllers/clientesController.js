@@ -52,6 +52,36 @@ router.post('/', (req, res) => {
   }
 });
 
+
+// Actualizar un cliente existente
+router.put('/:codigo', (req, res) => {
+  const { codigo } = req.params;
+  const { productos, valorAcumulado, horaLlegada } = req.body;
+
+  try {
+    const clientes = readClientes();
+    const clienteIndex = clientes.findIndex(cliente => cliente.codigo === codigo);
+
+    if (clienteIndex === -1) {
+      return res.status(404).json({ error: 'Cliente no encontrado' });
+    }
+
+    const clienteActualizado = {
+      ...clientes[clienteIndex],
+      productos,
+      valorAcumulado,
+      horaLlegada
+    };
+
+    clientes[clienteIndex] = clienteActualizado;
+    saveClientes(clientes);
+    res.status(200).json(clienteActualizado);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al actualizar el cliente' });
+  }
+});
+
+
 router.delete('/:codigo', (req, res) => {
   const { codigo } = req.params;
 

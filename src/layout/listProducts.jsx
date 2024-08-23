@@ -1,16 +1,11 @@
-
-
 import React, { useState, useEffect, useRef } from 'react';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { Toast } from 'primereact/toast';
 import productosData from '../data/productos.json';
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
 import NuevoClienteAside from "../components/NuevoClienteAside";
+import ProductSlider from "../components/ProductSlider";
 
-const ListProducts = () => {
+const ListProducts = ({ clientData, isEdit }) => {
   const [categorias, setCategorias] = useState([]);
   const [activeCategoriaId, setActiveCategoriaId] = useState(null);
   const [quantities, setQuantities] = useState({});
@@ -27,6 +22,22 @@ const ListProducts = () => {
     setQuantities(initialQuantities);
   }, []);
 
+  useEffect(() => {
+    if (isEdit && clientData) {
+      const updatedQuantities = {};
+      clientData.productos.forEach(producto => {
+        const productId = productosData.categorias.flatMap(categoria =>
+          categoria.productos
+        ).find(p => p.nombre === producto.nombre)?.id;
+
+        if (productId) {
+          updatedQuantities[productId] = producto.cantidad;
+        }
+      });
+      setQuantities(updatedQuantities);
+    }
+  }, [clientData, isEdit]);
+
   const handleCategoriaClick = (id) => {
     setActiveCategoriaId(activeCategoriaId === id ? null : id);
   };
@@ -34,46 +45,35 @@ const ListProducts = () => {
   const handleIncrement = (productId) => {
     setQuantities(prevQuantities => ({
       ...prevQuantities,
-      [productId]: prevQuantities[productId] + 1,
+      [productId]: (prevQuantities[productId] || 0) + 1,
     }));
   };
 
   const handleDecrement = (productId) => {
     setQuantities(prevQuantities => ({
       ...prevQuantities,
-      [productId]: Math.max(prevQuantities[productId] - 1, 0),
+      [productId]: Math.max((prevQuantities[productId] || 0) - 1, 0),
     }));
   };
 
-  const calculateTotal = () => {
-    return categorias.reduce((acc, categoria) => {
-      const totalCategoria = categoria.productos.reduce((total, producto) => {
-        return total + producto.precio * quantities[producto.id];
-      }, 0);
-      return acc + totalCategoria;
-    }, 0);
-  };
-
-  const createClient = async () => {
+  const createOrUpdateClient = async () => {
     const cliente = {
-      codigo: `C${String(Date.now()).slice(-4)}`, // Ejemplo de código autoincremental basado en timestamp
-      horaLlegada: new Date().toLocaleTimeString(),
+      ...clientData,
+      horaLlegada: isEdit ? clientData.horaLlegada : new Date().toLocaleTimeString(),
       productos: categorias.flatMap(categoria =>
         categoria.productos
           .filter(producto => quantities[producto.id] > 0)
           .map(producto => ({
             nombre: producto.nombre,
             precio: producto.precio,
-            cantidad: quantities[producto.id] // Aquí se incluye la cantidad
+            cantidad: quantities[producto.id]
           }))
       ),
-      valorAcumulado: calculateTotal()
     };
-    
 
     try {
-      const response = await fetch('http://localhost:5000/api/clientes', {
-        method: 'POST',
+      const response = await fetch(`http://localhost:5000/api/clientes${isEdit ? `/${cliente.codigo}` : ''}`, {
+        method: isEdit ? 'PUT' : 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
@@ -82,42 +82,16 @@ const ListProducts = () => {
 
       if (response.ok) {
         const newClient = await response.json();
-        toast.current.show({ severity: "success", summary: 'Cliente Creado', detail: `Código: ${newClient.codigo}`, life: 15000 });
-        console.log('Cliente creado:', newClient);
+        toast.current.show({ severity: "success", summary: isEdit ? 'Cliente Actualizado' : 'Cliente Creado', detail: `Código: ${newClient.codigo}`, life: 15000 });
+        console.log('Cliente', isEdit ? 'actualizado' : 'creado', ':', newClient);
       } else {
-        toast.current.show({ severity: 'error', summary: 'Error', detail: 'No se pudo crear el cliente', life: 3000 });
-        console.error('Error al crear cliente:', response.statusText);
+        toast.current.show({ severity: 'error', summary: 'Error', detail: 'No se pudo guardar el cliente', life: 3000 });
+        console.error('Error al guardar cliente:', response.statusText);
       }
     } catch (error) {
       toast.current.show({ severity: 'error', summary: 'Error', detail: 'Error en la conexión', life: 3000 });
       console.error('Error en la conexión:', error);
     }
-  };
-
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 400,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
   };
 
   return (
@@ -126,41 +100,17 @@ const ListProducts = () => {
       <NuevoClienteAside    
         categorias={categorias}
         quantities={quantities}
-        calculateTotal={calculateTotal}
-        createClient={createClient}/>
-      <div className="ml-56 h-full my-16">
-        <h1 className="my-2.5 bg-gray-200 text-center text-3xl font-bold ">Categorías</h1>
-        <Slider {...sliderSettings}>
-          {categorias.map((categoria) => (
-            <div key={categoria.id} className="p-4 border rounded-xl ">
-              <h2 className="text-2xl font-semibold mb-4 text-center ">{categoria.nombre}</h2>
-              <button className="w-full group-hover:scale-110 duration-150" onClick={() => handleCategoriaClick(categoria.id)}>
-                <img
-                  src={categoria.imagen}
-                  alt={categoria.nombre}
-                  className="mx-auto object-cover rounded mb-4"
-                />
-              </button>
-
-              {activeCategoriaId === categoria.id && (
-                <div className="border-4 px-1 bg-gray-100 rounded max-h-56 overflow-auto">
-                  {categoria.productos.map((producto) => (
-                    <div key={producto.id} className="grid grid-cols-3 items-center gap-1 my-1 ">
-                      <span className="text-sm font-semibold">{producto.nombre}</span>
-                      <span className="bg-green-300 text-center font-bold">${producto.precio.toFixed(2)}</span>
-                      <div className="flex space-x-2 items-center justify-between">
-                        <button onClick={() => handleIncrement(producto.id)} className="px-1 py-1 bg-blue-500 text-white rounded">+</button>
-                        <span className="font-semibold">{quantities[producto.id]}</span>
-                        <button onClick={() => handleDecrement(producto.id)} className="px-1 py-1 bg-red-500 text-white rounded">-</button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </Slider>
-      </div>
+        createOrUpdateClient={createOrUpdateClient}
+        isEdit={isEdit}
+      />
+      <ProductSlider
+        categorias={categorias}
+        activeCategoriaId={activeCategoriaId}
+        handleCategoriaClick={handleCategoriaClick}
+        quantities={quantities}
+        handleIncrement={handleIncrement}
+        handleDecrement={handleDecrement}
+      />
     </>
   );
 };
