@@ -1,65 +1,16 @@
 [
   {
     "codigo": "C001",
-    "horaLlegada": "11:02:52",
-    "productos": [
-      {
-        "nombre": "Avena",
-        "precio": 3,
-        "cantidad": 2
-      },
-      {
-        "nombre": "Jugo",
-        "precio": 2.5,
-        "cantidad": 2
-      },
-      {
-        "nombre": "Gaseosa Pequeña",
-        "precio": 3.5,
-        "cantidad": 2
-      }
-    ],
-    "valorAcumulado": 18
-  },
-  {
-    "codigo": "C002",
-    "horaLlegada": "11:07:37",
-    "productos": [
-      {
-        "nombre": "Avena",
-        "precio": 3,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Jugo",
-        "precio": 2.5,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Gaseosa Pequeña",
-        "precio": 3.5,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Capuchino",
-        "precio": 3,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Latte",
-        "precio": 3.5,
-        "cantidad": 1
-      }
-    ],
-    "valorAcumulado": 15.5
-  },
-  {
-    "codigo": "C003",
     "horaLlegada": "11:16:48",
     "productos": [
       {
         "nombre": "Avena",
         "precio": 3,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Gaseosa Pequeña",
+        "precio": 3.5,
         "cantidad": 1
       },
       {
@@ -81,8 +32,8 @@
     "valorAcumulado": 20
   },
   {
-    "codigo": "C004",
-    "horaLlegada": "11:29:59",
+    "codigo": "C002",
+    "horaLlegada": "17:48:58",
     "productos": [
       {
         "nombre": "Avena",
@@ -90,14 +41,9 @@
         "cantidad": 1
       },
       {
-        "nombre": "Capuchino",
-        "precio": 3,
-        "cantidad": 2
-      },
-      {
-        "nombre": "Hojaldra de Arequipe",
+        "nombre": "Gaseosa Pequeña",
         "precio": 3.5,
-        "cantidad": 2
+        "cantidad": 1
       }
     ]
   }

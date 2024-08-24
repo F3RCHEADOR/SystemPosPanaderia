@@ -19,8 +19,26 @@
   },
   {
     "codigo": "M02",
-    "horaOcupado": "",
-    "estado": "Desocupada"
+    "horaOcupado": "2024-08-24T02:07:22.577Z",
+    "estado": "Ocupado",
+    "productos": [
+      {
+        "nombre": "Avena",
+        "precio": 3,
+        "cantidad": 2
+      },
+      {
+        "nombre": "Jugo",
+        "precio": 2.5,
+        "cantidad": 2
+      },
+      {
+        "nombre": "Gaseosa Pequeña",
+        "precio": 3.5,
+        "cantidad": 2
+      }
+    ],
+    "valorAcumulado": 18
   },
   {
     "codigo": "M03",
@@ -60,8 +78,25 @@
   },
   {
     "codigo": "M05",
-    "horaOcupado": "",
-    "estado": "Desocupada"
+    "horaOcupado": "2024-08-24T02:10:29.292Z",
+    "estado": "Ocupado",
+    "productos": [
+      {
+        "nombre": "Avena",
+        "precio": 3,
+        "cantidad": 2
+      },
+      {
+        "nombre": "Pastel Gloria",
+        "precio": 4,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Brownie",
+        "precio": 2.5,
+        "cantidad": 1
+      }
+    ]
   },
   {
     "codigo": "M06",
@@ -93,13 +128,53 @@
   },
   {
     "codigo": "M07",
-    "horaOcupado": "",
-    "estado": "Desocupada"
+    "horaOcupado": "2024-08-24T02:22:05.297Z",
+    "estado": "Ocupado",
+    "productos": [
+      {
+        "nombre": "Avena",
+        "precio": 3,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Capuchino",
+        "precio": 3,
+        "cantidad": 2
+      },
+      {
+        "nombre": "Hojaldra de Arequipe",
+        "precio": 3.5,
+        "cantidad": 2
+      }
+    ]
   },
   {
     "codigo": "M08",
-    "horaOcupado": "",
-    "estado": "Desocupada"
+    "horaOcupado": "2024-08-24T02:11:16.781Z",
+    "estado": "Ocupado",
+    "productos": [
+      {
+        "nombre": "Jugo",
+        "precio": 2.5,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Gaseosa Pequeña",
+        "precio": 3.5,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Capuchino",
+        "precio": 3,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Latte",
+        "precio": 3.5,
+        "cantidad": 1
+      }
+    ],
+    "valorAcumulado": 15.5
   },
   {
     "codigo": "M09",

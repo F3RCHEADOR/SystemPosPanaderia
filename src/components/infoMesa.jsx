@@ -54,7 +54,7 @@ const InfoMesa = ({ mesa, onClose }) => {
           <li>No hay productos</li>
         )}
       </ul>
-      <ButtonEditClient />
+      <ButtonEditClient cliente={mesa} />
       <ButtonPayment />
     </div>
   );

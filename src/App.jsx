@@ -5,6 +5,7 @@ import Second from './pages/second.jsx';
 import Home from './pages/home.jsx';
 import AddClient from './pages/AddClient.jsx';
 import Inventories from './pages/Inventories.jsx';
+import PaidPage from './pages/PaidPage.jsx';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/AddClient" element={<AddClient />} />
           <Route path="/Inventories" element={<Inventories />} />
+          <Route path="/PaidPage" element={<PaidPage />} />
         </Routes>
       </MainLayout>
     </DndProvider>
