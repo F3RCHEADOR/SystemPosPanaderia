@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
-import "primereact/resources/themes/lara-light-cyan/theme.css";
-import { Toast } from 'primereact/toast';
+import React, { useState, useEffect} from 'react';
 import productosData from '../data/productos.json';
 import NuevoClienteAside from "../components/NuevoClienteAside";
 import ProductSlider from "../components/ProductSlider";
+
 
 const ListProducts = ({ clientData, isEdit }) => {
   const [categorias, setCategorias] = useState([]);
   const [activeCategoriaId, setActiveCategoriaId] = useState(null);
   const [quantities, setQuantities] = useState({});
-  const toast = useRef(null);
+
 
   useEffect(() => {
     setCategorias(productosData.categorias);
@@ -56,52 +55,14 @@ const ListProducts = ({ clientData, isEdit }) => {
     }));
   };
 
-  const createOrUpdateClient = async () => {
-    const cliente = {
-      ...clientData,
-      horaLlegada: isEdit ? clientData.horaLlegada : new Date().toLocaleTimeString(),
-      productos: categorias.flatMap(categoria =>
-        categoria.productos
-          .filter(producto => quantities[producto.id] > 0)
-          .map(producto => ({
-            nombre: producto.nombre,
-            precio: producto.precio,
-            cantidad: quantities[producto.id]
-          }))
-      ),
-    };
-
-    try {
-      const response = await fetch(`http://localhost:5000/api/clientes${isEdit ? `/${cliente.codigo}` : ''}`, {
-        method: isEdit ? 'PUT' : 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(cliente)
-      });
-
-      if (response.ok) {
-        const newClient = await response.json();
-        toast.current.show({ severity: "success", summary: isEdit ? 'Cliente Actualizado' : 'Cliente Creado', detail: `Código: ${newClient.codigo}`, life: 15000 });
-        console.log('Cliente', isEdit ? 'actualizado' : 'creado', ':', newClient);
-      } else {
-        toast.current.show({ severity: 'error', summary: 'Error', detail: 'No se pudo guardar el cliente', life: 3000 });
-        console.error('Error al guardar cliente:', response.statusText);
-      }
-    } catch (error) {
-      toast.current.show({ severity: 'error', summary: 'Error', detail: 'Error en la conexión', life: 3000 });
-      console.error('Error en la conexión:', error);
-    }
-  };
-
   return (
     <>
-      <Toast ref={toast} />
+   
       <NuevoClienteAside    
         categorias={categorias}
         quantities={quantities}
-        createOrUpdateClient={createOrUpdateClient}
         isEdit={isEdit}
+        clientData={clientData}
       />
       <ProductSlider
         categorias={categorias}

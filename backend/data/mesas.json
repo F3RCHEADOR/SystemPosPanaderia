@@ -1,172 +1,46 @@
 [
   {
     "codigo": "M01",
-    "horaOcupado": "2024-08-22T22:00:26.112Z",
+    "horaOcupado": "2024-08-26T14:48:19.264Z",
     "estado": "Ocupado",
     "productos": [
       {
         "nombre": "Avena",
         "precio": 3,
-        "cantidad": 2
-      },
-      {
-        "nombre": "Gaseosa Personal",
-        "precio": 4.5,
-        "cantidad": 2
-      }
-    ],
-    "valorAcumulado": 15
-  },
-  {
-    "codigo": "M02",
-    "horaOcupado": "2024-08-24T02:07:22.577Z",
-    "estado": "Ocupado",
-    "productos": [
-      {
-        "nombre": "Avena",
-        "precio": 3,
-        "cantidad": 2
-      },
-      {
-        "nombre": "Jugo",
-        "precio": 2.5,
-        "cantidad": 2
+        "cantidad": 1
       },
       {
         "nombre": "Gaseosa Pequeña",
         "precio": 3.5,
-        "cantidad": 2
-      }
-    ],
-    "valorAcumulado": 18
-  },
-  {
-    "codigo": "M03",
-    "horaOcupado": "2024-08-23T15:34:15.910Z",
-    "estado": "Ocupado",
-    "productos": [
-      {
-        "nombre": "Hojaldra Bocadillo",
-        "precio": 3,
-        "cantidad": 2
-      },
-      {
-        "nombre": "Aguila",
-        "precio": 2.5,
-        "cantidad": 1
-      }
-    ],
-    "valorAcumulado": 8.5
-  },
-  {
-    "codigo": "M04",
-    "horaOcupado": "2024-08-22T23:04:55.213Z",
-    "estado": "Ocupado",
-    "productos": [
-      {
-        "nombre": "Jugo",
-        "precio": 2.5,
-        "cantidad": 2
-      },
-      {
-        "nombre": "Latte",
-        "precio": 3.5,
-        "cantidad": 4
-      }
-    ],
-    "valorAcumulado": 19
-  },
-  {
-    "codigo": "M05",
-    "horaOcupado": "2024-08-24T02:10:29.292Z",
-    "estado": "Ocupado",
-    "productos": [
-      {
-        "nombre": "Avena",
-        "precio": 3,
-        "cantidad": 2
-      },
-      {
-        "nombre": "Pastel Gloria",
-        "precio": 4,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Brownie",
-        "precio": 2.5,
-        "cantidad": 1
-      }
-    ]
-  },
-  {
-    "codigo": "M06",
-    "horaOcupado": "2024-08-22T22:15:14.999Z",
-    "estado": "Ocupado",
-    "productos": [
-      {
-        "nombre": "Jugo",
-        "precio": 2.5,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Té Verde",
-        "precio": 2.5,
-        "cantidad": 2
-      },
-      {
-        "nombre": "Hojaldra de Chocolate",
-        "precio": 4,
-        "cantidad": 2
-      },
-      {
-        "nombre": "Pan Francés",
-        "precio": 2.5,
-        "cantidad": 2
-      }
-    ],
-    "valorAcumulado": 20.5
-  },
-  {
-    "codigo": "M07",
-    "horaOcupado": "2024-08-24T02:22:05.297Z",
-    "estado": "Ocupado",
-    "productos": [
-      {
-        "nombre": "Avena",
-        "precio": 3,
         "cantidad": 1
       },
       {
         "nombre": "Capuchino",
         "precio": 3,
-        "cantidad": 2
+        "cantidad": 1
+      },
+      {
+        "nombre": "Latte",
+        "precio": 3.5,
+        "cantidad": 1
       },
       {
         "nombre": "Hojaldra de Arequipe",
         "precio": 3.5,
         "cantidad": 2
       }
-    ]
+    ],
+    "valorAcumulado": 20
   },
   {
-    "codigo": "M08",
-    "horaOcupado": "2024-08-24T02:11:16.781Z",
+    "codigo": "M02",
+    "horaDesocupado": "",
     "estado": "Ocupado",
     "productos": [
       {
         "nombre": "Jugo",
         "precio": 2.5,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Gaseosa Pequeña",
-        "precio": 3.5,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Capuchino",
-        "precio": 3,
-        "cantidad": 1
+        "cantidad": 2
       },
       {
         "nombre": "Latte",
@@ -174,29 +48,41 @@
         "cantidad": 1
       }
     ],
-    "valorAcumulado": 15.5
+    "valorAcumulado": 8.5
+  },
+  {
+    "codigo": "M03",
+    "horaDesocupado": "",
+    "estado": "Desocupado"
+  },
+  {
+    "codigo": "M04",
+    "horaDesocupado": "",
+    "estado": "Desocupado"
+  },
+  {
+    "codigo": "M05",
+    "horaDesocupado": "",
+    "estado": "Desocupado"
+  },
+  {
+    "codigo": "M06",
+    "horaDesocupado": "",
+    "estado": "Desocupado"
+  },
+  {
+    "codigo": "M07",
+    "horaDesocupado": "",
+    "estado": "Desocupado"
+  },
+  {
+    "codigo": "M08",
+    "horaDesocupado": "",
+    "estado": "Desocupado"
   },
   {
     "codigo": "M09",
-    "horaOcupado": "2024-08-23T16:34:31.336Z",
-    "estado": "Ocupado",
-    "productos": [
-      {
-        "nombre": "Avena",
-        "precio": 3,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Jugo",
-        "precio": 2.5,
-        "cantidad": 2
-      },
-      {
-        "nombre": "Té Verde",
-        "precio": 2.5,
-        "cantidad": 2
-      }
-    ],
-    "valorAcumulado": 10
+    "horaDesocupado": "",
+    "estado": "Desocupado"
   }
 ]
