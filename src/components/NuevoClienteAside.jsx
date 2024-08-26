@@ -7,6 +7,7 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
   // Función para calcular el total
   const toast = useRef(null);
+
   const calculateTotal = () => {
     return categorias.reduce((acc, categoria) => {
       const totalCategoria = categoria.productos.reduce((total, producto) => {
@@ -17,6 +18,7 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
   };
 
   const total = useMemo(() => calculateTotal(), [categorias, quantities]);
+  console.log(clientData);
 
   const createOrUpdateClient = async () => {
     const cliente = {
@@ -31,17 +33,33 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
             cantidad: quantities[producto.id]
           }))
       ),
-      valorAcumulado: total
+      valorAcumulado: total,
+      tipoCliente: clientData?.tipoCliente || 'individual' // Default value if not provided
     };
 
+    let response;
+
     try {
-      const response = await fetch(`http://localhost:5000/api/clientes${isEdit ? `/${cliente.codigo}` : ''}`, {
-        method: isEdit ? 'PUT' : 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(cliente)
-      });
+      if (cliente.tipoCliente === "Individual") {
+        response = await fetch(`http://localhost:5000/api/clientes${isEdit ? `/${cliente.codigo}` : ''}`, {
+          method: isEdit ? 'PUT' : 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(cliente)
+        });
+      } else if (cliente.tipoCliente === "Mesa") {
+        response = await fetch(`http://localhost:5000/api/mesas${isEdit ? `/${cliente.codigo}` : ''}`, {
+          method: isEdit ? 'PUT' : 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(cliente)
+        });
+      } else {
+        toast.current.show({ severity: 'error', summary: 'Error', detail: 'Tipo de cliente no válido', life: 3000 });
+        return;
+      }
 
       if (response.ok) {
         const newClient = await response.json();
@@ -58,7 +76,8 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
   };
 
   return (
-    <> <Toast ref={toast} />
+    <>
+      <Toast ref={toast} />
       <aside className='fixed h-full w-56 bg-white border-r-4 flex flex-col items-center justify-start overflow-auto'>
         <h1 className='w-full text-center mt-4 font-bold bg-red-100'>
           {isEdit ? 'Editar Cliente' : 'Cliente Nuevo'}
@@ -89,8 +108,8 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
             className="p-button-success p-4 flex items-center justify-center mx-auto bg-blue-500 text-white"
           />
         </div>
-      </aside></>
-
+      </aside>
+    </>
   );
 };
 

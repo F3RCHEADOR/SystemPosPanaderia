@@ -15,22 +15,12 @@
         "cantidad": 1
       },
       {
-        "nombre": "Capuchino",
-        "precio": 3,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Latte",
-        "precio": 3.5,
-        "cantidad": 1
-      },
-      {
         "nombre": "Hojaldra de Arequipe",
         "precio": 3.5,
         "cantidad": 2
       }
     ],
-    "valorAcumulado": 20
+    "valorAcumulado": 13.5
   },
   {
     "codigo": "M02",
@@ -38,9 +28,19 @@
     "estado": "Ocupado",
     "productos": [
       {
+        "nombre": "Avena",
+        "precio": 3,
+        "cantidad": 1
+      },
+      {
         "nombre": "Jugo",
         "precio": 2.5,
         "cantidad": 2
+      },
+      {
+        "nombre": "Gaseosa Pequeña",
+        "precio": 3.5,
+        "cantidad": 1
       },
       {
         "nombre": "Latte",
@@ -48,7 +48,7 @@
         "cantidad": 1
       }
     ],
-    "valorAcumulado": 8.5
+    "valorAcumulado": 15
   },
   {
     "codigo": "M03",

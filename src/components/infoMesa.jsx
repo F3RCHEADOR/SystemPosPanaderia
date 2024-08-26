@@ -6,6 +6,11 @@ import ButtonEditClient from './ButtonEditClient';
 const InfoMesa = ({ mesa, onClose }) => {
   if (!mesa) return null;
 
+  const clienteConTipo = {
+    ...mesa,
+    tipoCliente: 'Mesa' // Campo adicional
+  };
+
   // Asegúrate de que la propiedad `productos` existe y es un array
   const productos = mesa.productos || [];
 
@@ -54,7 +59,7 @@ const InfoMesa = ({ mesa, onClose }) => {
           <li>No hay productos</li>
         )}
       </ul>
-      <ButtonEditClient cliente={mesa} />
+      <ButtonEditClient cliente={clienteConTipo} />
       <ButtonPayment />
     </div>
   );

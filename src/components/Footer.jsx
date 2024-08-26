@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import FlechaArriba from '../assets/arrowUp.jsx';
+import Home from '../assets/hogar.png';
 
 function Footer() {
   const [isFooterVisible, setIsFooterVisible] = useState(false);
@@ -20,15 +21,15 @@ function Footer() {
       </button>
       <footer
         id="footer"
-        className={`fixed bottom-0 left-0 w-full h-20 bg-blue-100 border-t-8 border-blue-300 transition-all ${isFooterVisible ? 'block' : 'hidden'
+        className={`fixed bottom-0 left-0 w-full h-24 bg-blue-100 border-t-8 border-blue-300 transition-all ${isFooterVisible ? 'block' : 'hidden'
           }`}
       >
-        <article className='flex my-4 items-center justify-around font-bold'>
-          <a href='/AddClient' className=' rounded-2xl border-4 bg-purple-300 border-purple-500 w-56 h-12 flex flex-col items-center justify-center hover:scale-110 duration-100'>
+        <article className='flex my-2 items-center justify-around font-bold'>
+          <a href='/AddClient' className=' rounded-2xl border-4 bg-purple-300 border-purple-500 w-56 h-auto flex flex-col items-center justify-center hover:scale-110 duration-100'>
             <span>Crear Producto</span>
           </a>
-          <a href='/' className=' rounded-2xl border-4 bg-green-300 border-green-400 w-56 h-12 flex items-center justify-center hover:scale-110 duration-100'><span>Inicio</span></a>
-          <a href='/Inventories' className=' rounded-2xl border-4 bg-red-300 border-red-400 w-56 h-12 flex items-center justify-center hover:scale-110 duration-100'><span>Inventarios</span></a>
+          <a href='/' className='flex flex-col rounded-2xl border-4 bg-green-300 border-green-400 w-56 h-auto items-center justify-center hover:scale-110 duration-100'><img className='size-10' src={Home} alt="Inicio" ></img><span>Inicio</span></a>
+          <a href='/Inventories' className=' rounded-2xl border-4 bg-red-300 border-red-400 w-56 h-auto flex items-center justify-center hover:scale-110 duration-100'><span>Inventarios</span></a>
         </article>
       </footer>
     </>

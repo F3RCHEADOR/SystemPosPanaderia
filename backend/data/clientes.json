@@ -4,6 +4,11 @@
     "horaLlegada": "09:49:17",
     "productos": [
       {
+        "nombre": "Avena",
+        "precio": 3,
+        "cantidad": 1
+      },
+      {
         "nombre": "Pan Integral",
         "precio": 3,
         "cantidad": 1
@@ -24,6 +29,6 @@
         "cantidad": 1
       }
     ],
-    "valorAcumulado": 10
+    "valorAcumulado": 13
   }
 ]

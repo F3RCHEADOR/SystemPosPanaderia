@@ -27,6 +27,7 @@ router.put('/:codigo', (req, res) => {
     }
 
     // Actualizar los campos de la mesa
+
     mesas[mesaIndex].productos = productos;
     mesas[mesaIndex].valorAcumulado = valorAcumulado;
     mesas[mesaIndex].estado = estado || mesas[mesaIndex].estado;
