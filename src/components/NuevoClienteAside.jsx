@@ -57,8 +57,13 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
           body: JSON.stringify(cliente)
         });
       } else {
-        toast.current.show({ severity: 'error', summary: 'Error', detail: 'Tipo de cliente no válido', life: 3000 });
-        return;
+        response = await fetch(`http://localhost:5000/api/clientes`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(cliente)
+        });
       }
 
       if (response.ok) {
