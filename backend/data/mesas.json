@@ -64,9 +64,14 @@
         "nombre": "Jugo",
         "precio": 2.5,
         "cantidad": 1
+      },
+      {
+        "nombre": "Gaseosa Personal",
+        "precio": 4.5,
+        "cantidad": 1
       }
     ],
-    "valorAcumulado": 5.5,
+    "valorAcumulado": 10,
     "horaOcupado": "2024-08-28T02:47:44.334Z"
   },
   {

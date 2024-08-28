@@ -60,7 +60,7 @@ const InfoMesa = ({ mesa, onClose }) => {
         )}
       </ul>
       <ButtonEditClient cliente={clienteConTipo} />
-      <ButtonPayment />
+      <ButtonPayment cliente={clienteConTipo} />
     </div>
   );
 };

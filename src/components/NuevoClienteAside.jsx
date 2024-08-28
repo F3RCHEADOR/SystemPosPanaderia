@@ -5,7 +5,7 @@ import { Toast } from 'primereact/toast';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 
 const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
-  // Función para calcular el total
+ 
   const toast = useRef(null);
 
   const calculateTotal = () => {

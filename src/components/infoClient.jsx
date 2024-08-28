@@ -30,7 +30,7 @@ const ClientInfo = ({ cliente, onClose }) => {
         <span>${cliente.valorAcumulado.toFixed(2)}</span>
       </div>
       <ButtonEditClient cliente={clienteConTipo} />
-      <ButtonPayment />
+      <ButtonPayment cliente={clienteConTipo} />
     </div>
   );
 };
