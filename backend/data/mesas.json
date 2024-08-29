@@ -77,7 +77,66 @@
   {
     "codigo": "M04",
     "horaDesocupado": "",
-    "estado": "Desocupado"
+    "estado": "Ocupado",
+    "productos": [
+      {
+        "nombre": "Avena",
+        "precio": 3,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Gaseosa Pequeña",
+        "precio": 3.5,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Gaseosa Personal",
+        "precio": 4.5,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Té Helado",
+        "precio": 3,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Smoothie",
+        "precio": 4,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Capuchino",
+        "precio": 3,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Té Verde",
+        "precio": 2.5,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Pastel Gloria",
+        "precio": 4,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Pan de Queso",
+        "precio": 2.5,
+        "cantidad": 2
+      },
+      {
+        "nombre": "Aguila",
+        "precio": 2.5,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Brownie",
+        "precio": 2.5,
+        "cantidad": 1
+      }
+    ],
+    "valorAcumulado": 37.5,
+    "horaOcupado": "2024-08-29T14:39:37.783Z"
   },
   {
     "codigo": "M05",

@@ -3,10 +3,10 @@ import React from "react";
 function ButtonCalculator({ value, onClick }) {
   return (
     <button
-      className="p-2.5 w-24 rounded-xl bg-gray-300 border-4 hover:scale-110 active:bg-gray-100 duration-75 font-semibold text-center mx-auto"
+      className="text-white font-bold w-16 h-12 border-4 bg-gray-800 rounded-xl  border-gray-300 "
       onClick={onClick}
     >
-      <span>{value}</span>
+      <span className="flex items-center justify-center mx-auto text-center">{value}</span>
     </button>
   );
 }
