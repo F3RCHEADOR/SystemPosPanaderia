@@ -111,19 +111,19 @@ const CalculatorPanel = ({ clientData }) => {
 
         <div className='grid grid-cols-3 gap-2 my-4 mx-auto'>
           <button
-            className='bg-green-500 text-white rounded-lg px-2 text-center border-4 px-4 py-2 font-bold hover:scale-105 active:bg-green-600'
+            className='bg-green-500 text-white rounded-lg text-center border-4 px-4 py-2 font-bold hover:scale-105 active:bg-green-600'
             onClick={handlePurchase}
           >
             Aceptar
           </button>
           <button
-            className='bg-blue-500 text-white rounded-lg px-2 text-center border-4 px-4 py-2 font-bold hover:scale-105 active:bg-blue-600'
+            className='bg-blue-500 text-white rounded-lg text-center border-4 px-4 py-2 font-bold hover:scale-105 active:bg-blue-600'
             onClick={calculateChange}
           >
             Calcular
           </button>
           <button
-            className='bg-gray-400 text-white rounded-lg px-2 text-center border-4 px-4 py-2 font-bold hover:scale-105 active:bg-gray-500'
+            className='bg-gray-400 text-white rounded-lg text-center border-4 px-4 py-2 font-bold hover:scale-105 active:bg-gray-500'
             onClick={clearInputs}
           >
             Limpiar
