@@ -7,8 +7,6 @@ const CalculatorPanel = ({ clientData }) => {
   const [change, setChange] = useState('');
   const [activeInput, setActiveInput] = useState('costTotal'); // Define qué input está activo
 
-
-
   // Efecto para inicializar el costo total al cargar el componente
   useEffect(() => {
     if (clientData && clientData.valorAcumulado !== undefined) {
@@ -42,6 +40,14 @@ const CalculatorPanel = ({ clientData }) => {
 
   // Función para manejar la confirmación de la compra
   const handlePurchase = () => {
+    if (!receivedAmount) {
+      alert('El campo "Recibe" está vacío.');
+      return;
+    }
+    if (!change) {
+      alert('El campo "Cambio" está vacío.');
+      return;
+    }
     const confirmed = window.confirm('¿Deseas efectuar la compra?');
     if (confirmed) {
       // Aquí puedes agregar la lógica para efectuar la compra
