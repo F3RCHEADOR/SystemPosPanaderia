@@ -1,16 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+/* Asegúrate de importar los estilos de PrimeReact */
+import 'primereact/resources/themes/saga-blue/theme.css'; /* O el tema que prefieras */
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+import { Toast } from 'primereact/toast';
+import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
 import ButtonCalculator from './ButtonCalculator'; // Asegúrate de que este componente existe
 
 const CalculatorPanel = ({ clientData }) => {
   const [costTotal, setCostTotal] = useState('');
   const [receivedAmount, setReceivedAmount] = useState('');
   const [change, setChange] = useState('');
-  const [activeInput, setActiveInput] = useState('costTotal'); // Define qué input está activo
+  const [activeInput, setActiveInput] = useState('costTotal');
+  const [showConfirm, setShowConfirm] = useState(false); // Estado para controlar el diálogo
+  const toastBC = useRef(null); // Referencia al Toast
 
   // Efecto para inicializar el costo total al cargar el componente
   useEffect(() => {
     if (clientData && clientData.valorAcumulado !== undefined) {
-      setCostTotal(clientData.valorAcumulado);
+      setCostTotal(clientData.valorAcumulado.toFixed(2));
     }
   }, [clientData]);
 
@@ -28,12 +37,12 @@ const CalculatorPanel = ({ clientData }) => {
     const total = parseFloat(costTotal) || 0;
     const received = parseFloat(receivedAmount) || 0;
     const result = received - total;
-    setChange(result);
+    setChange(result.toFixed(2));
   };
 
   // Función para manejar la limpieza de entradas
   const clearInputs = () => {
-    setCostTotal(clientData.valorAcumulado);
+    setCostTotal(clientData.valorAcumulado.toFixed(2)); // Reinicia el costo total con el valor inicial
     setReceivedAmount('');
     setChange('');
   };
@@ -41,24 +50,60 @@ const CalculatorPanel = ({ clientData }) => {
   // Función para manejar la confirmación de la compra
   const handlePurchase = () => {
     if (!receivedAmount) {
-      alert('El campo "Recibe" está vacío.');
+      toastBC.current.show({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'El campo "Recibe" está vacío.',
+        life: 3000
+      });
       return;
     }
     if (!change) {
-      alert('El campo "Cambio" está vacío.');
+      toastBC.current.show({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'El campo "Cambio" está vacío.',
+        life: 3000
+      });
       return;
     }
-    const confirmed = window.confirm('¿Deseas efectuar la compra?');
-    if (confirmed) {
-      // Aquí puedes agregar la lógica para efectuar la compra
-      alert('Compra efectuada con éxito.');
-      clearInputs();
-    }
+    setShowConfirm(true); // Muestra el diálogo de confirmación
   };
 
+  // Función para confirmar la compra
+  const confirmPurchase = () => {
+    toastBC.current.show({
+      severity: 'success',
+      summary: 'Compra efectuada',
+      detail: 'La compra se ha efectuado con éxito.',
+      life: 3000
+    });
+    clearInputs();
+    setShowConfirm(false); // Oculta el diálogo
+  };
+
+  // Función para cancelar la compra
+  const cancelPurchase = () => {
+    setShowConfirm(false); // Oculta el diálogo
+  };
 
   return (
     <div className='flex flex-col h-screen items-center justify-center xl:col-span-2 mx-auto'>
+      <Toast ref={toastBC} />
+      <Dialog
+        header="Confirmación de Compra"
+        visible={showConfirm}
+        style={{ width: '50vw' }}
+        footer={
+          <div>
+            <Button label="Sí" icon="pi pi-check" onClick={confirmPurchase} />
+            <Button label="No" icon="pi pi-times" onClick={cancelPurchase} className="p-button-secondary" />
+          </div>
+        }
+        onHide={() => setShowConfirm(false)}
+      >
+        <p>¿Deseas efectuar la compra?</p>
+      </Dialog>
       <div className='border-8 rounded-xl p-4'>
         <h1 className='text-center font-semibold text-lg m-1'>Costo Total</h1>
         <input
@@ -95,12 +140,10 @@ const CalculatorPanel = ({ clientData }) => {
           <ButtonCalculator key={8} value={'8'} onClick={() => handleButtonClick('8')} />
           <ButtonCalculator key={7} value={'7'} onClick={() => handleButtonClick('7')} />
 
-
           {/* Fila 2 */}
           <ButtonCalculator key={6} value={'6'} onClick={() => handleButtonClick('6')} />
           <ButtonCalculator key={5} value={'5'} onClick={() => handleButtonClick('5')} />
           <ButtonCalculator key={4} value={'4'} onClick={() => handleButtonClick('4')} />
-
 
           {/* Fila 3 */}
           <ButtonCalculator key={3} value={'3'} onClick={() => handleButtonClick('3')} />
@@ -115,25 +158,29 @@ const CalculatorPanel = ({ clientData }) => {
         </div>
 
 
-        <div className='grid grid-cols-3 gap-2 my-4 mx-auto'>
+        <div className='grid grid-cols-3 gap-2 my-4'>
           <button
-            className='bg-green-500 text-white rounded-lg text-center border-4 px-4 py-2 font-bold hover:scale-105 active:bg-green-600'
-            onClick={handlePurchase}
-          >
-            Aceptar
-          </button>
-          <button
-            className='bg-blue-500 text-white rounded-lg text-center border-4 px-4 py-2 font-bold hover:scale-105 active:bg-blue-600'
+            className='bg-blue-500 text-white rounded-xl border-4 px-4 py-2 font-bold hover:scale-105 active:bg-blue-600'
             onClick={calculateChange}
           >
             Calcular
           </button>
+
+
           <button
-            className='bg-gray-400 text-white rounded-lg text-center border-4 px-4 py-2 font-bold hover:scale-105 active:bg-gray-500'
+            className='bg-gray-400 text-white rounded-xl border-4 px-4 py-2 font-bold hover:scale-105 active:bg-gray-500'
             onClick={clearInputs}
           >
             Limpiar
           </button>
+
+          <button
+            className='bg-green-500 text-white rounded-xl border-4 px-4 py-2 font-bold hover:scale-105 active:bg-green-600'
+            onClick={handlePurchase}
+          >
+           Aceptar
+          </button>
+
         </div>
 
       </div>
