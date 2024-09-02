@@ -105,6 +105,37 @@ const CalculatorPanel = ({ clientData }) => {
     setShowConfirm(false); // Oculta el diálogo
   };
 
+  const paidClient = async () => {
+    const countTotal = {
+
+    }
+
+    let response;
+
+    try {
+      response = await fetch(`http://localhost:5000/api/}`, {
+        method: isEdit ? 'PUT' : 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(cliente)
+      });
+
+      if (response.ok) {
+        const newClient = await response.json();
+        toast.current.show({ severity: "success", summary: isEdit ? 'Cliente Actualizado' : 'Cliente Creado', detail: `Código: ${newClient.codigo}`, life: 15000 });
+        console.log('Cliente', isEdit ? 'actualizado' : 'creado', ':', newClient);
+      } else {
+        toast.current.show({ severity: 'error', summary: 'Error', detail: 'No se pudo guardar el cliente', life: 3000 });
+        console.error('Error al guardar cliente:', response.statusText);
+      }
+    } catch (error) {
+      toast.current.show({ severity: 'error', summary: 'Error', detail: 'Error en la conexión', life: 3000 });
+      console.error('Error en la conexión:', error);
+    }
+  }
+
+
   return (
     <div className='flex flex-col h-screen items-center justify-center xl:col-span-2 mx-auto border-4'>
       <Toast ref={toastBC} />
@@ -134,7 +165,7 @@ const CalculatorPanel = ({ clientData }) => {
           onClick={() => setActiveInput('costTotal')}
         />
         <h1 className='text-center font-semibold text-lg m-1'>Recibe</h1>
-        
+
         <input
           id='receivedAmount'
           type='text'
@@ -197,7 +228,7 @@ const CalculatorPanel = ({ clientData }) => {
             className='bg-green-500 text-white rounded-xl border-4 px-4 py-2 font-bold hover:scale-105 active:bg-green-600'
             onClick={handlePurchase}
           >
-           Aceptar
+            Aceptar
           </button>
 
         </div>
