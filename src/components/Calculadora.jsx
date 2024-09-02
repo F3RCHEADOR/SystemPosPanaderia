@@ -42,13 +42,22 @@ const CalculatorPanel = ({ clientData }) => {
 
   // Función para manejar la limpieza de entradas
   const clearInputs = () => {
-    setCostTotal(clientData.valorAcumulado.toFixed(2)); // Reinicia el costo total con el valor inicial
+    setCostTotal(''); // Reinicia el costo total con el valor inicial
     setReceivedAmount('');
     setChange('');
   };
 
   // Función para manejar la confirmación de la compra
   const handlePurchase = () => {
+    if (!costTotal) {
+      toastBC.current.show({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'El campo "Costo Total" está vacío.',
+        life: 3000
+      });
+      return;
+    }
     if (!receivedAmount) {
       toastBC.current.show({
         severity: 'error',
@@ -63,6 +72,15 @@ const CalculatorPanel = ({ clientData }) => {
         severity: 'error',
         summary: 'Error',
         detail: 'El campo "Cambio" está vacío.',
+        life: 3000
+      });
+      return;
+    }
+    if (receivedAmount < costTotal) {
+      toastBC.current.show({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'El campo "Recibe" No Puede ser menor que el "Costo Total".',
         life: 3000
       });
       return;
@@ -88,16 +106,16 @@ const CalculatorPanel = ({ clientData }) => {
   };
 
   return (
-    <div className='flex flex-col h-screen items-center justify-center xl:col-span-2 mx-auto'>
+    <div className='flex flex-col h-screen items-center justify-center xl:col-span-2 mx-auto border-4'>
       <Toast ref={toastBC} />
       <Dialog
         header="Confirmación de Compra"
         visible={showConfirm}
         style={{ width: '50vw' }}
         footer={
-          <div>
-            <Button label="Sí" icon="pi pi-check" onClick={confirmPurchase} />
-            <Button label="No" icon="pi pi-times" onClick={cancelPurchase} className="p-button-secondary" />
+          <div className='font-bold'>
+            <Button className='bg-blue-200 border-2 rounded-xl border-gray-500 mx-4 my-2 p-2' label="Sí" icon="pi pi-check" onClick={confirmPurchase} />
+            <Button label="No" icon="pi pi-times" onClick={cancelPurchase} className="p-button-secondary bg-red-200 border-2 rounded-xl border-gray-500 p-2 my-2" />
           </div>
         }
         onHide={() => setShowConfirm(false)}
@@ -116,6 +134,7 @@ const CalculatorPanel = ({ clientData }) => {
           onClick={() => setActiveInput('costTotal')}
         />
         <h1 className='text-center font-semibold text-lg m-1'>Recibe</h1>
+        
         <input
           id='receivedAmount'
           type='text'
@@ -168,7 +187,7 @@ const CalculatorPanel = ({ clientData }) => {
 
 
           <button
-            className='bg-gray-400 text-white rounded-xl border-4 px-4 py-2 font-bold hover:scale-105 active:bg-gray-500'
+            className='bg-red-400 text-white rounded-xl border-4 px-4 py-2 font-bold hover:scale-105 active:bg-red-500'
             onClick={clearInputs}
           >
             Limpiar

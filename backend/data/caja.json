@@ -1,0 +1,21 @@
+[
+  {
+    "tipo caja": "apertura o cierre",
+    "fecha": "",
+    "hora": "",
+    "tipo moneda": {
+      "billete 100.000": 0,
+      "billete 50.000": 0,
+      "billete 20.000": 0,
+      "billete 10.000": 0,
+      "billete 5.000": 0,
+      "billete 2.000": 0,
+      "moneda 1000": 0,
+      "moneda 500": 0,
+      "moneda 200": 0,
+      "moneda 100": 0,
+      "moneda 50": 0
+    },
+    "totalcaja": 0
+  }
+]
