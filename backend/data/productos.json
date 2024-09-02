@@ -225,9 +225,25 @@
           "nombre": "Brownie",
           "precio": 2.5
         },
-        { 
+        {
           "id": "6-2",
           "nombre": "Genovesa",
+          "precio": 5000
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "productos": []
+    },
+    {
+      "id": "8",
+      "nombre": "Malteadas",
+      "imagen": "./assets/imagen-1725296293969-963352161.png",
+      "productos": [
+        {
+          "id": "8-1",
+          "nombre": "Fresa",
           "precio": 5000
         }
       ]

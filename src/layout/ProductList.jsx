@@ -1,6 +1,5 @@
 import Plus from '../assets/plus.svg';
 import React, { useState, useEffect, useRef } from 'react';
-import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 
@@ -70,7 +69,6 @@ const ProductList = () => {
 
       if (response.ok) {
         const newCategory = await response.json();
-        console.log(newCategory);
         setCategorias([...categorias, newCategory]);
         setNewCategoryName('');
         setNewCategoryImage(null);

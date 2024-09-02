@@ -33,7 +33,7 @@ export const createCategoria = (nombre, imagen) => {
   const nuevaCategoria = {
     id: (data.categorias.length + 1).toString(), // Simplemente incrementa el ID
     nombre,
-    imagen,
+    imagen, // Guarda la ruta de la imagen
     productos: [] // Inicialmente no tiene productos
   };
   data.categorias.push(nuevaCategoria);
