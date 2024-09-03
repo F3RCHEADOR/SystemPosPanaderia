@@ -39,7 +39,7 @@ router.get('/', async (req, res) => {
 router.post('/', upload.single('imagen'), async (req, res) => {
   try {
     const { nombre } = req.body;
-    const imagen = req.file ? `/assetss/${req.file.filename}` : null; // Asume que la imagen se encuentra en el directorio 'public/assetss'
+    const imagen = req.file ? `./assets/${req.file.filename}` : null; // Asume que la imagen se encuentra en el directorio 'public/assetss'
     const nuevaCategoria = await createCategoria(nombre, imagen);
     res.status(201).json(nuevaCategoria);
   } catch (error) {

@@ -234,16 +234,12 @@
     },
     {
       "id": "7",
-      "productos": []
-    },
-    {
-      "id": "8",
       "nombre": "Malteadas",
-      "imagen": "./assets/imagen-1725296293969-963352161.png",
+      "imagen": "/assets/imagen-1725332081211-204650010.png",
       "productos": [
         {
-          "id": "8-1",
-          "nombre": "Fresa",
+          "id": "7-1",
+          "nombre": "Malteada de Fresa",
           "precio": 5000
         }
       ]
