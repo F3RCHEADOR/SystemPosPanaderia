@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
 import MesaImagen from '../assets/mesa.png';
 import InfoMesa from '../components/infoMesa';
+import Reloj from '../components/Reloj';
+
 
 const ItemTypes = {
   CLIENT: 'client',
@@ -127,6 +129,7 @@ const MesaList = ({ onClienteDrop }) => {
     <div className="px-6 pt-4 bg-gray-100 h-full w-full">
       <div className='flex items-center justify-between'>
         <h2 className="text-2xl font-bold  text-center">Lista de Mesas</h2>
+        <Reloj></Reloj>
         <div>
           <span className='p-2.5 rounded-full w-4 h-4 bg-red-400 mx-2 font-bold'>Ocupado</span>
           <span className='p-2.5 rounded-full w-4 h-4 bg-green-400 mx-2 font-bold'>Desocupado</span>
