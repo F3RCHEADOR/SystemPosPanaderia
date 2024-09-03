@@ -20,7 +20,7 @@ function Caja() {
           <div className="grid grid-cols-4 gap-4 font-bold text-sm text-center">
             <a href="/AddClient" className="border-4 p-1 rounded-xl hover:scale-110 duration-200"><img src={Client} alt="pago" className="size-20 mx-auto" /><span >Agregar Cliente</span></a>
             <a href="/ContadorBilletes" className="border-4 p-1 rounded-xl hover:scale-110 duration-200"><img src={Money} alt="pago" className="size-20 mx-auto" /><span >Cierre o Apertura de caja</span></a>
-            <a href="#" className="border-4 p-1 rounded-xl hover:scale-110 duration-200"><img src={Ventas} alt="Ventas" className="size-20 mx-auto" /><span >Ventas</span></a>
+            <a href="/Ventas" className="border-4 p-1 rounded-xl hover:scale-110 duration-200"><img src={Ventas} alt="Ventas" className="size-20 mx-auto" /><span >Ventas</span></a>
             <a href="#" className="border-4 p-1 rounded-xl hover:scale-110 duration-200"><img src={Inventory} alt="pago" className="size-20 mx-auto" /><span >Agregar Inventario</span></a>
           </div>
         </div>

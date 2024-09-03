@@ -246,6 +246,11 @@
           "id": "7-2",
           "nombre": "Malteada de Guanabana",
           "precio": 5000
+        },
+        {
+          "id": "7-3",
+          "nombre": "Malteada de Banano",
+          "precio": 5000
         }
       ]
     }

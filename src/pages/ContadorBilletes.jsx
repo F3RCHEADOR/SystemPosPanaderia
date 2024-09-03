@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import convertirNumero from '../numberToWords.js';
 import BagMoney from '../assets/money-bag.png';
 
@@ -17,6 +17,34 @@ function ContadorBilletes() {
     50: 0
   });
 
+  const [tipoCaja, setTipoCaja] = useState(null);
+
+  useEffect(() => {
+    const verificarEstadoCaja = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/caja');
+        if (!response.ok) throw new Error('Error al obtener el estado de la caja');
+        
+        const data = await response.json();
+        
+        // Obtiene el último registro
+        const ultimoRegistro = data[data.length - 1];
+        
+        // Determina el tipo de caja para la siguiente operación
+        if (ultimoRegistro) {
+          setTipoCaja(ultimoRegistro.tipoCaja === 'apertura' ? 'cierre' : 'apertura');
+        } else {
+          setTipoCaja('apertura'); // Si no hay registros, comienza con 'apertura'
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Ocurrió un error al verificar el estado de la caja');
+      }
+    };
+
+    verificarEstadoCaja();
+  }, []);
+
   const handleChange = (denominacion, valor) => {
     setBilletes((prevBilletes) => ({
       ...prevBilletes,
@@ -24,9 +52,40 @@ function ContadorBilletes() {
     }));
   };
 
-  const confirmarCaja = () => {
-    confirm('Confirmar Apertura de Caja');
-  }
+  const confirmarCaja = async () => {
+    try {
+      if (!tipoCaja) {
+        alert('No se pudo determinar el tipo de caja');
+        return;
+      }
+
+      const response = await fetch(`http://localhost:5000/api/caja/registrar`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          tipoCaja, // 'apertura' o 'cierre'
+          fecha: formatearFecha().split(' ')[0],
+          hora: formatearFecha().split(' ')[1],
+          tipoMoneda: billetes,
+          totalCaja: total
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al registrar la caja');
+      }
+
+      const resultado = await response.json();
+      alert('Caja registrada con éxito');
+      console.log('Resultado:', resultado); // Opcional, para depuración
+
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Ocurrió un error al registrar la caja');
+    }
+  };
 
   const total = Object.keys(billetes).reduce(
     (acc, denom) => acc + billetes[denom] * denom,
@@ -35,7 +94,6 @@ function ContadorBilletes() {
 
   const totalEnLetras = convertirNumero(total);
 
-  // Función para formatear la fecha
   const formatearFecha = () => {
     const fecha = new Date();
     const dia = String(fecha.getDate()).padStart(2, '0');
@@ -76,17 +134,19 @@ function ContadorBilletes() {
         </div>
         <div className="flex flex-col items-center mt-8">
           <div>
-            <h1 className='text-center bg-green-200 font-bold text-2xl p-1 mx-4 mb-6 '>Apertura de la Caja</h1>
+            <h1 className='text-center bg-green-200 font-bold text-2xl p-1 mx-4 mb-6'>
+              {tipoCaja === 'apertura' ? 'Apertura de la Caja' : tipoCaja === 'cierre' ? 'Cierre de la Caja' : 'Estado de la Caja'}
+            </h1>
             <h3 className='text-2xl font-semibold text-gray-800'>Caja Numero: #</h3>
             <p className="text-2xl font-semibold text-gray-800">Total: ${total}</p>
             <p className="text-lg font-medium text-gray-600 mt-2">
               ({totalEnLetras})
             </p>
-            <p className='text-lg font-medium text-gray-600 mt-2 '> Fecha y Hora de Apertura: {formatearFecha()}</p>
+            <p className='text-lg font-medium text-gray-600 mt-2 '> Fecha y Hora de {tipoCaja === 'apertura' ? 'Apertura' : tipoCaja === 'cierre' ? 'Cierre' : ''}: {formatearFecha()}</p>
             <div className="mt-6 text-center">
               <button
                 className="bg-blue-600 text-xl font-bold text-white py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:scale-105 transition duration-150"
-                onClick={confirmarCaja} 
+                onClick={confirmarCaja}
               >
                 Confirmar
               </button>

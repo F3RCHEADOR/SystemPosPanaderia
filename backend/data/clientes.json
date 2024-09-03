@@ -27,9 +27,14 @@
         "nombre": "Brownie",
         "precio": 2.5,
         "cantidad": 1
+      },
+      {
+        "nombre": "Malteada de Banano",
+        "precio": 5000,
+        "cantidad": 1
       }
     ],
-    "valorAcumulado": 13
+    "valorAcumulado": 5013
   },
   {
     "codigo": "C002",
