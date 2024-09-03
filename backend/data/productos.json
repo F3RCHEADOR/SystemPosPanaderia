@@ -8,52 +8,42 @@
         {
           "id": "1-1",
           "nombre": "Avena",
-          "precio": 3
+          "precio": 4000
         },
         {
           "id": "1-2",
-          "nombre": "Jugo",
-          "precio": 2.5
+          "nombre": "Speed Max",
+          "precio": 1800
         },
         {
           "id": "1-3",
-          "nombre": "Gaseosa Pequeña",
-          "precio": 3.5
+          "nombre": "Pony Litro",
+          "precio": 5000
         },
         {
           "id": "1-4",
-          "nombre": "Gaseosa Personal",
-          "precio": 4.5
+          "nombre": "Pony Personal",
+          "precio": 3000
         },
         {
           "id": "1-5",
-          "nombre": "Gaseosa Litro",
-          "precio": 6
+          "nombre": "Agua Litro",
+          "precio": 3000
         },
         {
           "id": "1-6",
-          "nombre": "Agua Mineral",
-          "precio": 2
+          "nombre": "Agua Personal",
+          "precio": 2000
         },
         {
           "id": "1-7",
-          "nombre": "Limonada",
-          "precio": 2.5
+          "nombre": "Pony Pequeña",
+          "precio": 2000
         },
         {
           "id": "1-8",
-          "nombre": "Té Helado",
-          "precio": 3
-        },
-        {
-          "id": "1-9",
-          "nombre": "Smoothie",
-          "precio": 4
-        },
-        {
-          "id": "1-10",
-          "nombre": "Frappe",
-          "precio": 4.5
+          "nombre": "Masato",
+          "precio": 3000
         }
       ]
     },
@@ -64,28 +54,23 @@
       "productos": [
         {
           "id": "2-1",
-          "nombre": "Café",
-          "precio": 2
+          "nombre": "Capuchino",
+          "precio": 5000
         },
         {
           "id": "2-2",
-          "nombre": "Capuchino",
-          "precio": 3
+          "nombre": "tinto pequeño",
+          "precio": 2000
         },
         {
           "id": "2-3",
-          "nombre": "Latte",
-          "precio": 3.5
+          "nombre": "tinto grande",
+          "precio": 3000
         },
         {
           "id": "2-4",
-          "nombre": "Té Verde",
-          "precio": 2.5
-        },
-        {
-          "id": "2-5",
-          "nombre": "Chocolate Caliente",
-          "precio": 3
+          "nombre": "Cafe con leche",
+          "precio": 4000
         }
       ]
     },
@@ -97,52 +82,47 @@
         {
           "id": "3-1",
           "nombre": "Croissant",
-          "precio": 2.5
+          "precio": 3000
         },
         {
           "id": "3-2",
-          "nombre": "Pastel Gloria",
-          "precio": 4
+          "nombre": "Palito Queso",
+          "precio": 2000
         },
         {
           "id": "3-3",
-          "nombre": "Hojaldra Bocadillo",
-          "precio": 3
+          "nombre": "Pastel Pollo",
+          "precio": 4000
         },
         {
           "id": "3-4",
-          "nombre": "Hojaldra de Arequipe",
-          "precio": 3.5
+          "nombre": "MilHoja",
+          "precio": 3500
         },
         {
           "id": "3-5",
-          "nombre": "Hojaldra de Chocolate",
-          "precio": 4
+          "nombre": "Repolla",
+          "precio": 2500
         },
         {
           "id": "3-6",
-          "nombre": "Napolitana",
-          "precio": 4.5
+          "nombre": "Corazon",
+          "precio": 2000
         },
         {
           "id": "3-7",
-          "nombre": "Palmera",
-          "precio": 2
+          "nombre": "Pan Tablita",
+          "precio": 2000
         },
         {
           "id": "3-8",
-          "nombre": "Hojaldra de Manzana",
-          "precio": 3.5
+          "nombre": "Hojaldra Redonda",
+          "precio": 4000
         },
         {
           "id": "3-9",
-          "nombre": "Hojaldra de Queso",
-          "precio": 3
-        },
-        {
-          "id": "3-10",
-          "nombre": "Hojaldra de Jamón",
-          "precio": 3.5
+          "nombre": "Hojaldra Bocadillo",
+          "precio": 3000
         }
       ]
     },
@@ -153,53 +133,63 @@
       "productos": [
         {
           "id": "4-1",
-          "nombre": "Pan de Queso",
-          "precio": 2.5
+          "nombre": "Pan Abuela",
+          "precio": 8000
         },
         {
           "id": "4-2",
-          "nombre": "Pan Integral",
-          "precio": 3
+          "nombre": "Pan 5000",
+          "precio": 5000
         },
         {
           "id": "4-3",
-          "nombre": "Pan de Ajo",
-          "precio": 2
+          "nombre": "Pan 2000",
+          "precio": 2000
         },
         {
           "id": "4-4",
-          "nombre": "Pan Francés",
-          "precio": 2.5
+          "nombre": "roscon 500",
+          "precio": 500
         },
         {
           "id": "4-5",
-          "nombre": "Pan de Mantequilla",
-          "precio": 3.5
+          "nombre": "Roscon de 1000",
+          "precio": 1000
         },
         {
           "id": "4-6",
-          "nombre": "Pan de Trigo",
-          "precio": 3
+          "nombre": "Roscon 2000",
+          "precio": 2000
         },
         {
           "id": "4-7",
-          "nombre": "Pan de Centeno",
-          "precio": 3.5
+          "nombre": "Pan Lasagna",
+          "precio": 4000
         },
         {
           "id": "4-8",
-          "nombre": "Pan Baguette",
-          "precio": 4
+          "nombre": "Donas",
+          "precio": 3000
         },
         {
           "id": "4-9",
-          "nombre": "Pan Dulce",
-          "precio": 2.5
+          "nombre": "Pan de Yuca",
+          "precio": 2000
         },
         {
           "id": "4-10",
-          "nombre": "Pan de Leche",
-          "precio": 2.5
+          "nombre": "Mantecada",
+          "precio": 5000
+        },
+        {
+          "id": "4-11",
+          "nombre": "Pan Tajado",
+          "precio": 4500
+        },
+        {
+          "id": "4-12",
+          "nombre": "Pan 500",
+          "precio": 500
         }
       ]
     },
@@ -212,6 +202,11 @@
           "id": "5-1",
           "nombre": "Aguila",
           "precio": 2.5
+        },
+        {
+          "id": "5-2",
+          "nombre": "Cerveza Lata",
+          "precio": 3500
         }
       ]
     },
@@ -228,6 +223,26 @@
         {
           "id": "6-2",
           "nombre": "Genovesa",
+          "precio": 5000
+        },
+        {
+          "id": "6-3",
+          "nombre": "Fresas con Crema",
+          "precio": 5000
+        },
+        {
+          "id": "6-4",
+          "nombre": "Torta Queso",
+          "precio": 3500
+        },
+        {
+          "id": "6-5",
+          "nombre": "Torta vino",
+          "precio": 5000
+        },
+        {
+          "id": "6-6",
+          "nombre": "Torta Oreo",
           "precio": 5000
         }
       ]
@@ -253,6 +268,61 @@
           "precio": 5000
         }
       ]
+    },
+    {
+      "id": "8",
+      "nombre": "Bizcochuelo",
+      "imagen": "./assets/imagen-1725396567911-373586522.png",
+      "productos": [
+        {
+          "id": "8-1",
+          "nombre": "Brazo de Chocolate",
+          "precio": 4000
+        },
+        {
+          "id": "8-2",
+          "nombre": "Brownie",
+          "precio": 3000
+        },
+        {
+          "id": "8-3",
+          "nombre": "Brazo",
+          "precio": 2000
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "nombre": "CocaCola",
+      "imagen": "./assets/imagen-1725397198367-101802744.png",
+      "productos": [
+        {
+          "id": "9-1",
+          "nombre": "CocaCola 2 Litros",
+          "precio": 8000
+        },
+        {
+          "id": "9-2",
+          "nombre": "CocaCola Litro Plastico",
+          "precio": 5000
+        },
+        {
+          "id": "9-3",
+          "nombre": "CocaCola Personal Plastico",
+          "precio": 3500
+        },
+        {
+          "id": "9-4",
+          "nombre": "CocaCola Litro Vidrio",
+          "precio": 4000
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "nombre": "Postobon",
+      "imagen": "./assets/imagen-1725397263853-279528023.png",
+      "productos": []
     }
   ]
 }
