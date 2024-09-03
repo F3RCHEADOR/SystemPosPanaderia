@@ -241,6 +241,11 @@
           "id": "7-1",
           "nombre": "Malteada de Fresa",
           "precio": 5000
+        },
+        {
+          "id": "7-2",
+          "nombre": "Malteada de Guanabana",
+          "precio": 5000
         }
       ]
     }

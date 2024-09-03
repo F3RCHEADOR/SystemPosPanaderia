@@ -1,31 +1,39 @@
-import React, { useState, useEffect} from 'react';
-import productosData from '../data/productos.json';
+import React, { useState, useEffect } from 'react';
 import NuevoClienteAside from "../components/NuevoClienteAside";
 import ProductSlider from "../components/ProductSlider";
-
 
 const ListProducts = ({ clientData, isEdit }) => {
   const [categorias, setCategorias] = useState([]);
   const [activeCategoriaId, setActiveCategoriaId] = useState(null);
   const [quantities, setQuantities] = useState({});
 
-
   useEffect(() => {
-    setCategorias(productosData.categorias);
-    const initialQuantities = {};
-    productosData.categorias.forEach(categoria => {
-      categoria.productos.forEach(producto => {
-        initialQuantities[producto.id] = 0;
-      });
-    });
-    setQuantities(initialQuantities);
+    fetch('http://localhost:5000/api/categorias')
+      .then(response => response.json())
+      .then(data => {
+        if (data && Array.isArray(data)) {
+          setCategorias(data);
+
+          // Inicializar quantities después de que categorías se haya establecido
+          const initialQuantities = {};
+          data.forEach(categoria => {
+            categoria.productos.forEach(producto => {
+              initialQuantities[producto.id] = 0;
+            });
+          });
+          setQuantities(initialQuantities);
+        } else {
+          console.error('Datos recibidos no son un array:', data);
+        }
+      })
+      .catch(error => console.error('Error al cargar categorías:', error));
   }, []);
 
   useEffect(() => {
     if (isEdit && clientData) {
       const updatedQuantities = {};
       clientData.productos.forEach(producto => {
-        const productId = productosData.categorias.flatMap(categoria =>
+        const productId = categorias.flatMap(categoria =>
           categoria.productos
         ).find(p => p.nombre === producto.nombre)?.id;
 
@@ -35,7 +43,7 @@ const ListProducts = ({ clientData, isEdit }) => {
       });
       setQuantities(updatedQuantities);
     }
-  }, [clientData, isEdit]);
+  }, [clientData, isEdit, categorias]);
 
   const handleCategoriaClick = (id) => {
     setActiveCategoriaId(activeCategoriaId === id ? null : id);
@@ -57,7 +65,6 @@ const ListProducts = ({ clientData, isEdit }) => {
 
   return (
     <>
-   
       <NuevoClienteAside    
         categorias={categorias}
         quantities={quantities}
