@@ -2,7 +2,16 @@
   {
     "codigo": "M01",
     "horaDesocupado": "",
-    "estado": "Desocupado"
+    "estado": "Desocupado",
+    "productos": [
+      {
+        "nombre": "Capuchino",
+        "precio": 5000,
+        "cantidad": 1
+      }
+    ],
+    "valorAcumulado": 5000,
+    "horaOcupado": "2024-09-04T14:59:56.074Z"
   },
   {
     "codigo": "M02",
@@ -22,7 +31,16 @@
   {
     "codigo": "M05",
     "horaDesocupado": "",
-    "estado": "Desocupado"
+    "estado": "Desocupado",
+    "productos": [
+      {
+        "nombre": "Agua Personal",
+        "precio": 2000,
+        "cantidad": 1
+      }
+    ],
+    "valorAcumulado": 2000,
+    "horaOcupado": "2024-09-04T15:01:20.018Z"
   },
   {
     "codigo": "M06",
@@ -42,7 +60,7 @@
   {
     "codigo": "M09",
     "horaDesocupado": "",
-    "estado": "Ocupado",
+    "estado": "Desocupado",
     "productos": [
       {
         "nombre": "Avena",
@@ -55,6 +73,11 @@
         "cantidad": 3
       },
       {
+        "nombre": "Cafe con leche",
+        "precio": 4000,
+        "cantidad": 1
+      },
+      {
         "nombre": "Palito Queso",
         "precio": 2000,
         "cantidad": 3
@@ -65,7 +88,7 @@
         "cantidad": 5
       }
     ],
-    "valorAcumulado": 21500,
+    "valorAcumulado": 25500,
     "horaOcupado": "2024-09-03T23:10:43.584Z"
   }
 ]

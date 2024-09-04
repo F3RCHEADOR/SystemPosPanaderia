@@ -110,7 +110,7 @@ router.delete('/:codigo', (req, res) => {
 });
 
 router.post('/pagos', (req, res) => {
-  const { empresa, fecha, hora, productos, valorPago } = req.body;
+  const { empresa, fecha, hora, productos, valorAcumulado } = req.body;
 
   try {
     const pagos = readPagos(); // Lee los pagos existentes
@@ -120,7 +120,7 @@ router.post('/pagos', (req, res) => {
       fecha: new Date().toLocaleDateString(), // Formato de fecha
       hora: new Date().toLocaleTimeString(), // Formato de hora
       productos,
-      valorPago
+      valorPago : valorAcumulado
     };
 
     pagos.push(nuevoPago); // Agrega el nuevo pago a la lista

@@ -92,7 +92,7 @@ const MesaList = ({ onClienteDrop }) => {
       const clienteData = await clienteResponse.json();
 
       // Actualizar la mesa con los datos del cliente
-      const mesaUpdateResponse = await fetch(`http://localhost:5000/api/mesas/${mesaCodigo}`, {
+      const mesaUpdateResponse = await fetch(`http://localhost:5000/api/mesas/${mesaCodigo}/actualizar`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

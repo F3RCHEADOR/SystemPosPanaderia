@@ -5,7 +5,7 @@ import { Toast } from 'primereact/toast';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 
 const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
- 
+
   const toast = useRef(null);
 
   const calculateTotal = () => {
@@ -49,14 +49,19 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
           body: JSON.stringify(cliente)
         });
       } else if (cliente.tipoCliente === "Mesa") {
-        response = await fetch(`http://localhost:5000/api/mesas${isEdit ? `/${cliente.codigo}` : ''}`, {
+        const url = isEdit
+          ? `http://localhost:5000/api/mesas/${cliente.codigo}/actualizar`
+          : 'http://localhost:5000/api/mesas'; // Aquí suponemos que POST es para crear una nueva mesa
+
+        response = await fetch(url, {
           method: isEdit ? 'PUT' : 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(cliente)
         });
-      } else {
+      }
+      else {
         response = await fetch(`http://localhost:5000/api/clientes`, {
           method: 'POST',
           headers: {

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Client from '../assets/client.png';
 import { useLocation } from 'react-router-dom';
 import CalculatorPanel from '../components/Calculadora';
-import InvoiceDetail from '../components/InvoiceDetail';
 
 
 const PaidPage = () => {
@@ -42,11 +41,9 @@ const PaidPage = () => {
       </aside>
 
 
-      <section className='ml-60 grid grid-cols-2 xl:grid-cols-3 gap-4 px-1 xl:px-4'>
+      <section className='ml-60  px-1 xl:px-4'>
   
        <CalculatorPanel clientData={clientData} />
-
-        <InvoiceDetail clientData={clientData} />
 
       </section>
     </>
