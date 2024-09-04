@@ -32,7 +32,7 @@ const ProductSlider = ({ categorias, activeCategoriaId, handleCategoriaClick, qu
   };
 
   return (
-    <div className="ml-56 h-full my-16 px-8">
+    <div className="ml-56 h-full mt-8  xl:px-8">
     <h1 className="my-2.5 bg-gray-200 text-center text-3xl font-bold">Categorías</h1>
     <Slider {...sliderSettings}>
       {categorias
@@ -55,7 +55,7 @@ const ProductSlider = ({ categorias, activeCategoriaId, handleCategoriaClick, qu
                   .slice() // Crear una copia del array de productos para no modificar el original
                   .sort((a, b) => a.nombre.localeCompare(b.nombre)) // Ordenar alfabéticamente por nombre
                   .map((producto) => (
-                    <div key={producto.id} className="grid grid-cols-3 items-center group hover:bg-gray-200 gap-1 my-1">
+                    <div key={producto.id} className="grid grid-cols-3 items-center group hover:bg-gray-200 gap-1 my-1 border-b-2 broder-t-2">
                       <span className="text-sm font-semibold">{producto.nombre}</span>
                       <span className="bg-green-300 text-center font-bold">${producto.precio}</span>
                       <div className="flex space-x-2 items-center justify-between group-hover:bg-gray-300">
