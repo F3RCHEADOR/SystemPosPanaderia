@@ -1,5 +1,6 @@
 import express from 'express';
 import { readClientes, saveClientes } from '../services/clientesService.js';
+import { readPagos, savePagos } from '../services/pagosService.js';
 
 const router = express.Router();
 
@@ -107,5 +108,29 @@ router.delete('/:codigo', (req, res) => {
     res.status(500).json({ error: 'Error al eliminar el cliente' });
   }
 });
+
+router.post('/pagos', (req, res) => {
+  const { empresa, fecha, hora, productos, valorPago } = req.body;
+
+  try {
+    const pagos = readPagos(); // Lee los pagos existentes
+
+    const nuevoPago = {
+      empresa: empresa || '',
+      fecha: new Date().toLocaleDateString(), // Formato de fecha
+      hora: new Date().toLocaleTimeString(), // Formato de hora
+      productos,
+      valorPago
+    };
+
+    pagos.push(nuevoPago); // Agrega el nuevo pago a la lista
+    savePagos(pagos); // Guarda los pagos actualizados
+
+    res.status(201).json(nuevoPago);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al guardar el pago' });
+  }
+});
+
 
 export default router;

@@ -88,17 +88,91 @@ const CalculatorPanel = ({ clientData }) => {
     setShowConfirm(true); // Muestra el diálogo de confirmación
   };
 
-  // Función para confirmar la compra
-  const confirmPurchase = () => {
-    toastBC.current.show({
-      severity: 'success',
-      summary: 'Compra efectuada',
-      detail: 'La compra se ha efectuado con éxito.',
-      life: 3000
-    });
-    clearInputs();
-    setShowConfirm(false); // Oculta el diálogo
+  const confirmPurchase = async () => {
+    if (!costTotal) {
+      toastBC.current.show({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'El campo "Costo Total" está vacío.',
+        life: 3000
+      });
+      return;
+    }
+    if (!receivedAmount) {
+      toastBC.current.show({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'El campo "Recibe" está vacío.',
+        life: 3000
+      });
+      return;
+    }
+    if (!change) {
+      toastBC.current.show({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'El campo "Cambio" está vacío.',
+        life: 3000
+      });
+      return;
+    }
+    if (receivedAmount < costTotal) {
+      toastBC.current.show({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'El campo "Recibe" No Puede ser menor que el "Costo Total".',
+        life: 3000
+      });
+      return;
+    }
+
+    try {
+      // Elimina al cliente de la API
+      const deleteResponse = await fetch(`http://localhost:5000/api/clientes/${clientData.codigo}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      if (!deleteResponse.ok) {
+        throw new Error('Error al eliminar el cliente');
+      }
+  
+      // Guarda los datos del cliente en "pagos"
+      const saveResponse = await fetch('http://localhost:5000/api/clientes/pagos', { // Cambiado a /clientes/pagos
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(clientData)
+      });
+  
+      if (!saveResponse.ok) {
+        throw new Error('Error al guardar los datos en pagos');
+      }
+  
+      toastBC.current.show({
+        severity: 'success',
+        summary: 'Compra efectuada',
+        detail: 'La compra se ha efectuado con éxito.',
+        life: 3000
+      });
+  
+      clearInputs();
+      setShowConfirm(false); // Oculta el diálogo
+  
+    } catch (error) {
+      toastBC.current.show({
+        severity: 'error',
+        summary: 'Error',
+        detail: `Ocurrió un error: ${error.message}`,
+        life: 3000
+      });
+      console.error('Error en la operación:', error);
+    }
   };
+
 
   // Función para cancelar la compra
   const cancelPurchase = () => {

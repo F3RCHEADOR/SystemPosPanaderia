@@ -1,11 +1,18 @@
 [
   {
-    "empresa":"",
-    "fecha":"",
-    "hora":"",
-    "productos": {
-
-    },
-    "valorPago": ""
+    "fecha": "3/9/2024",
+    "hora": "23:05:04",
+    "productos": [
+      {
+        "nombre": "Avena",
+        "precio": 4000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Capuchino",
+        "precio": 5000,
+        "cantidad": 1
+      }
+    ]
   }
 ]
