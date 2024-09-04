@@ -33,7 +33,7 @@
         {
           "id": "1-6",
           "nombre": "Agua Personal",
-          "precio": 2000
+          "precio": 1800
         },
         {
           "id": "1-7",
@@ -43,6 +43,26 @@
         {
           "id": "1-8",
           "nombre": "Masato",
+          "precio": 3000
+        },
+        {
+          "id": "1-9",
+          "nombre": "Agua Pequeña",
+          "precio": 800
+        },
+        {
+          "id": "1-10",
+          "nombre": "Hatsu",
+          "precio": 3500
+        },
+        {
+          "id": "1-11",
+          "nombre": "Agua gas Pequeña",
+          "precio": 1000
+        },
+        {
+          "id": "1-12",
+          "nombre": "Hit personal",
           "precio": 3000
         }
       ]
@@ -117,12 +137,12 @@
         {
           "id": "3-8",
           "nombre": "Hojaldra Redonda",
-          "precio": 4000
+          "precio": 3000
         },
         {
           "id": "3-9",
           "nombre": "Hojaldra Bocadillo",
-          "precio": 3000
+          "precio": 2500
         }
       ]
     },
@@ -168,8 +188,8 @@
         },
         {
           "id": "4-8",
-          "nombre": "Donas",
-          "precio": 3000
+          "nombre": "Donas Roscon",
+          "precio": 2000
         },
         {
           "id": "4-9",
@@ -190,6 +210,21 @@
           "id": "4-12",
           "nombre": "Pan 500",
           "precio": 500
+        },
+        {
+          "id": "4-13",
+          "nombre": "Dona Esferica",
+          "precio": 3000
+        },
+        {
+          "id": "4-14",
+          "nombre": "Tostado",
+          "precio": 2500
+        },
+        {
+          "id": "4-15",
+          "nombre": "Pan Integral",
+          "precio": 3500
         }
       ]
     },
@@ -217,32 +252,37 @@
       "productos": [
         {
           "id": "6-1",
-          "nombre": "Brownie",
-          "precio": 2.5
-        },
-        {
-          "id": "6-2",
           "nombre": "Genovesa",
           "precio": 5000
         },
         {
-          "id": "6-3",
+          "id": "6-2",
           "nombre": "Fresas con Crema",
           "precio": 5000
         },
         {
-          "id": "6-4",
+          "id": "6-3",
           "nombre": "Torta Queso",
           "precio": 3500
         },
         {
-          "id": "6-5",
+          "id": "6-4",
           "nombre": "Torta vino",
           "precio": 5000
         },
         {
-          "id": "6-6",
+          "id": "6-5",
           "nombre": "Torta Oreo",
+          "precio": 5000
+        },
+        {
+          "id": "6-6",
+          "nombre": "Torta Pan",
+          "precio": 4000
+        },
+        {
+          "id": "6-7",
+          "nombre": "Postre Maracuya",
           "precio": 5000
         }
       ]
@@ -282,7 +322,7 @@
         {
           "id": "8-2",
           "nombre": "Brownie",
-          "precio": 3000
+          "precio": 4000
         },
         {
           "id": "8-3",
@@ -315,6 +355,11 @@
           "id": "9-4",
           "nombre": "CocaCola Litro Vidrio",
           "precio": 4000
+        },
+        {
+          "id": "9-5",
+          "nombre": "CocaCola Personal Vidrio",
+          "precio": 3000
         }
       ]
     },
@@ -323,6 +368,46 @@
       "nombre": "Postobon",
       "imagen": "./assets/imagen-1725397263853-279528023.png",
       "productos": []
+    },
+    {
+      "id": "11",
+      "nombre": "Pasteles",
+      "imagen": "./assets/imagen-1725481687351-40232325.png",
+      "productos": []
+    },
+    {
+      "id": "12",
+      "nombre": "Galletas",
+      "imagen": "./assets/imagen-1725481833159-796501568.png",
+      "productos": [
+        {
+          "id": "12-1",
+          "nombre": "Galleta",
+          "precio": 1000
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "nombre": "Jugos",
+      "imagen": "./assets/imagen-1725486638682-348067593.png",
+      "productos": [
+        {
+          "id": "13-1",
+          "nombre": "Hit Caja Grande",
+          "precio": 6000
+        },
+        {
+          "id": "13-2",
+          "nombre": "Hit Litro",
+          "precio": 4000
+        },
+        {
+          "id": "13-3",
+          "nombre": "Hit Personal Plastico",
+          "precio": 3000
+        }
+      ]
     }
   ]
 }

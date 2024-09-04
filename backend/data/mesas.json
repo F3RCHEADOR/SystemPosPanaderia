@@ -16,12 +16,50 @@
   {
     "codigo": "M02",
     "horaDesocupado": "",
-    "estado": "Desocupado"
+    "estado": "Desocupado",
+    "productos": [
+      {
+        "nombre": "Capuchino",
+        "precio": 5000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Torta vino",
+        "precio": 5000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Brazo de Chocolate",
+        "precio": 4000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "CocaCola Personal Vidrio",
+        "precio": 3000,
+        "cantidad": 1
+      }
+    ],
+    "valorAcumulado": 17000,
+    "horaOcupado": "2024-09-04T21:20:08.801Z"
   },
   {
     "codigo": "M03",
     "horaDesocupado": "",
-    "estado": "Desocupado"
+    "estado": "Desocupado",
+    "productos": [
+      {
+        "nombre": "Pan Lasagna",
+        "precio": 4000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Brownie",
+        "precio": 4000,
+        "cantidad": 1
+      }
+    ],
+    "valorAcumulado": 8000,
+    "horaOcupado": "2024-09-04T21:10:40.859Z"
   },
   {
     "codigo": "M04",
@@ -34,13 +72,33 @@
     "estado": "Desocupado",
     "productos": [
       {
-        "nombre": "Agua Personal",
-        "precio": 2000,
+        "nombre": "Capuchino",
+        "precio": 5000,
         "cantidad": 1
+      },
+      {
+        "nombre": "tinto grande",
+        "precio": 3000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Mantecada",
+        "precio": 5000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Pan Integral",
+        "precio": 3500,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Postre Maracuya",
+        "precio": 5000,
+        "cantidad": 2
       }
     ],
-    "valorAcumulado": 2000,
-    "horaOcupado": "2024-09-04T15:01:20.018Z"
+    "valorAcumulado": 26500,
+    "horaOcupado": "2024-09-04T21:55:05.359Z"
   },
   {
     "codigo": "M06",
@@ -50,7 +108,21 @@
   {
     "codigo": "M07",
     "horaDesocupado": "",
-    "estado": "Desocupado"
+    "estado": "Ocupado",
+    "productos": [
+      {
+        "nombre": "Pan 500",
+        "precio": 500,
+        "cantidad": 8
+      },
+      {
+        "nombre": "Hit Litro",
+        "precio": 4000,
+        "cantidad": 1
+      }
+    ],
+    "valorAcumulado": 8000,
+    "horaOcupado": "2024-09-04T22:51:00.712Z"
   },
   {
     "codigo": "M08",

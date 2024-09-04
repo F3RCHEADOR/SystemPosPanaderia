@@ -68,15 +68,7 @@ const CalculatorPanel = ({ clientData }) => {
       });
       return;
     }
-    if (!change) {
-      toastBC.current.show({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'El campo "Cambio" está vacío.',
-        life: 3000
-      });
-      return;
-    }
+   
     if (receivedAmount < costTotal) {
       toastBC.current.show({
         severity: 'error',
@@ -108,15 +100,7 @@ const CalculatorPanel = ({ clientData }) => {
       });
       return;
     }
-    if (!change) {
-      toastBC.current.show({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'El campo "Cambio" está vacío.',
-        life: 3000
-      });
-      return;
-    }
+    
     if (receivedAmount < costTotal) {
       toastBC.current.show({
         severity: 'error',

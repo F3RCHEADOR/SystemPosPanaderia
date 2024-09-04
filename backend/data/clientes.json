@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "codigo": "C001",
+    "horaLlegada": "17:59:06",
+    "productos": [
+      {
+        "nombre": "Pan 500",
+        "precio": 500,
+        "cantidad": 8
+      }
+    ],
+    "valorAcumulado": 4000
+  }
+]
