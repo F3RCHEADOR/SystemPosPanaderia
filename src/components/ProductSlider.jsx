@@ -55,10 +55,10 @@ const ProductSlider = ({ categorias, activeCategoriaId, handleCategoriaClick, qu
                   .slice() // Crear una copia del array de productos para no modificar el original
                   .sort((a, b) => a.nombre.localeCompare(b.nombre)) // Ordenar alfabéticamente por nombre
                   .map((producto) => (
-                    <div key={producto.id} className="grid grid-cols-3 items-center gap-1 my-1">
+                    <div key={producto.id} className="grid grid-cols-3 items-center group hover:bg-gray-200 gap-1 my-1">
                       <span className="text-sm font-semibold">{producto.nombre}</span>
                       <span className="bg-green-300 text-center font-bold">${producto.precio}</span>
-                      <div className="flex space-x-2 items-center justify-between">
+                      <div className="flex space-x-2 items-center justify-between group-hover:bg-gray-300">
                         <button onClick={() => handleIncrement(producto.id)} className="px-1 py-1 bg-blue-500 text-white rounded">+</button>
                         <span className="font-semibold">{quantities[producto.id]}</span>
                         <button onClick={() => handleDecrement(producto.id)} className="px-1 py-1 bg-red-500 text-white rounded">-</button>
