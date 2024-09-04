@@ -19,7 +19,7 @@ const CalculatorPanel = ({ clientData }) => {
   // Efecto para inicializar el costo total al cargar el componente
   useEffect(() => {
     if (clientData && clientData.valorAcumulado !== undefined) {
-      setCostTotal(clientData.valorAcumulado.toFixed(2));
+      setCostTotal(clientData.valorAcumulado);
     }
   }, [clientData]);
 
@@ -37,7 +37,7 @@ const CalculatorPanel = ({ clientData }) => {
     const total = parseFloat(costTotal) || 0;
     const received = parseFloat(receivedAmount) || 0;
     const result = received - total;
-    setChange(result.toFixed(2));
+    setChange(result);
   };
 
   // Función para manejar la limpieza de entradas
@@ -158,7 +158,7 @@ const CalculatorPanel = ({ clientData }) => {
         <input
           id='costTotal'
           type='text'
-          className='w-full p-4 border-4 bg-blue-100 border-blue-300 cursor-pointer'
+          className='w-full text-xl font-bold p-4 border-4 bg-blue-100 border-blue-300 cursor-pointer'
           placeholder='Costo Total'
           value={costTotal}
           readOnly
@@ -169,7 +169,7 @@ const CalculatorPanel = ({ clientData }) => {
         <input
           id='receivedAmount'
           type='text'
-          className='w-full p-4 border-4 bg-green-100 border-green-300 cursor-pointer'
+          className='w-full text-xl font-bold p-4 border-4 bg-green-100 border-green-300 cursor-pointer'
           placeholder='Recibe'
           value={receivedAmount}
           readOnly
@@ -179,12 +179,12 @@ const CalculatorPanel = ({ clientData }) => {
         <input
           id='change'
           type='text'
-          className='w-full p-4 border-4 bg-gray-100 border-gray-300'
+          className='w-full text-xl font-bold p-4 border-4 bg-gray-100 border-gray-300'
           placeholder='Cambio'
           value={change}
           readOnly
         />
-        <div className='grid grid-cols-4 gap-6 mt-2 mx-auto'>
+        <div className='grid grid-cols-4 gap-2 mt-4 mx-auto'>
           {/* Fila 1 */}
           <ButtonCalculator key={9} value={'9'} onClick={() => handleButtonClick('9')} />
           <ButtonCalculator key={8} value={'8'} onClick={() => handleButtonClick('8')} />

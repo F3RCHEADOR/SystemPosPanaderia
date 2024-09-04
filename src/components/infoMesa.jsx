@@ -31,7 +31,7 @@ const InfoMesa = ({ mesa, onClose }) => {
         <strong>Hora Ocupado:</strong> {mesa.horaOcupado ? new Date(mesa.horaOcupado).toLocaleString() : 'No disponible'}
       </p>
       <p className='pl-4'>
-        <strong>Valor Acumulado:</strong> ${valorAcumulado.toFixed(2)}
+        <strong>Valor Acumulado:</strong> ${valorAcumulado}
       </p>
       <div className='grid grid-cols-4 gap-4 pl-4 font-bold'>
         <h4 className="col-span-2 ">Productos</h4>
@@ -46,13 +46,13 @@ const InfoMesa = ({ mesa, onClose }) => {
               <li className="grid grid-cols-4 gap-6 hover:bg-white " key={index}>
                 <span className="col-span-2"> -{producto.nombre}</span>
                 <span className="text-center">{producto.cantidad}</span>
-                <span className="text-center">${producto.precio.toFixed(2)}</span>
+                <span className="text-center">${producto.precio}</span>
               </li>
             ))}
             <br />
             <div className='flex items-center justify-between font-extrabold pr-1'>
             <span>Total a Pagar:</span>
-            <span> ${valorAcumulado.toFixed(2)}</span>
+            <span> ${valorAcumulado}</span>
             </div>
           </>
         ) : (

@@ -24,7 +24,7 @@ const PaidPage = () => {
               <li key={index} className="flex justify-between items-center mb-2">
                 <span className="font-semibold text-base">{producto.nombre}</span>
                 <span className="text-nowrap bg-green-300 p-1 font-bold">
-                  {producto.cantidad} x ${producto.precio.toFixed(2)}
+                  {producto.cantidad} x ${producto.precio}
                 </span>
               </li>
             ))
@@ -36,7 +36,7 @@ const PaidPage = () => {
           <hr className="my-2" />
           <div className="flex justify-between items-center font-bold text-xl">
             <span>Total:</span>
-            <span>{clientData?.valorAcumulado?.toFixed(2)}</span>
+            <span>{clientData?.valorAcumulado}</span>
           </div>
         </div>
       </aside>

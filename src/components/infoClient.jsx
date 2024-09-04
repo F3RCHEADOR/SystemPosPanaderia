@@ -21,13 +21,13 @@ const ClientInfo = ({ cliente, onClose }) => {
         {cliente.productos.map((producto, index) => (
           <li key={index} className="flex justify-between p-2 bg-gray-50 rounded">
             <span>{producto.nombre}</span>
-            <span>${producto.precio.toFixed(2)}</span>
+            <span>${producto.precio}</span>
           </li>
         ))}
       </ul>
       <div className="flex justify-between font-semibold border-4 p-1 rounded-xl">
         <span>Total:</span>
-        <span>${cliente.valorAcumulado.toFixed(2)}</span>
+        <span>${cliente.valorAcumulado}</span>
       </div>
       <ButtonEditClient cliente={clienteConTipo} />
       <ButtonPayment cliente={clienteConTipo} />

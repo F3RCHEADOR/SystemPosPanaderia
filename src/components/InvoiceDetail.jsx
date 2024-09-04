@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const tipoNegocio = import.meta.env.VITE_BUSINESS_TYPE;
 const nombreNegocio = import.meta.env.VITE_BUSINESS_NAME;
 const logoNegocio = import.meta.env.VITE_BUSINESS_IMAGE;
@@ -34,7 +33,7 @@ const InvoiceDetail = ({ clientData }) => {
             <li key={index} className='grid grid-cols-5 gap-2'>
               <span className='col-span-3'>{producto.nombre}</span>
               <span className='text-center'>{producto.cantidad}</span>
-              <span className='text-center'>{producto.precio.toFixed(2)}</span>
+              <span className='text-center'>{producto.precio}</span>
             </li>
           ))
         ) : (
@@ -46,15 +45,15 @@ const InvoiceDetail = ({ clientData }) => {
       <ul>
         <li className='grid grid-cols-5 gap-2'>
           <span className='col-span-4 font-bold text-lg'>Total:</span>
-          <span>{clientData.valorAcumulado.toFixed(2)}</span>
+          <span className='font-bold'>{clientData.valorAcumulado}</span>
         </li>
         <li className='grid grid-cols-5 gap-2'>
           <span className='col-span-4'>Recibe:</span>
-          <span>Cantidad</span>
+          <span className='font-bold'>Cantidad</span>
         </li>
         <li className='grid grid-cols-5 gap-2'>
           <span className='col-span-4'>Cambio:</span>
-          <span>Cantidad</span>
+          <span className='font-bold'>Cantidad</span>
         </li>
       </ul>
 
