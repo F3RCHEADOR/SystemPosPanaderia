@@ -171,7 +171,7 @@ const CalculatorPanel = ({ clientData }) => {
         severity: 'success',
         summary: 'Compra efectuada',
         detail: 'La compra se ha efectuado con éxito.',
-        life: 3000
+        life: 10000
       });
 
       clearInputs();
@@ -182,7 +182,7 @@ const CalculatorPanel = ({ clientData }) => {
         severity: 'error',
         summary: 'Error',
         detail: `Ocurrió un error: ${error.message}`,
-        life: 3000
+        life: 10000
       });
       console.error('Error en la operación:', error);
     }

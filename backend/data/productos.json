@@ -62,8 +62,8 @@
         },
         {
           "id": "1-12",
-          "nombre": "Hit personal",
-          "precio": 3000
+          "nombre": "Pony Pequeña",
+          "precio": 2000
         }
       ]
     },
@@ -79,18 +79,28 @@
         },
         {
           "id": "2-2",
-          "nombre": "tinto pequeño",
+          "nombre": "Tinto pequeño",
           "precio": 2000
         },
         {
           "id": "2-3",
-          "nombre": "tinto grande",
+          "nombre": "Tinto grande",
           "precio": 3000
         },
         {
           "id": "2-4",
           "nombre": "Cafe con leche",
           "precio": 4000
+        },
+        {
+          "id": "2-5",
+          "nombre": "Aromaticas",
+          "precio": 3000
+        },
+        {
+          "id": "2-6",
+          "nombre": "Perico",
+          "precio": 3500
         }
       ]
     },
@@ -143,6 +153,21 @@
           "id": "3-9",
           "nombre": "Hojaldra Bocadillo",
           "precio": 2500
+        },
+        {
+          "id": "3-10",
+          "nombre": "pan lazaña",
+          "precio": 4000
+        },
+        {
+          "id": "3-11",
+          "nombre": "palito salchicha",
+          "precio": 2500
+        },
+        {
+          "id": "3-12",
+          "nombre": "Churro",
+          "precio": 2000
         }
       ]
     },
@@ -168,7 +193,7 @@
         },
         {
           "id": "4-4",
-          "nombre": "roscon 500",
+          "nombre": "Roscon 500",
           "precio": 500
         },
         {
@@ -189,7 +214,7 @@
         {
           "id": "4-8",
           "nombre": "Donas Roscon",
-          "precio": 2000
+          "precio": 3000
         },
         {
           "id": "4-9",
@@ -214,17 +239,22 @@
         {
           "id": "4-13",
           "nombre": "Dona Esferica",
-          "precio": 3000
+          "precio": 2500
         },
         {
           "id": "4-14",
           "nombre": "Tostado",
-          "precio": 2500
+          "precio": 2000
         },
         {
           "id": "4-15",
           "nombre": "Pan Integral",
           "precio": 3500
+        },
+        {
+          "id": "4-16",
+          "nombre": "1/2 Tajado",
+          "precio": 3000
         }
       ]
     },
@@ -235,13 +265,13 @@
       "productos": [
         {
           "id": "5-1",
-          "nombre": "Aguila",
-          "precio": 2.5
+          "nombre": "Cerveza Lata",
+          "precio": 3500
         },
         {
           "id": "5-2",
-          "nombre": "Cerveza Lata",
-          "precio": 3500
+          "nombre": "Corona",
+          "precio": 4000
         }
       ]
     },
@@ -258,7 +288,7 @@
         {
           "id": "6-2",
           "nombre": "Fresas con Crema",
-          "precio": 5000
+          "precio": 3500
         },
         {
           "id": "6-3",
@@ -283,6 +313,21 @@
         {
           "id": "6-7",
           "nombre": "Postre Maracuya",
+          "precio": 5000
+        },
+        {
+          "id": "6-8",
+          "nombre": "Leche Asada",
+          "precio": 6000
+        },
+        {
+          "id": "6-9",
+          "nombre": "Gelatina",
+          "precio": 3500
+        },
+        {
+          "id": "6-10",
+          "nombre": "Postre de Limon",
           "precio": 5000
         }
       ]
@@ -328,6 +373,11 @@
           "id": "8-3",
           "nombre": "Brazo",
           "precio": 2000
+        },
+        {
+          "id": "8-4",
+          "nombre": "Bombas",
+          "precio": 2500
         }
       ]
     },
@@ -338,28 +388,33 @@
       "productos": [
         {
           "id": "9-1",
-          "nombre": "CocaCola 2 Litros",
+          "nombre": "2 Litros",
           "precio": 8000
         },
         {
           "id": "9-2",
-          "nombre": "CocaCola Litro Plastico",
+          "nombre": "Litro Plastico",
           "precio": 5000
         },
         {
           "id": "9-3",
-          "nombre": "CocaCola Personal Plastico",
+          "nombre": "Personal Plastico",
           "precio": 3500
         },
         {
           "id": "9-4",
-          "nombre": "CocaCola Litro Vidrio",
+          "nombre": "Litro Vidrio",
           "precio": 4000
         },
         {
           "id": "9-5",
-          "nombre": "CocaCola Personal Vidrio",
+          "nombre": "Personal Vidrio",
           "precio": 3000
+        },
+        {
+          "id": "9-6",
+          "nombre": "Pequeña Vidrio",
+          "precio": 2000
         }
       ]
     },
@@ -367,13 +422,65 @@
       "id": "10",
       "nombre": "Postobon",
       "imagen": "./assets/imagen-1725397263853-279528023.png",
-      "productos": []
+      "productos": [
+        {
+          "id": "10-1",
+          "nombre": "2 Litros  ",
+          "precio": 6000
+        },
+        {
+          "id": "10-2",
+          "nombre": "Litro Plastico",
+          "precio": 4500
+        },
+        {
+          "id": "10-3",
+          "nombre": "Personal Vidrio",
+          "precio": 2500
+        },
+        {
+          "id": "10-4",
+          "nombre": "Litro Vidrio",
+          "precio": 3500
+        },
+        {
+          "id": "10-5",
+          "nombre": "Pequeña Vidrio",
+          "precio": 1500
+        },
+        {
+          "id": "10-6",
+          "nombre": "Soda Bretaña",
+          "precio": 3200
+        },
+        {
+          "id": "10-7",
+          "nombre": "Mrs Tea Personal",
+          "precio": 3500
+        }
+      ]
     },
     {
       "id": "11",
       "nombre": "Pasteles",
       "imagen": "./assets/imagen-1725481687351-40232325.png",
-      "productos": []
+      "productos": [
+        {
+          "id": "11-1",
+          "nombre": "Pastel 3/4",
+          "precio": 50000
+        },
+        {
+          "id": "11-2",
+          "nombre": "Pastel 1/2",
+          "precio": 40000
+        },
+        {
+          "id": "11-3",
+          "nombre": "Pastel 1/4",
+          "precio": 30000
+        }
+      ]
     },
     {
       "id": "12",
@@ -383,6 +490,11 @@
         {
           "id": "12-1",
           "nombre": "Galleta",
+          "precio": 1000
+        },
+        {
+          "id": "12-2",
+          "nombre": "Merengue",
           "precio": 1000
         }
       ]
@@ -406,6 +518,28 @@
           "id": "13-3",
           "nombre": "Hit Personal Plastico",
           "precio": 3000
+        },
+        {
+          "id": "13-4",
+          "nombre": "Jugo Natural",
+          "precio": 4000
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "nombre": "Varios",
+      "imagen": "./assets/imagen-1725553643342-381950941.png",
+      "productos": [
+        {
+          "id": "14-1",
+          "nombre": "Tamal",
+          "precio": 4000
+        },
+        {
+          "id": "14-2",
+          "nombre": "Leche Litro",
+          "precio": 5000
         }
       ]
     }

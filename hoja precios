@@ -41,12 +41,13 @@ Categoría ID,Categoría Imagen,Categoría Nombre,Producto ID,Producto Nombre,Pr
 4-) Panes,4-15,Pan Integral,3500 - 500 - tajado 4500
 5-) Cervezas,5-1,Cerveza Lata,4000
 6-) Postres,6-1,Genovesa,5000
-6-) Postres,6-2,Fresas con Crema,4000
+6-) Postres,6-2,Fresas con Crema,3500
 6-) Postres,6-3,Torta Queso,4000
 6-) Postres,6-4,Torta vino,5000
 6-) Postres,6-5,Torta Oreo,5000
 6-) Postres,6-6,Torta Pan,4000
 6-) Postres,6-7,Postre Maracuya,5000
+6-) Postres,6-8,Gelatina,3500
 7-) Malteadas,7-1,Malteada de Fresa,
 7-) Malteadas,7-2,Malteada de Guanabana,
 7-) Malteadas,7-3,Malteada de Banano,

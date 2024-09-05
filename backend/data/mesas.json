@@ -2,7 +2,7 @@
   {
     "codigo": "M01",
     "horaDesocupado": "",
-    "estado": "Ocupado",
+    "estado": "Desocupado",
     "productos": [
       {
         "nombre": "Masato",
@@ -84,26 +84,7 @@
   {
     "codigo": "M05",
     "horaDesocupado": "",
-    "estado": "Desocupado",
-    "productos": [
-      {
-        "nombre": "Torta Queso",
-        "precio": 4000,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Brownie",
-        "precio": 3000,
-        "cantidad": 1
-      },
-      {
-        "nombre": "CocaCola Litro Plastico",
-        "precio": 5000,
-        "cantidad": 1
-      }
-    ],
-    "valorAcumulado": 12000,
-    "horaOcupado": "2024-09-04T23:37:34.901Z"
+    "estado": "Desocupado"
   },
   {
     "codigo": "M06",
@@ -116,18 +97,23 @@
     "estado": "Desocupado",
     "productos": [
       {
-        "nombre": "Pan 500",
-        "precio": 500,
-        "cantidad": 8
+        "nombre": "Torta vino",
+        "precio": 5000,
+        "cantidad": 1
       },
       {
-        "nombre": "Hit Litro",
-        "precio": 4000,
-        "cantidad": 1
+        "nombre": "Brazo",
+        "precio": 2000,
+        "cantidad": 2
+      },
+      {
+        "nombre": "Pequeña Vidrio",
+        "precio": 2000,
+        "cantidad": 2
       }
     ],
-    "valorAcumulado": 8000,
-    "horaOcupado": "2024-09-04T22:51:00.712Z"
+    "valorAcumulado": 13000,
+    "horaOcupado": "2024-09-05T16:31:12.333Z"
   },
   {
     "codigo": "M08",

@@ -598,5 +598,470 @@
       }
     ],
     "valorPago": 45000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "7:10:26 a. m.",
+    "productos": [
+      {
+        "nombre": "Masato",
+        "precio": 3000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Roscon de 1000",
+        "precio": 1000,
+        "cantidad": 2
+      },
+      {
+        "nombre": "CocaCola Personal Plastico",
+        "precio": 3500,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 8500
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "7:10:45 a. m.",
+    "productos": [
+      {
+        "nombre": "Masato",
+        "precio": 3000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "tinto pequeño",
+        "precio": 2000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Mantecada",
+        "precio": 5000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Brownie",
+        "precio": 3000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 13000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "7:22:48 a. m.",
+    "productos": [
+      {
+        "nombre": "tinto pequeño",
+        "precio": 2000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 2000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "7:35:04 a. m.",
+    "productos": [
+      {
+        "nombre": "Pan 5000",
+        "precio": 5000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 5000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "8:04:37 a. m.",
+    "productos": [
+      {
+        "nombre": "Pan 500",
+        "precio": 500,
+        "cantidad": 2
+      }
+    ],
+    "valorPago": 1000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "8:15:22 a. m.",
+    "productos": [
+      {
+        "nombre": "Pan 2000",
+        "precio": 2000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 2000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "8:52:23 a. m.",
+    "productos": [
+      {
+        "nombre": "Pan 2000",
+        "precio": 2000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 2000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "9:23:34 a. m.",
+    "productos": [
+      {
+        "nombre": "tinto pequeño",
+        "precio": 2000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "aromaticas",
+        "precio": 3000,
+        "cantidad": 3
+      }
+    ],
+    "valorPago": 11000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "9:27:25 a. m.",
+    "productos": [
+      {
+        "nombre": "Avena",
+        "precio": 4000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "pan lazaña",
+        "precio": 4000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Pan 500",
+        "precio": 500,
+        "cantidad": 6
+      }
+    ],
+    "valorPago": 11000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "9:41:24 a. m.",
+    "productos": [
+      {
+        "nombre": "Croissant",
+        "precio": 4000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Palito Queso",
+        "precio": 2000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "palito salchicha",
+        "precio": 2500,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Pan de Yuca",
+        "precio": 2000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Fresas con Crema",
+        "precio": 3500,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Brownie",
+        "precio": 3000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Hit Litro",
+        "precio": 4000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 21000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "9:52:01 a. m.",
+    "productos": [
+      {
+        "nombre": "tinto pequeño",
+        "precio": 2000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 2000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "10:05:28 a. m.",
+    "productos": [
+      {
+        "nombre": "Croissant",
+        "precio": 4000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 4000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "10:05:55 a. m.",
+    "productos": [
+      {
+        "nombre": "palito salchicha",
+        "precio": 2500,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 2500
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "10:20:50 a. m.",
+    "productos": [
+      {
+        "nombre": "Pony Pequeña",
+        "precio": 2000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "tinto pequeño",
+        "precio": 2000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Torta vino",
+        "precio": 5000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 9000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "10:32:04 a. m.",
+    "productos": [
+      {
+        "nombre": "Pony Pequeña",
+        "precio": 2000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "tinto pequeño",
+        "precio": 2000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Torta vino",
+        "precio": 5000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 9000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "10:36:10 a. m.",
+    "productos": [
+      {
+        "nombre": "Perico",
+        "precio": 3500,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Pan 500",
+        "precio": 500,
+        "cantidad": 6
+      },
+      {
+        "nombre": "Torta vino",
+        "precio": 5000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Brazo",
+        "precio": 2000,
+        "cantidad": 3
+      }
+    ],
+    "valorPago": 17500
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "10:49:47 a. m.",
+    "productos": [
+      {
+        "nombre": "Gelatina",
+        "precio": 3500,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 3500
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "10:59:33 a. m.",
+    "productos": [
+      {
+        "nombre": "Tinto pequeño",
+        "precio": 2000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Pan 500",
+        "precio": 500,
+        "cantidad": 2
+      },
+      {
+        "nombre": "Tostado",
+        "precio": 2000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 5000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "11:10:50 a. m.",
+    "productos": [
+      {
+        "nombre": "Pastel Pollo",
+        "precio": 4000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Pan de Yuca",
+        "precio": 2000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "CocaCola Personal Vidrio",
+        "precio": 3000,
+        "cantidad": 2
+      }
+    ],
+    "valorPago": 12000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "11:32:55 a. m.",
+    "productos": [
+      {
+        "nombre": "Pan Tablita",
+        "precio": 2000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 2000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "11:40:14 a. m.",
+    "productos": [
+      {
+        "nombre": "Torta vino",
+        "precio": 5000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Brazo",
+        "precio": 2000,
+        "cantidad": 2
+      },
+      {
+        "nombre": "Pequeña Vidrio",
+        "precio": 2000,
+        "cantidad": 2
+      }
+    ],
+    "valorPago": 13000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "11:42:01 a. m.",
+    "productos": [
+      {
+        "nombre": "Donas Roscon",
+        "precio": 3000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Brownie",
+        "precio": 3000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 6000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "11:48:07 a. m.",
+    "productos": [
+      {
+        "nombre": "Fresas con Crema",
+        "precio": 3500,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 3500
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "11:48:40 a. m.",
+    "productos": [
+      {
+        "nombre": "Corazon",
+        "precio": 2000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 2000
+  },
+  {
+    "empresa": "",
+    "fecha": "5/9/2024",
+    "hora": "12:02:29 p. m.",
+    "productos": [
+      {
+        "nombre": "Pan 500",
+        "precio": 500,
+        "cantidad": 4
+      }
+    ],
+    "valorPago": 2000
   }
 ]
