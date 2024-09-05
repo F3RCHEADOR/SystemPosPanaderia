@@ -2,16 +2,31 @@
   {
     "codigo": "M01",
     "horaDesocupado": "",
-    "estado": "Desocupado",
+    "estado": "Ocupado",
     "productos": [
       {
-        "nombre": "Capuchino",
+        "nombre": "Masato",
+        "precio": 3000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "tinto pequeño",
+        "precio": 2000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Mantecada",
         "precio": 5000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Brownie",
+        "precio": 3000,
         "cantidad": 1
       }
     ],
-    "valorAcumulado": 5000,
-    "horaOcupado": "2024-09-04T14:59:56.074Z"
+    "valorAcumulado": 13000,
+    "horaOcupado": "2024-09-04T23:44:43.178Z"
   },
   {
     "codigo": "M02",
@@ -72,33 +87,23 @@
     "estado": "Desocupado",
     "productos": [
       {
-        "nombre": "Capuchino",
-        "precio": 5000,
+        "nombre": "Torta Queso",
+        "precio": 4000,
         "cantidad": 1
       },
       {
-        "nombre": "tinto grande",
+        "nombre": "Brownie",
         "precio": 3000,
         "cantidad": 1
       },
       {
-        "nombre": "Mantecada",
+        "nombre": "CocaCola Litro Plastico",
         "precio": 5000,
         "cantidad": 1
-      },
-      {
-        "nombre": "Pan Integral",
-        "precio": 3500,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Postre Maracuya",
-        "precio": 5000,
-        "cantidad": 2
       }
     ],
-    "valorAcumulado": 26500,
-    "horaOcupado": "2024-09-04T21:55:05.359Z"
+    "valorAcumulado": 12000,
+    "horaOcupado": "2024-09-04T23:37:34.901Z"
   },
   {
     "codigo": "M06",
@@ -108,7 +113,7 @@
   {
     "codigo": "M07",
     "horaDesocupado": "",
-    "estado": "Ocupado",
+    "estado": "Desocupado",
     "productos": [
       {
         "nombre": "Pan 500",

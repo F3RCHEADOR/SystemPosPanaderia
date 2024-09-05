@@ -1,0 +1,71 @@
+Categoría ID,Categoría Imagen,Categoría Nombre,Producto ID,Producto Nombre,Producto Precio
+1,Bebidas Frías,1-1,Avena,4000
+1-) Bebidas Frías,1-2,Speed Max,1800
+1-) Bebidas Frías,1-3,Pony Litro,5000
+1-) Bebidas Frías,1-4,Pony Personal,3000
+1-) Bebidas Frías,1-5,Agua Litro,3000
+1-) Bebidas Frías,1-6,Agua Personal,1800
+1-) Bebidas Frías,1-7,Pony Pequeña,2000
+1-) Bebidas Frías,1-8,Masato,3000
+1-) Bebidas Frías,1-9,Agua Pequeña,800
+1-) Bebidas Frías,1-10,Hatsu,3500
+1-) Bebidas Frías,1-11,Agua gas Pequeña,1000
+1-) Bebidas Frías,1-12,Gatorade,4000
+2-) Bebidas Calientes,2-1,Capuchino,5000
+2-) Bebidas Calientes,2-2,tinto pequeño,2000
+2-) Bebidas Calientes,2-3,tinto grande,3000
+2-) Bebidas Calientes,2-4,Cafe con leche,4000
+3-) Hojaldras,3-1,Croissant,4000
+3-) Hojaldras,3-2,Palito Queso,2000
+3-) Hojaldras,3-3,Pastel Pollo,4000
+3-) Hojaldras,3-4,MilHoja,3500
+3-) Hojaldras,3-5,Repolla,3000
+3-) Hojaldras,3-6,Corazon,2000
+3-) Hojaldras,3-7,Pan Tablita,2000
+3-) Hojaldras,3-8,Hojaldra Redonda,3000
+3-) Hojaldras,3-9,Hojaldra Bocadillo,2500
+4-) Panes,4-1,Pan Abuela,8000
+4-) Panes,4-2,Pan 5000,5000
+4-) Panes,4-3,Pan 2000,2000
+4-) Panes,4-4,roscon 500,500
+4-) Panes,4-5,Roscon de 1000,1000
+4-) Panes,4-6,Roscon 2000,2000
+4-) Panes,4-7,Pan Lasagna,4000
+4-) Panes,4-8,Donas Roscon,3000
+4-) Panes,4-9,Pan de Yuca,2000
+4-) Panes,4-10,Mantecada,5000
+4-) Panes,4-11,Pan Tajado,4500
+4-) Panes,4-12,Pan 500,500
+4-) Panes,4-13,Dona Esferica,2500
+4-) Panes,4-14,Tostado,2000
+4-) Panes,4-15,Pan Integral,3500 - 500 - tajado 4500
+5-) Cervezas,5-1,Cerveza Lata,4000
+6-) Postres,6-1,Genovesa,5000
+6-) Postres,6-2,Fresas con Crema,4000
+6-) Postres,6-3,Torta Queso,4000
+6-) Postres,6-4,Torta vino,5000
+6-) Postres,6-5,Torta Oreo,5000
+6-) Postres,6-6,Torta Pan,4000
+6-) Postres,6-7,Postre Maracuya,5000
+7-) Malteadas,7-1,Malteada de Fresa,
+7-) Malteadas,7-2,Malteada de Guanabana,
+7-) Malteadas,7-3,Malteada de Banano,
+8-) Bizcochuelo,8-1,Brazo de Chocolate,3500
+8-) Bizcochuelo,8-2,Brownie,3000
+8-) Bizcochuelo,8-3,Brazo,2000
+9-) CocaCola,9-1,CocaCola 2.25 Litro,8000
+9-) CocaCola,9-2,CocaCola Litro Plastico,5000
+9-) CocaCola,9-3,CocaCola Personal Plastico,3500
+9-) CocaCola,9-4,CocaCola Litro Vidrio,4000
+9-) CocaCola,9-5,CocaCola Personal Vidrio,3000
+9-) CocaCola,9-5,CocaCola RP 2 Litros,6500
+10-) Postobon,10-1, Postobon Litro, 3500
+10-) Postobon,10-2,Postobon 2 Litros, 6000
+10-) Postobon,10-2,Postobon Personal Vidrio, 2500
+10-) Postobon,10-2,Postobon Personal Plastico, 6000
+11-) Pasteles,
+12-) Galletas,12-1,Galleta
+13-) Jugos,13-1,Hit Caja Grande,6000
+13-) Jugos,13-2,Hit Litro,4200
+13-) Jugos,13-3,Hit Personal Plastico,3000
+13-) Jugos,13-3,Hit Cajita,2000

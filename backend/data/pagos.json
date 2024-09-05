@@ -518,5 +518,85 @@
       }
     ],
     "valorPago": 8000
+  },
+  {
+    "empresa": "",
+    "fecha": "4/9/2024",
+    "hora": "6:00:34 p. m.",
+    "productos": [
+      {
+        "nombre": "Pan 500",
+        "precio": 500,
+        "cantidad": 8
+      }
+    ],
+    "valorPago": 4000
+  },
+  {
+    "empresa": "",
+    "fecha": "4/9/2024",
+    "hora": "6:01:02 p. m.",
+    "productos": [
+      {
+        "nombre": "Pan 500",
+        "precio": 500,
+        "cantidad": 8
+      },
+      {
+        "nombre": "Hit Litro",
+        "precio": 4000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 8000
+  },
+  {
+    "empresa": "",
+    "fecha": "4/9/2024",
+    "hora": "6:45:46 p. m.",
+    "productos": [
+      {
+        "nombre": "Torta Queso",
+        "precio": 4000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Brownie",
+        "precio": 3000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "CocaCola Litro Plastico",
+        "precio": 5000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 12000
+  },
+  {
+    "empresa": "",
+    "fecha": "4/9/2024",
+    "hora": "7:01:23 p. m.",
+    "productos": [
+      {
+        "nombre": "Pastel Pollo",
+        "precio": 4000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 4000
+  },
+  {
+    "empresa": "",
+    "fecha": "4/9/2024",
+    "hora": "7:01:57 p. m.",
+    "productos": [
+      {
+        "nombre": "Postre Maracuya",
+        "precio": 5000,
+        "cantidad": 9
+      }
+    ],
+    "valorPago": 45000
   }
 ]

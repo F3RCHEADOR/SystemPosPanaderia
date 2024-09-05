@@ -102,7 +102,7 @@
         {
           "id": "3-1",
           "nombre": "Croissant",
-          "precio": 3000
+          "precio": 4000
         },
         {
           "id": "3-2",
@@ -263,7 +263,7 @@
         {
           "id": "6-3",
           "nombre": "Torta Queso",
-          "precio": 3500
+          "precio": 4000
         },
         {
           "id": "6-4",
@@ -322,7 +322,7 @@
         {
           "id": "8-2",
           "nombre": "Brownie",
-          "precio": 4000
+          "precio": 3000
         },
         {
           "id": "8-3",
