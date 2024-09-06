@@ -6,7 +6,7 @@ import categoriasRoutes from './controllers/productosController.js';
 import cajaRoutes from './controllers/cajaController.js';
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000; // Puerto dinámico
 
 // Configuración de middlewares
 app.use(cors()); // Habilita CORS para permitir solicitudes desde otros orígenes
@@ -20,5 +20,5 @@ app.use('/api/caja', cajaRoutes);
 
 // Iniciar el servidor
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
