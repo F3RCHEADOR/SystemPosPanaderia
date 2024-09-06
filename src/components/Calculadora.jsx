@@ -174,7 +174,6 @@ const CalculatorPanel = ({ clientData }) => {
         life: 10000
       });
 
-      clearInputs();
       setShowConfirm(false); // Oculta el diálogo
 
     } catch (error) {
