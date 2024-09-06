@@ -42,7 +42,7 @@ const ClientList = ({ onDropCliente, onEditClient  }) => {
   const [selectedCliente, setSelectedCliente] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/clientes')
+    fetch('https://apipos-production.up.railway.app/api/clientes')
       .then(response => response.json())
       .then(data => setClientes(data))
       .catch(error => console.error('Error al cargar los clientes:', error));

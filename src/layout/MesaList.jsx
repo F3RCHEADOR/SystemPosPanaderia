@@ -65,21 +65,21 @@ const MesaList = ({ onClienteDrop }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const mesasResponse = await fetch('http://localhost:5000/api/mesas');
+        const mesasResponse = await fetch('https://apipos-production.up.railway.app/api/mesas');
         const mesasData = await mesasResponse.json();
         setMesas(mesasData);
-
-        const clientesResponse = await fetch('http://localhost:5000/api/clientes');
+  
+        const clientesResponse = await fetch('https://apipos-production.up.railway.app/api/clientes');
         const clientesData = await clientesResponse.json();
         setClientes(clientesData);
       } catch (error) {
         console.error('Error al cargar datos:', error);
       }
     };
-
+  
     fetchData();
   }, []);
-
+  
   const handleMesaClick = (codigo) => {
     setSelectedMesa(selectedMesa === codigo ? null : codigo);
   };
@@ -87,12 +87,12 @@ const MesaList = ({ onClienteDrop }) => {
   const handleClienteDrop = async (clienteCodigo, mesaCodigo) => {
     try {
       // Obtener los datos del cliente
-      const clienteResponse = await fetch(`http://localhost:5000/api/clientes/${clienteCodigo}`);
+      const clienteResponse = await fetch(`https://apipos-production.up.railway.app/api/clientes/${clienteCodigo}`);
       if (!clienteResponse.ok) throw new Error('Error al obtener datos del cliente');
       const clienteData = await clienteResponse.json();
 
       // Actualizar la mesa con los datos del cliente
-      const mesaUpdateResponse = await fetch(`http://localhost:5000/api/mesas/${mesaCodigo}/actualizar`, {
+      const mesaUpdateResponse = await fetch(`https://apipos-production.up.railway.app/api/mesas/${mesaCodigo}/actualizar`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ const MesaList = ({ onClienteDrop }) => {
       setMesas(prevMesas => prevMesas.map(mesa => (mesa.codigo === mesaCodigo ? updatedMesa : mesa)));
 
       // Eliminar el cliente
-      const deleteResponse = await fetch(`http://localhost:5000/api/clientes/${clienteCodigo}`, {
+      const deleteResponse = await fetch(`https://apipos-production.up.railway.app/api/clientes/${clienteCodigo}`, {
         method: 'DELETE',
       });
       if (!deleteResponse.ok) throw new Error('Error al eliminar el cliente');

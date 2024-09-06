@@ -17,7 +17,7 @@ const ProductList = () => {
 
   // Cargar las categorías al montar el componente
   useEffect(() => {
-    fetch('http://localhost:5000/api/categorias')
+    fetch('https://apipos-production.up.railway.app/api/categorias')
       .then(response => response.json())
       .then(data => {
         if (data && Array.isArray(data)) {
@@ -62,7 +62,7 @@ const ProductList = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/categorias', {
+      const response = await fetch('https://apipos-production.up.railway.app/api/categorias', {
         method: 'POST',
         body: formData,
       });
@@ -92,7 +92,7 @@ const ProductList = () => {
     };
 
     try {
-      const response = await fetch(`http://localhost:5000/api/categorias/${selectedCategoria.id}/productos`, {
+      const response = await fetch(`https://apipos-production.up.railway.app/api/categorias/${selectedCategoria.id}/productos`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

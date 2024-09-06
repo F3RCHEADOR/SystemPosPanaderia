@@ -8,7 +8,7 @@ const ListProducts = ({ clientData, isEdit }) => {
   const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/categorias')
+    fetch('https://apipos-production.up.railway.app/api/categorias')
       .then(response => response.json())
       .then(data => {
         if (data && Array.isArray(data)) {

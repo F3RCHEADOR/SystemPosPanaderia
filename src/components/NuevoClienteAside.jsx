@@ -41,7 +41,7 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
 
     try {
       if (cliente.tipoCliente === "Individual") {
-        response = await fetch(`http://localhost:5000/api/clientes${isEdit ? `/${cliente.codigo}` : ''}`, {
+        response = await fetch(`https://apipos-production.up.railway.app/api/clientes${isEdit ? `/${cliente.codigo}` : ''}`, {
           method: isEdit ? 'PUT' : 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -50,8 +50,8 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
         });
       } else if (cliente.tipoCliente === "Mesa") {
         const url = isEdit
-          ? `http://localhost:5000/api/mesas/${cliente.codigo}/actualizar`
-          : 'http://localhost:5000/api/mesas'; // Aquí suponemos que POST es para crear una nueva mesa
+          ? `https://apipos-production.up.railway.app/api/mesas/${cliente.codigo}/actualizar`
+          : 'https://apipos-production.up.railway.app/api/mesas'; // Aquí suponemos que POST es para crear una nueva mesa
 
         response = await fetch(url, {
           method: isEdit ? 'PUT' : 'POST',
@@ -62,7 +62,7 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
         });
       }
       else {
-        response = await fetch(`http://localhost:5000/api/clientes`, {
+        response = await fetch(`https://apipos-production.up.railway.app/api/clientes`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
