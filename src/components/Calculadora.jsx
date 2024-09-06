@@ -114,7 +114,7 @@ const CalculatorPanel = ({ clientData }) => {
     try {
       if (clientData.tipoCliente === "Individual") {
         // Elimina al cliente de la API
-        const deleteResponse = await fetch(`http://localhost:5000/api/clientes/${clientData.codigo}`, {
+        const deleteResponse = await fetch(`https://apipos-production.up.railway.app/api/clientes/${clientData.codigo}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json'
@@ -126,7 +126,7 @@ const CalculatorPanel = ({ clientData }) => {
         }
         // Guarda los datos del cliente en "pagos" para tipo "Individual"
         if (clientData.tipoCliente === "Individual") {
-          const saveResponse = await fetch('http://localhost:5000/api/clientes/pagos', {
+          const saveResponse = await fetch('https://apipos-production.up.railway.app/api/clientes/pagos', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -140,7 +140,7 @@ const CalculatorPanel = ({ clientData }) => {
         }
       } else if (clientData.tipoCliente === "Mesa") {
         // Si el cliente es una mesa, desocupa la mesa y guarda en pagos
-        const desocuparResponse = await fetch(`http://localhost:5000/api/mesas/${clientData.codigo}/desocupar`, {
+        const desocuparResponse = await fetch(`https://apipos-production.up.railway.app/api/mesas/${clientData.codigo}/desocupar`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -153,7 +153,7 @@ const CalculatorPanel = ({ clientData }) => {
         }
 
         // Guarda los datos del cliente en "pagos" para tipo "Mesa"
-        const saveResponse = await fetch('http://localhost:5000/api/mesas/pagos', {
+        const saveResponse = await fetch('https://apipos-production.up.railway.app/api/mesas/pagos', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

@@ -9,8 +9,8 @@ const ProductSlider = ({ categorias, activeCategoriaId, handleCategoriaClick, qu
     dots: true,
     infinite: true,
     speed: 400,
-    slidesToShow: 3,
-    slidesToScroll: 1,
+    slidesToShow: 4,
+    slidesToScroll: 4,
     responsive: [
       {
         breakpoint: 1024,
