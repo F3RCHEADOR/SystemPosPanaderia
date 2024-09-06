@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "codigo": "C001",
+    "horaLlegada": "16:09:30",
+    "productos": [],
+    "valorAcumulado": 0
+  },
+  {
+    "codigo": "C002",
+    "horaLlegada": "16:43:57",
+    "productos": [
+      {
+        "nombre": "Capuchino",
+        "precio": 5000,
+        "cantidad": 2
+      },
+      {
+        "nombre": "Hojaldra Bocadillo",
+        "precio": 2500,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Torta Queso",
+        "precio": 4000,
+        "cantidad": 1
+      }
+    ],
+    "valorAcumulado": 16500
+  },
+  {
+    "codigo": "C003",
+    "horaLlegada": "16:59:22",
+    "productos": [
+      {
+        "nombre": "Pan 5000",
+        "precio": 5000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Dona Esferica",
+        "precio": 2500,
+        "cantidad": 1
+      }
+    ],
+    "valorAcumulado": 7500
+  }
+]

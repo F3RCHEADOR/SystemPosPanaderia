@@ -36,26 +36,31 @@
       {
         "nombre": "Capuchino",
         "precio": 5000,
+        "cantidad": 2
+      },
+      {
+        "nombre": "Hojaldra Bocadillo",
+        "precio": 2500,
         "cantidad": 1
       },
       {
-        "nombre": "Torta vino",
-        "precio": 5000,
+        "nombre": "Pan Abuela",
+        "precio": 8000,
         "cantidad": 1
       },
       {
-        "nombre": "Brazo de Chocolate",
+        "nombre": "Pan 2000",
+        "precio": 2000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Torta Queso",
         "precio": 4000,
-        "cantidad": 1
-      },
-      {
-        "nombre": "CocaCola Personal Vidrio",
-        "precio": 3000,
         "cantidad": 1
       }
     ],
-    "valorAcumulado": 17000,
-    "horaOcupado": "2024-09-04T21:20:08.801Z"
+    "valorAcumulado": 26500,
+    "horaOcupado": "2024-09-05T21:44:25.543Z"
   },
   {
     "codigo": "M03",
@@ -84,7 +89,21 @@
   {
     "codigo": "M05",
     "horaDesocupado": "",
-    "estado": "Desocupado"
+    "estado": "Ocupado",
+    "productos": [
+      {
+        "nombre": "Tinto grande",
+        "precio": 3000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Brownie",
+        "precio": 3000,
+        "cantidad": 1
+      }
+    ],
+    "valorAcumulado": 6000,
+    "horaOcupado": "2024-09-05T20:47:46.832Z"
   },
   {
     "codigo": "M06",
