@@ -15,6 +15,8 @@ const CalculatorPanel = ({ clientData }) => {
   const [change, setChange] = useState('');
   const [activeInput, setActiveInput] = useState('costTotal');
   const [showConfirm, setShowConfirm] = useState(false); // Estado para controlar el diálogo
+  const [applyDiscount, setApplyDiscount] = useState(false); // Estado para aplicar descuento
+  const [discountPercentage, setDiscountPercentage] = useState(''); // Estado para porcentaje de descuento
   const toastBC = useRef(null); // Referencia al Toast
 
   // Efecto para inicializar el costo total al cargar el componente
@@ -46,6 +48,8 @@ const CalculatorPanel = ({ clientData }) => {
     setCostTotal(''); // Reinicia el costo total con el valor inicial
     setReceivedAmount('');
     setChange('');
+    setApplyDiscount(false); // Resetea el estado del descuento
+    setDiscountPercentage(''); // Resetea el porcentaje de descuento
   };
 
   // Función para manejar la confirmación de la compra
@@ -187,14 +191,10 @@ const CalculatorPanel = ({ clientData }) => {
     }
   };
 
-
-
-
   // Función para cancelar la compra
   const cancelPurchase = () => {
     setShowConfirm(false); // Oculta el diálogo
   };
-
 
   return (
     <div className="grid grid-cols-3 gap-4">
@@ -224,7 +224,7 @@ const CalculatorPanel = ({ clientData }) => {
         >
           <p>¿Deseas efectuar la compra?</p>
         </Dialog>
-  
+
         {/* Sección de detalles del costo */}
         <div className="w-3/4 border-8 rounded-xl p-4">
           <div className="flex flex-col gap-4">
@@ -241,7 +241,7 @@ const CalculatorPanel = ({ clientData }) => {
                 onClick={() => setActiveInput('costTotal')}
               />
             </div>
-  
+
             {/* Recibe */}
             <div className="text-center">
               <label className="font-semibold text-lg">Recibe</label>
@@ -255,7 +255,7 @@ const CalculatorPanel = ({ clientData }) => {
                 onClick={() => setActiveInput('receivedAmount')}
               />
             </div>
-  
+
             {/* Cambio */}
             <div className="text-center">
               <label className="font-semibold text-lg">Cambio</label>
