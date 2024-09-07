@@ -7,7 +7,7 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 
 function ContadorBilletes() {
   const toast = useRef(null);
-
+  const backend = import.meta.env.VITE_BUSINESS_BACKEND;
   const [billetes, setBilletes] = useState({
     100000: 0,
     50000: 0,
@@ -23,22 +23,31 @@ function ContadorBilletes() {
   });
 
   const [tipoCaja, setTipoCaja] = useState(null);
+  const [ultimoTotal, setUltimoTotal] = useState(null);
+  const [ultimoTotalLetras, setUltimoTotalLetras] = useState(null);
+  const [ultimoFecha, setUltimoFecha] = useState(null);
+  const [ultimoHora, setUltimoHora] = useState(null);
   const [idCaja, setIdCaja] = useState(null);
 
   const verificarEstadoCaja = async () => {
     try {
-      const response = await fetch('https://apipos-production.up.railway.app/api/caja');
+      const response = await fetch(backend + 'api/caja');
       if (!response.ok) throw new Error('Error al obtener el estado de la caja');
 
       const data = await response.json();
 
       // Obtiene el último registro
       const ultimoRegistro = data[data.length - 1];
+      console.log(ultimoRegistro);
 
       // Determina el tipo de caja para la siguiente operación
       if (ultimoRegistro) {
         setTipoCaja(ultimoRegistro.tipoCaja === 'apertura' ? 'cierre' : 'apertura');
         setIdCaja(ultimoRegistro.id + 1);
+        setUltimoTotal(ultimoRegistro.totalCaja);
+        setUltimoTotalLetras(convertirNumero(ultimoRegistro.totalCaja));
+        setUltimoFecha(ultimoRegistro.fecha);
+        setUltimoHora(ultimoRegistro.hora);
       } else {
         setTipoCaja('apertura'); // Si no hay registros, comienza con 'apertura'
       }
@@ -73,7 +82,7 @@ function ContadorBilletes() {
           return;
         }
 
-        const response = await fetch(`'https://apipos-production.up.railway.app/api/caja/registrar`, {
+        const response = await fetch(`${backend}api/caja/registrar`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -161,9 +170,27 @@ function ContadorBilletes() {
                 ))}
             </div>
           </div>
-          <div className="flex flex-col items-center mt-8">
-            <div>
-              <h1 className='text-center bg-green-200 font-bold text-2xl p-1 mx-4 mb-6'>
+          <div className="flex flex-col items-center ">
+            <div className='bg-slate-100 border-4 rounded-xl p-2 w-full m-2 mb-4 space-y-2 '>
+              <h2 className='text-center font-bold text-lg italic bg-blue-100'>Datos {tipoCaja === 'apertura' ? 'Ultima Apertura' : tipoCaja === 'cierre' ? 'Ultimo Cierre' : ''} de Caja</h2>
+              <div className='flex items-center justify-between font-semibold italic'>
+                <span className='bg-blue-200 p-1 rounded-full'>Fecha</span>
+                <span className='bg-blue-200 p-1 rounded-full'>Hora</span>
+              </div>
+              <div className='flex items-center justify-between font-bold underline'>
+                <span>{ultimoFecha}</span>
+                <span>{ultimoHora}</span>
+              </div>
+              <div className='flex items-center justify-between font-bold'>
+              <span className='italic bg-blue-200 p-1 rounded-full'>Total Caja</span>
+              <span className='underline'>{ultimoTotal}</span>
+              </div>
+              <h2 className='w-full text-center font-bold p-2 bg-blue-200 italic'>
+                Total en Letras: <span className='underline'>{ultimoTotalLetras}</span>
+              </h2>
+            </div>
+            <div className='w-full  p-2'>
+              <h1 className='text-center bg-green-200 font-bold text-2xl p-1 mx-4 mb-2'>
                 {tipoCaja === 'apertura' ? 'Apertura de la Caja' : tipoCaja === 'cierre' ? 'Cierre de la Caja' : 'Estado de la Caja'}
               </h1>
               <h3 className='text-2xl font-semibold text-gray-800'>Caja Numero: #{idCaja}</h3>
@@ -171,7 +198,7 @@ function ContadorBilletes() {
               <p className="text-lg font-medium text-gray-600 mt-2">
                 ({totalEnLetras})
               </p>
-              <p className='text-lg font-medium text-gray-600 mt-2 '> Fecha y Hora de {tipoCaja === 'apertura' ? 'Apertura' : tipoCaja === 'cierre' ? 'Cierre' : ''}: {formatearFecha()}</p>
+              <p className='text-lg font-medium text-gray-600 mt-2 text-center   '> Fecha y Hora de {tipoCaja === 'apertura' ? 'Apertura' : tipoCaja === 'cierre' ? 'Cierre' : ''}: {formatearFecha()}</p>
               <div className="mt-6 text-center">
                 <Button
                   className="bg-blue-600 text-xl font-bold text-white py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:scale-105 transition duration-150"
