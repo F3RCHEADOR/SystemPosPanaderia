@@ -27,7 +27,7 @@ function ContadorBilletes() {
 
   const verificarEstadoCaja = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/caja');
+      const response = await fetch('https://apipos-production.up.railway.app/api/caja');
       if (!response.ok) throw new Error('Error al obtener el estado de la caja');
 
       const data = await response.json();
@@ -73,7 +73,7 @@ function ContadorBilletes() {
           return;
         }
 
-        const response = await fetch(`http://localhost:5000/api/caja/registrar`, {
+        const response = await fetch(`'https://apipos-production.up.railway.app/api/caja/registrar`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
