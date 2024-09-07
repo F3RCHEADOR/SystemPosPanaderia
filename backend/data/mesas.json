@@ -89,7 +89,7 @@
   {
     "codigo": "M05",
     "horaDesocupado": "",
-    "estado": "Ocupado",
+    "estado": "Desocupado",
     "productos": [
       {
         "nombre": "Tinto grande",

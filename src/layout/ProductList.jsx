@@ -3,6 +3,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Toast } from 'primereact/toast';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 
+const backend = import.meta.env.VITE_BUSINESS_BACKEND;
+
+
 const ProductList = () => {
   const toast = useRef(null);
   const [categorias, setCategorias] = useState([]);
@@ -17,7 +20,7 @@ const ProductList = () => {
 
   // Cargar las categorías al montar el componente
   useEffect(() => {
-    fetch('https://apipos-production.up.railway.app/api/categorias')
+    fetch(backend+'api/categorias')
       .then(response => response.json())
       .then(data => {
         if (data && Array.isArray(data)) {
@@ -62,7 +65,7 @@ const ProductList = () => {
     }
 
     try {
-      const response = await fetch('https://apipos-production.up.railway.app/api/categorias', {
+      const response = await fetch(backend+'api/categorias', {
         method: 'POST',
         body: formData,
       });
@@ -92,7 +95,7 @@ const ProductList = () => {
     };
 
     try {
-      const response = await fetch(`https://apipos-production.up.railway.app/api/categorias/${selectedCategoria.id}/productos`, {
+      const response = await fetch(backend+`api/categorias/${selectedCategoria.id}/productos`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

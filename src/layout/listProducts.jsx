@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import NuevoClienteAside from "../components/NuevoClienteAside";
 import ProductSlider from "../components/ProductSlider";
 
+const backend = import.meta.env.VITE_BUSINESS_BACKEND;
+
+
 const ListProducts = ({ clientData, isEdit }) => {
   const [categorias, setCategorias] = useState([]);
   const [activeCategoriaId, setActiveCategoriaId] = useState(null);
   const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
-    fetch('https://apipos-production.up.railway.app/api/categorias')
+    fetch(backend+'api/categorias')
       .then(response => response.json())
       .then(data => {
         if (data && Array.isArray(data)) {

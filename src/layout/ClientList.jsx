@@ -8,7 +8,12 @@ const ItemTypes = {
   CLIENT: 'client',
 };
 
+const backend = import.meta.env.VITE_BUSINESS_BACKEND;
+
 const Client = ({ cliente, selectedCliente, onClientClick }) => {
+
+ 
+
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.CLIENT,
     item: cliente,
@@ -42,7 +47,7 @@ const ClientList = ({ onDropCliente, onEditClient  }) => {
   const [selectedCliente, setSelectedCliente] = useState(null);
 
   useEffect(() => {
-    fetch('https://apipos-production.up.railway.app/api/clientes')
+    fetch(backend+'api/clientes')
       .then(response => response.json())
       .then(data => setClientes(data))
       .catch(error => console.error('Error al cargar los clientes:', error));
