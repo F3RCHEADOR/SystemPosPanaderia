@@ -121,7 +121,8 @@ const MesaList = ({ onClienteDrop }) => {
 
       // Actualizar la lista de clientes en el estado
       setClientes(prevClientes => prevClientes.filter(cliente => cliente.codigo !== clienteCodigo));
-      window.location.reload();
+      window.location.href = '/';
+
     } catch (error) {
       console.error('Error al manejar cliente:', error);
     }

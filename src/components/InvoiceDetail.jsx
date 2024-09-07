@@ -6,7 +6,7 @@ const nombreNegocio = import.meta.env.VITE_BUSINESS_NAME;
 const logoNegocio = import.meta.env.VITE_BUSINESS_IMAGE;
 const direccionNegocio = import.meta.env.VITE_BUSINESS_ADDRESS;
 
-const InvoiceDetail = ({ clientData, recibe, cambio }) => {
+const InvoiceDetail = ({ clientData, recibe, cambio, total }) => {
   const componentRef = useRef();
 
   const handlePrint = useReactToPrint({
@@ -65,7 +65,7 @@ const InvoiceDetail = ({ clientData, recibe, cambio }) => {
         <ul>
           <li className='grid grid-cols-5 gap-2'>
             <span className='col-span-3 font-bold'>Total:</span>
-            <span className='col-span-2 text-center font-bold'>{clientData.valorAcumulado}</span>
+            <span className='col-span-2 text-center font-bold'>{total}</span>
           </li>
           <li className='grid grid-cols-5 gap-2'>
             <span className='col-span-3'>Recibe:</span>

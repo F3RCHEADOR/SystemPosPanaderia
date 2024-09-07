@@ -3,17 +3,16 @@ import { useDrag } from 'react-dnd';
 import ClientInfo from '../components/infoClient';
 import clienteImagen from "../assets/client.png";
 
+const backend = import.meta.env.VITE_BUSINESS_BACKEND;
 
 const ItemTypes = {
   CLIENT: 'client',
 };
 
-const backend = import.meta.env.VITE_BUSINESS_BACKEND;
-
 const Client = ({ cliente, selectedCliente, onClientClick }) => {
 
- 
 
+  
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.CLIENT,
     item: cliente,

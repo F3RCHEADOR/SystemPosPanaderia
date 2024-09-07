@@ -6,6 +6,8 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 
 const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
 
+  const backend = import.meta.env.VITE_BUSINESS_BACKEND;
+
   const toast = useRef(null);
 
   const calculateTotal = () => {
@@ -41,7 +43,7 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
 
     try {
       if (cliente.tipoCliente === "Individual") {
-        response = await fetch(`https://apipos-production.up.railway.app/api/clientes${isEdit ? `/${cliente.codigo}` : ''}`, {
+        response = await fetch(`${backend}api/clientes${isEdit ? `/${cliente.codigo}` : ''}`, {
           method: isEdit ? 'PUT' : 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -50,8 +52,8 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
         });
       } else if (cliente.tipoCliente === "Mesa") {
         const url = isEdit
-          ? `https://apipos-production.up.railway.app/api/mesas/${cliente.codigo}/actualizar`
-          : 'https://apipos-production.up.railway.app/api/mesas'; // Aquí suponemos que POST es para crear una nueva mesa
+          ? `${backend}api/mesas/${cliente.codigo}/actualizar`
+          : '${backend}api/mesas'; // Aquí suponemos que POST es para crear una nueva mesa
 
         response = await fetch(url, {
           method: isEdit ? 'PUT' : 'POST',
@@ -62,7 +64,7 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
         });
       }
       else {
-        response = await fetch(`https://apipos-production.up.railway.app/api/clientes`, {
+        response = await fetch(`${backend}api/clientes`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
