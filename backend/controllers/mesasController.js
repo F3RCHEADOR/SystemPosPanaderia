@@ -55,6 +55,7 @@ router.put('/:codigo/desocupar', (req, res) => {
     // Editar la mesa
     mesas[mesaIndex].horaDesocupado = ''; // Cambia según lo que necesites
     mesas[mesaIndex].estado = 'Desocupado'; // Cambia el estado a "Desocupado"
+    mesas[mesaIndex].productos = '';
 
     saveMesas(mesas);
     res.status(200).json({ message: 'Mesa actualizada correctamente' });
