@@ -244,7 +244,7 @@ const CalculatorPanel = ({ clientData }) => {
         </Dialog>
 
         {/* Sección de detalles del costo */}
-        <div className="w-full border-8 rounded-xl p-4">
+        <div className="w-3/4 border-8 rounded-xl p-4">
           <div className="flex flex-col gap-4">
             {/* Costo Total */}
             <div className="text-center">
