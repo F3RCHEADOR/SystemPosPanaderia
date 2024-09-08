@@ -216,7 +216,7 @@ const CalculatorPanel = ({ clientData }) => {
 
   return (
     <div className="grid grid-cols-3 gap-4 mt-4">
-      <div className="flex flex-col w-full h-full mb-8 overflow-auto items-center justify-center col-span-2 mx-auto border-4">
+      <div className="flex flex-col w-full max-h-screen mb-8 overflow-auto items-center justify-center col-span-2 mx-auto border-4">
         <Toast ref={toastBC} />
         <Dialog
           header="Confirmación de Compra"
