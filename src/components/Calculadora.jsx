@@ -215,8 +215,8 @@ const CalculatorPanel = ({ clientData }) => {
   };
 
   return (
-    <div className="grid grid-cols-3 gap-4 mt-4">
-      <div className="flex flex-col w-full max-h-screen mb-8 overflow-auto items-center justify-center col-span-2 mx-auto border-4">
+    <div className="grid grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="flex flex-col w-full items-center justify-center col-span-2 xl:col-span-3 mx-auto border-4">
         <Toast ref={toastBC} />
         <Dialog
           header="Confirmación de Compra"
@@ -244,24 +244,43 @@ const CalculatorPanel = ({ clientData }) => {
         </Dialog>
 
         {/* Sección de detalles del costo */}
-        <div className="w-3/4 border-8 rounded-xl p-4">
-          <div className="flex flex-col gap-4">
-            {/* Costo Total */}
-            <div className="text-center">
-              <input
-                id="costTotal"
-                type="text"
-                className="w-full text-xl font-bold p-4 border-4 bg-blue-100 border-blue-300 cursor-pointer"
-                placeholder="Costo Total"
-                value={costTotal}
-                onClick={() => setActiveInput('costTotal')}
-                onChange={handleInputChange}
-              />
+        <div className="w-full rounded-xl p-4">
+          <div className="">
+            <div className='grid grid-cols-3 gap-6'>
+              {/* Costo Total */}
+              <div className="text-center col-span-2">
+                <input
+                  id="costTotal"
+                  type="text"
+                  className="w-full text-xl font-bold p-4 border-4 bg-blue-100 border-blue-300 cursor-pointer"
+                  placeholder="Costo Total"
+                  value={costTotal}
+                  onClick={() => setActiveInput('costTotal')}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              {/* Porcentaje de Descuento */}
+              {applyDiscount && (
+                <div className="text-center w-full">
+
+                  <input
+                    id="discountPercentage"
+                    type="number"
+                    className="w-full text-xl font-bold p-4 border-4 bg-yellow-100 border-yellow-300"
+                    placeholder="Descuento (%)"
+                    value={discountPercentage}
+                    onClick={() => setActiveInput('discountPercentage')}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              )}
             </div>
 
+
             {/* Checkbox de Descuento */}
-            <div className="flex items-center gap-4">
-              <input
+            <div className="flex items-center justify-center mx-auto m-4 gap-2">
+              <input className=''
                 type="checkbox"
                 id="applyDiscount"
                 checked={applyDiscount}
@@ -270,22 +289,9 @@ const CalculatorPanel = ({ clientData }) => {
               <label htmlFor="applyDiscount" className="font-semibold text-lg">Aplicar Descuento</label>
             </div>
 
-            {/* Porcentaje de Descuento */}
-            {applyDiscount && (
-              <div className="text-center">
-                <label className="font-semibold text-lg">Porcentaje de Descuento</label>
-                <input
-                  id="discountPercentage"
-                  type="number"
-                  className="w-full text-xl font-bold p-4 border-4 bg-yellow-100 border-yellow-300"
-                  placeholder="Descuento (%)"
-                  value={discountPercentage}
-                  onClick={() => setActiveInput('discountPercentage')}
-                  onChange={handleInputChange}
-                />
-              </div>
-            )}
 
+          </div>
+          <div className='flex flex-col space-y-2'>
             {/* Monto Recibido */}
             <div className="text-center">
               <input
@@ -316,10 +322,10 @@ const CalculatorPanel = ({ clientData }) => {
                 <ButtonCalculator key={value} value={value} onClick={() => handleButtonClick(value)} />
               ))}
             </div>
-  
+
             {/* Botones de acciones */}
-            <div className="grid grid-cols-2 gap-2 my-4">
-             
+            <div className="grid grid-cols-2 gap-16 my-4">
+
               <button
                 className="bg-red-400 text-white rounded-xl border-4 px-4 py-2 font-bold hover:scale-105 active:bg-red-500"
                 onClick={clearInputs}
@@ -336,10 +342,11 @@ const CalculatorPanel = ({ clientData }) => {
           </div>
         </div>
       </div>
-  
-      <InvoiceDetail clientData={clientData} recibe={receivedAmount} cambio={change} total={costTotal} />
+    <div className='w-full'>
+    <InvoiceDetail clientData={clientData} recibe={receivedAmount} cambio={change} total={costTotal ? costTotal : '0'} />
+    </div>          
     </div>
-  );  
+  );
 
 };
 

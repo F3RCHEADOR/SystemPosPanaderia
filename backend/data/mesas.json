@@ -2,31 +2,7 @@
   {
     "codigo": "M01",
     "horaDesocupado": "",
-    "estado": "Desocupado",
-    "productos": [
-      {
-        "nombre": "Masato",
-        "precio": 3000,
-        "cantidad": 1
-      },
-      {
-        "nombre": "tinto pequeño",
-        "precio": 2000,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Mantecada",
-        "precio": 5000,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Brownie",
-        "precio": 3000,
-        "cantidad": 1
-      }
-    ],
-    "valorAcumulado": 13000,
-    "horaOcupado": "2024-09-04T23:44:43.178Z"
+    "estado": "Desocupado"
   },
   {
     "codigo": "M02",

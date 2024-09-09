@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import convertirNumero from '../numberToWords.js';
-import BagMoney from '../assets/money-bag.png';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
+import InvoiceCaja from '../components/InvoiceCaja.jsx';
 
 function ContadorBilletes() {
   const toast = useRef(null);
@@ -28,6 +28,8 @@ function ContadorBilletes() {
   const [ultimoFecha, setUltimoFecha] = useState(null);
   const [ultimoHora, setUltimoHora] = useState(null);
   const [idCaja, setIdCaja] = useState(null);
+  const [imprimir, setImprimir] = useState(false); // Estado para manejar impresión
+  const [imprimirEnviada, setImprimirEnviada] = useState(false); // Estado para manejar impresión
 
   const verificarEstadoCaja = async () => {
     try {
@@ -61,6 +63,22 @@ function ContadorBilletes() {
     verificarEstadoCaja();
   }, []);
 
+  useEffect(() => {
+    if (imprimir) {
+      setImprimirEnviada(true);
+    }
+  }, [imprimir]);
+
+  // Efecto para restablecer el estado de impresión después de imprimir
+  useEffect(() => {
+    if (imprimirEnviada) {
+      // Aquí puedes manejar la lógica de impresión, como cerrar la ventana de impresión si es necesario
+      // Después de manejar la impresión, restablecemos el estado de impresión
+      setImprimir(false);
+      setImprimirEnviada(false);
+    }
+  }, [imprimirEnviada]);
+
   const handleChange = (denominacion, valor) => {
     setBilletes((prevBilletes) => ({
       ...prevBilletes,
@@ -69,13 +87,13 @@ function ContadorBilletes() {
   };
 
   const mensaje = tipoCaja === 'apertura'
-    ? 'Apertura de Caja'
+    ? 'Abrir Caja'
     : tipoCaja === 'cierre'
-      ? 'Cierre de Caja'
+      ? 'Cerrar Caja'
       : 'Estado de Caja';
 
   const confirmarCaja = async () => {
-    if (confirm('Estas Seguro De Realizar Esta Accion?')) {
+    if (confirm('¿Estás seguro de realizar esta acción?')) {
       try {
         if (!tipoCaja) {
           alert('No se pudo determinar el tipo de caja');
@@ -88,7 +106,7 @@ function ContadorBilletes() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            tipoCaja, // 'apertura' o 'cierre'
+            tipoCaja,
             fecha: formatearFecha().split(' ')[0],
             hora: formatearFecha().split(' ')[1],
             tipoMoneda: billetes,
@@ -101,26 +119,17 @@ function ContadorBilletes() {
         }
 
         const resultado = await response.json();
-        toast.current.show({ severity: "success", summary: mensaje + 'Realizado Correctamente', life: 15000 });
-        console.log('Resultado:', resultado); // Opcional, para depuración
+        toast.current.show({ severity: "success", summary: mensaje + ' realizado correctamente', life: 15000 });
+        console.log('Resultado:', resultado);
 
-        // Limpia los campos después de registrar la caja
-        limpiarCampos();
+        // Activa la impresión
+        setImprimir(true);
         verificarEstadoCaja();
       } catch (error) {
         console.error('Error:', error);
         alert('Ocurrió un error al registrar la caja');
       }
     }
-  };
-
-
-  const limpiarCampos = () => {
-    // Restablece los valores de los billetes a 0
-    Object.keys(billetes).forEach((denominacion) => {
-      handleChange(denominacion, 0);
-    });
-
   };
 
   const total = Object.keys(billetes).reduce(
@@ -172,7 +181,7 @@ function ContadorBilletes() {
           </div>
           <div className="flex flex-col items-center ">
             <div className='bg-slate-100 border-4 rounded-xl p-2 w-full m-2 mb-4 space-y-2 '>
-              <h2 className='text-center font-bold text-lg italic bg-blue-100'>Datos {tipoCaja === 'apertura' ? 'Ultima Apertura' : tipoCaja === 'cierre' ? 'Ultimo Cierre' : ''} de Caja</h2>
+              <h2 className='text-center font-bold text-lg italic bg-blue-100'>Datos {tipoCaja === 'apertura' ? 'Ultimo Cierre' : tipoCaja === 'cierre' ? 'Ultima Apertura' : 'Ultima Apertura'} de Caja</h2>
               <div className='flex items-center justify-between font-semibold italic'>
                 <span className='bg-blue-200 p-1 rounded-full'>Fecha</span>
                 <span className='bg-blue-200 p-1 rounded-full'>Hora</span>
@@ -182,15 +191,17 @@ function ContadorBilletes() {
                 <span>{ultimoHora}</span>
               </div>
               <div className='flex items-center justify-between font-bold'>
-              <span className='italic bg-blue-200 p-1 rounded-full'>Total Caja</span>
-              <span className='underline'>{ultimoTotal}</span>
+                <span className='italic bg-blue-200 p-1 rounded-full'>Total Caja</span>
+                <span className='underline'>{ultimoTotal}</span>
               </div>
               <h2 className='w-full text-center font-bold p-2 bg-blue-200 italic'>
                 Total en Letras: <span className='underline'>{ultimoTotalLetras}</span>
               </h2>
+              <Button label={'Imprimir'} className='bg-green-400 p-2 font-bold border-4 flex items-center justify-center mx-auto rounded-xl hover:bg-green-500 ' />
+
             </div>
-            <div className='w-full  p-2'>
-              <h1 className='text-center bg-green-200 font-bold text-2xl p-1 mx-4 mb-2'>
+            <div className='w-full border-4 p-2'>
+              <h1 className='text-center bg-green-200 font-bold text-2xl p-1  mb-2'>
                 {tipoCaja === 'apertura' ? 'Apertura de la Caja' : tipoCaja === 'cierre' ? 'Cierre de la Caja' : 'Estado de la Caja'}
               </h1>
               <h3 className='text-2xl font-semibold text-gray-800'>Caja Numero: #{idCaja}</h3>
@@ -199,21 +210,25 @@ function ContadorBilletes() {
                 ({totalEnLetras})
               </p>
               <p className='text-lg font-medium text-gray-600 mt-2 text-center   '> Fecha y Hora de {tipoCaja === 'apertura' ? 'Apertura' : tipoCaja === 'cierre' ? 'Cierre' : ''}: {formatearFecha()}</p>
-              <div className="mt-6 text-center">
-                <Button
-                  className="bg-blue-600 text-xl font-bold text-white py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:scale-105 transition duration-150"
-                  onClick={confirmarCaja}
-                  label={'Confirmar ' + mensaje}
-                />
 
-                <img src={BagMoney} alt="imagen" className='size-32 mx-auto mt-12 hover:scale-110 duration-200' />
-              </div>
+              <Button
+                className="bg-red-400 p-2 border-4 rounded-xl flex items-center justify-center mx-auto font-extrabold text-lg hover:scale-105 hover:bg-red-500 mt-2"
+                onClick={confirmarCaja}
+                label={mensaje}
+              />
             </div>
+            {imprimirEnviada && (
+              <InvoiceCaja
+                billetes={billetes}
+                mensaje={mensaje}
+                total={total}
+                imprimir={imprimirEnviada}
+              />
+            )}
           </div>
         </div>
       </div>
     </>
-
   );
 }
 

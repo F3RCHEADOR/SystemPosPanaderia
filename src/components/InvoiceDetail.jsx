@@ -5,6 +5,7 @@ const tipoNegocio = import.meta.env.VITE_BUSINESS_TYPE;
 const nombreNegocio = import.meta.env.VITE_BUSINESS_NAME;
 const logoNegocio = import.meta.env.VITE_BUSINESS_IMAGE;
 const direccionNegocio = import.meta.env.VITE_BUSINESS_ADDRESS;
+const telefonoNegocio = import.meta.env.VITE_BUSINESS_CELLPHONE;
 
 const InvoiceDetail = ({ clientData, recibe, cambio, total }) => {
   const componentRef = useRef();
@@ -21,9 +22,16 @@ const InvoiceDetail = ({ clientData, recibe, cambio, total }) => {
           margin: 0;
           padding: 0;
         }
+        .print-content {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh; /* Ajusta según sea necesario */
+        }
       }
     `,
   });
+
 
   return (
     <div>
@@ -73,7 +81,7 @@ const InvoiceDetail = ({ clientData, recibe, cambio, total }) => {
           </li>
           <li className='grid grid-cols-5 gap-2'>
             <span className='col-span-3'>Cambio:</span>
-            <span className='col-span-2 text-center font-bold'>{cambio ? cambio : 'Por determinar'}</span>
+            <span className='col-span-2 text-center font-bold'>  {cambio === 0 ? 0 : (cambio ? cambio : 'Por determinar')}</span>
           </li>
         </ul>
 
@@ -83,14 +91,14 @@ const InvoiceDetail = ({ clientData, recibe, cambio, total }) => {
           <span className='w-full font-semibold'>Dirección:</span>
           <span className='col-span-2'>{direccionNegocio}</span>
           <span className='w-full font-semibold'>Teléfono:</span>
-          <span className='col-span-2'>Teléfono del Negocio</span>
+          <span className='col-span-2'>{telefonoNegocio}</span>
         </div>
         <h3 className='text-center mt-4'>Piedecuesta</h3>
 
         <p className='text-center font-light'>Gracias Por Tu Compra :3</p>
       </div>
 
-      <button onClick={handlePrint} className='mt-4 p-2 bg-blue-500 text-white rounded'>
+      <button onClick={handlePrint} className='flex items-center justify-center mx-auto mt-4 p-2 bg-blue-500 text-white rounded'>
         Imprimir Factura
       </button>
     </div>

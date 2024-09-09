@@ -20,7 +20,7 @@ const ProductList = () => {
 
   // Cargar las categorías al montar el componente
   useEffect(() => {
-    fetch(backend+'api/categorias')
+    fetch(backend + 'api/categorias')
       .then(response => response.json())
       .then(data => {
         if (data && Array.isArray(data)) {
@@ -65,7 +65,7 @@ const ProductList = () => {
     }
 
     try {
-      const response = await fetch(backend+'api/categorias', {
+      const response = await fetch(backend + 'api/categorias', {
         method: 'POST',
         body: formData,
       });
@@ -95,7 +95,7 @@ const ProductList = () => {
     };
 
     try {
-      const response = await fetch(backend+`api/categorias/${selectedCategoria.id}/productos`, {
+      const response = await fetch(backend + `api/categorias/${selectedCategoria.id}/productos`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -127,6 +127,36 @@ const ProductList = () => {
     }
   };
 
+  const handleDeleteProduct = async (categoriaId, productoId) => {
+    if (confirm('¿Deseas Eliminar el Producto Seleccionado?')) {
+      try {
+        const response = await fetch(`${backend}api/categorias/${categoriaId}/productos/${productoId}`, {
+          method: 'DELETE',
+        });
+
+        if (response.ok) {
+          const updatedCategorias = categorias.map(categoria => {
+            if (categoria.id === categoriaId) {
+              return {
+                ...categoria,
+                productos: categoria.productos.filter(producto => producto.id !== productoId),
+              };
+            }
+            return categoria;
+          });
+          setCategorias(updatedCategorias);
+          toast.current.show({ severity: 'success', summary: 'Producto Eliminado', detail: 'El producto ha sido eliminado', life: 3000 });
+        } else {
+          toast.current.show({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el producto', life: 3000 });
+          console.error('Error al eliminar producto:', response.statusText);
+        }
+      } catch (error) {
+        toast.current.show({ severity: 'error', summary: 'Error', detail: 'Error en la conexión', life: 3000 });
+        console.error('Error en la conexión:', error);
+      }
+    }
+  };
+
   return (
     <>
       <Toast ref={toast} />
@@ -154,14 +184,25 @@ const ProductList = () => {
               </button>
 
               {activeCategoriaId === categoria.id && (
-                <div className='border-8 border-gray-400 rounded-xl fixed top-1/2 z-30 h-80 overflow-auto left-1/2 bg-white p-8 transform -translate-y-1/2 -translate-x-1/2'>
-                  <ul className="space-y-2 w-96">
+                <div className='border-8 border-gray-400 rounded-xl fixed top-1/2 z-30 h-96 overflow-auto left-1/2 bg-white p-8 transform -translate-y-1/2 -translate-x-1/2'>
+                  <ul className="space-y-2 w-[500px]">
                     <button className="absolute top-2 right-2 flex items-center justify-center bg-red-500 px-2 py-1 font-extrabold text-white rounded-full border-4 border-gray-800" onClick={() => handleCategoriaClick(categoria.id)}>X</button>
                     <h2 className='font-bold underline m-4 text-center pt-4'> Lista de Productos de {categoria.nombre}</h2>
+                    <div className='px-4 py-2 grid grid-cols-4 gap-4 font-bold text-lg underline'>
+                      <span className='col-span-2'>Producto</span>
+                      <span>Precio</span>
+                      <span>Acciones</span>
+                    </div>
                     {categoria.productos.map((producto) => (
-                      <li key={producto.id} className="p-4 bg-white shadow-md rounded flex items-center justify-between">
-                        <span className="font-semibold">{producto.nombre}</span>
-                        <span className="text-gray-500">${producto.precio.toFixed(2)}</span>
+                      <li key={producto.id} className="p-4 grid grid-cols-4 gap-4 bg-white shadow-md">
+                        <span className="col-span-2 font-semibold">{producto.nombre}</span>
+                        <span className="text-gray-500">${producto.precio}</span>
+                        <button
+                          className='bg-red-200 p-1 font-bold rounded-full'
+                          onClick={() => handleDeleteProduct(categoria.id, producto.id)}
+                        >
+                          Eliminar
+                        </button>
                       </li>
                     ))}
                   </ul>

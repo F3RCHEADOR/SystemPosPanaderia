@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import Client from '../assets/client.png';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
@@ -8,7 +8,15 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
 
   const backend = import.meta.env.VITE_BUSINESS_BACKEND;
 
+  const[buttonDisabled, setButtonDisabled] = useState(false)
+
   const toast = useRef(null);
+
+  // Verifica si hay al menos un valor en `quantities` que no sea igual a `0`
+  const hasNonOneQuantity = quantities && Object.values(quantities).some(value => value !== 0);
+
+  // Determina si el botón debe estar oculto o visible
+  const buttonClass = hasNonOneQuantity ? 'block' : 'hidden';
 
   const calculateTotal = () => {
     return categorias.reduce((acc, categoria) => {
@@ -77,6 +85,7 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
         const newClient = await response.json();
         toast.current.show({ severity: "success", summary: isEdit ? 'Cliente Actualizado' : 'Cliente Creado', detail: `Código: ${newClient.codigo}`, life: 15000 });
         console.log('Cliente', isEdit ? 'actualizado' : 'creado', ':', newClient);
+        setButtonDisabled(true);
       } else {
         toast.current.show({ severity: 'error', summary: 'Error', detail: 'No se pudo guardar el cliente', life: 3000 });
         console.error('Error al guardar cliente:', response.statusText);
@@ -115,9 +124,11 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
         </div>
         <div className="w-full px-4 mt-auto mb-16">
           <Button
+            id='buttonAction'
             label={isEdit ? "Actualizar Cliente" : "Crear Cliente"}
             onClick={createOrUpdateClient}
-            className="p-button-success p-4 flex items-center justify-center mx-auto bg-blue-500 text-white"
+            disabled={buttonDisabled}
+            className={`${buttonClass} p-button-success p-4 flex items-center justify-center mx-auto bg-blue-500 text-white`}
           />
         </div>
       </aside>

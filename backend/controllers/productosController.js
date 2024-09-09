@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { getCategorias, createCategoria, getProductos, createProducto } from '../services/productosService.js'; // Ajusta la ruta según la ubicación de tus servicios
+import { getCategorias, createCategoria, getProductos, createProducto, deleteProducto } from '../services/productosService.js'; // Ajusta la ruta según la ubicación de tus servicios
 
 const router = express.Router();
 
@@ -39,7 +39,7 @@ router.get('/', async (req, res) => {
 router.post('/', upload.single('imagen'), async (req, res) => {
   try {
     const { nombre } = req.body;
-    const imagen = req.file ? `./assets/${req.file.filename}` : null; // Asume que la imagen se encuentra en el directorio 'public/assetss'
+    const imagen = req.file ? `./assets/${req.file.filename}` : null; // Asume que la imagen se encuentra en el directorio 'public/assets'
     const nuevaCategoria = await createCategoria(nombre, imagen);
     res.status(201).json(nuevaCategoria);
   } catch (error) {
@@ -65,6 +65,21 @@ router.post('/:id/productos', async (req, res) => {
     res.status(201).json(nuevoProducto);
   } catch (error) {
     res.status(500).json({ error: 'Error al crear el producto' });
+  }
+});
+
+// Eliminar un producto específico de una categoría
+router.delete('/:categoriaId/productos/:productoId', async (req, res) => {
+  try {
+    const { categoriaId, productoId } = req.params;
+    const result = await deleteProducto(categoriaId, productoId);
+    if (result) {
+      res.status(200).json({ message: 'Producto eliminado correctamente' });
+    } else {
+      res.status(404).json({ error: 'Producto no encontrado' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Error al eliminar el producto' });
   }
 });
 

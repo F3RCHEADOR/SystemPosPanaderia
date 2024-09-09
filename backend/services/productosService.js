@@ -67,3 +67,22 @@ export const createProducto = (categoriaId, nombre, precio) => {
   saveProductos(data);
   return nuevoProducto;
 };
+
+// Eliminar un producto específico de una categoría
+export const deleteProducto = (categoriaId, productoId) => {
+  const data = readProductos();
+  const categoria = data.categorias.find(c => c.id === categoriaId);
+  if (!categoria) {
+    throw new Error('Categoría no encontrada');
+  }
+
+  const productoIndex = categoria.productos.findIndex(p => p.id === productoId);
+  if (productoIndex === -1) {
+    throw new Error('Producto no encontrado');
+  }
+
+  categoria.productos.splice(productoIndex, 1);
+  saveProductos(data);
+
+  return true; // Retorna verdadero si el producto fue eliminado
+};
