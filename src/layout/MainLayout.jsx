@@ -12,7 +12,7 @@ const MainLayout = ({
         </div>
         <div className="select-none">{children}</div>
       </main>
-      <div className="relative z-50">
+      <div className="relative z-50 mt-8">
       <Footer />
       </div>
      

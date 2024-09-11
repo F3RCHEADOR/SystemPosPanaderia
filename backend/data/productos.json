@@ -52,8 +52,8 @@
         },
         {
           "id": "1-10",
-          "nombre": "Hatsu",
-          "precio": 3500
+          "nombre": "Hatsu Botella",
+          "precio": 4500
         },
         {
           "id": "1-11",
@@ -99,7 +99,7 @@
         },
         {
           "id": "2-6",
-          "nombre": "Perico",
+          "nombre": "Cafe con Leche Pequeno",
           "precio": 3000
         }
       ]
@@ -112,7 +112,7 @@
         {
           "id": "3-1",
           "nombre": "Croissant",
-          "precio": 4000
+          "precio": 3000
         },
         {
           "id": "3-2",
@@ -156,12 +156,12 @@
         },
         {
           "id": "3-10",
-          "nombre": "pan lazaña",
+          "nombre": "Pan lazaña",
           "precio": 4000
         },
         {
           "id": "3-11",
-          "nombre": "palito salchicha",
+          "nombre": "Palito salchicha",
           "precio": 2500
         },
         {
@@ -214,7 +214,7 @@
         {
           "id": "4-8",
           "nombre": "Donas Roscon",
-          "precio": 3000
+          "precio": 2000
         },
         {
           "id": "4-9",
@@ -539,7 +539,7 @@
         {
           "id": "14-2",
           "nombre": "Leche Litro",
-          "precio": 5000
+          "precio": 4000
         }
       ]
     }

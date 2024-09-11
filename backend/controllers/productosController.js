@@ -61,7 +61,10 @@ router.get('/:id/productos', async (req, res) => {
 router.post('/:id/productos', async (req, res) => {
   try {
     const { nombre, precio } = req.body;
-    const nuevoProducto = await createProducto(req.params.id, nombre, precio);
+    const categoriaId = req.params.id;
+
+    // Crear el nuevo producto
+    const nuevoProducto = await createProducto(categoriaId, nombre, precio);
     res.status(201).json(nuevoProducto);
   } catch (error) {
     res.status(500).json({ error: 'Error al crear el producto' });

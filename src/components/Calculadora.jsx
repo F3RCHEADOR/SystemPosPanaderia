@@ -8,6 +8,8 @@ import { Dialog } from 'primereact/dialog';
 import ButtonCalculator from './ButtonCalculator';
 import InvoiceDetail from './InvoiceDetail';
 
+const backend = import.meta.env.VITE_BUSINESS_BACKEND;
+
 const CalculatorPanel = ({ clientData }) => {
   const [costTotal, setCostTotal] = useState('');
   const [receivedAmount, setReceivedAmount] = useState('');
@@ -131,7 +133,7 @@ const CalculatorPanel = ({ clientData }) => {
 
     try {
       if (clientData.tipoCliente === "Individual") {
-        const deleteResponse = await fetch(`https://apipos-production.up.railway.app/api/clientes/${clientData.codigo}`, {
+        const deleteResponse = await fetch(backend+`api/clientes/${clientData.codigo}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json'
@@ -142,7 +144,7 @@ const CalculatorPanel = ({ clientData }) => {
           throw new Error('Error al eliminar el cliente');
         }
 
-        const saveResponse = await fetch('https://apipos-production.up.railway.app/api/clientes/pagos', {
+        const saveResponse = await fetch(backend+'api/clientes/pagos', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -154,7 +156,7 @@ const CalculatorPanel = ({ clientData }) => {
           throw new Error('Error al guardar los datos en pagos');
         }
       } else if (clientData.tipoCliente === "Mesa") {
-        const desocuparResponse = await fetch(`https://apipos-production.up.railway.app/api/mesas/${clientData.codigo}/desocupar`, {
+        const desocuparResponse = await fetch(backend+`api/mesas/${clientData.codigo}/desocupar`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -166,7 +168,7 @@ const CalculatorPanel = ({ clientData }) => {
           throw new Error('Error al desocupar la mesa');
         }
 
-        const saveResponse = await fetch('https://apipos-production.up.railway.app/api/mesas/pagos', {
+        const saveResponse = await fetch('api/mesas/pagos', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

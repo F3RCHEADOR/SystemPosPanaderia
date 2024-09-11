@@ -51,6 +51,13 @@ export const getProductos = (categoriaId) => {
   return categoria.productos;
 };
 
+// Obtener el siguiente ID basado en el máximo ID existente
+const getMaxProductId = (productos) => {
+  if (productos.length === 0) return 0;
+  const ids = productos.map(p => parseInt(p.id.split('-').pop(), 10));
+  return Math.max(...ids);
+};
+
 // Crear un nuevo producto en una categoría específica
 export const createProducto = (categoriaId, nombre, precio) => {
   const data = readProductos();
@@ -58,8 +65,13 @@ export const createProducto = (categoriaId, nombre, precio) => {
   if (!categoria) {
     throw new Error('Categoría no encontrada');
   }
+
+  // Obtener el siguiente ID basado en el máximo ID existente
+  const maxProductId = getMaxProductId(categoria.productos);
+  const newId = `${categoriaId}-${maxProductId + 1}`;
+
   const nuevoProducto = {
-    id: `${categoriaId}-${categoria.productos.length + 1}`,
+    id: newId,
     nombre,
     precio
   };

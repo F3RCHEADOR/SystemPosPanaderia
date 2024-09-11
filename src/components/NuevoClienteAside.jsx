@@ -1,15 +1,15 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import Client from '../assets/client.png';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
+import ButtonPayment from './ButtonPayment';
 
 const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
-
   const backend = import.meta.env.VITE_BUSINESS_BACKEND;
 
-  const[buttonDisabled, setButtonDisabled] = useState(false)
-
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [savedClient, setSavedClient] = useState(null); // Estado para guardar los datos del cliente
   const toast = useRef(null);
 
   // Verifica si hay al menos un valor en `quantities` que no sea igual a `0`
@@ -28,7 +28,6 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
   };
 
   const total = useMemo(() => calculateTotal(), [categorias, quantities]);
-  console.log(clientData);
 
   const createOrUpdateClient = async () => {
     const cliente = {
@@ -44,7 +43,7 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
           }))
       ),
       valorAcumulado: total,
-      tipoCliente: clientData?.tipoCliente || 'individual' // Default value if not provided
+      tipoCliente: isEdit ? clientData.tipoCliente : 'Individual' // Default value if not provided
     };
 
     let response;
@@ -61,7 +60,7 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
       } else if (cliente.tipoCliente === "Mesa") {
         const url = isEdit
           ? `${backend}api/mesas/${cliente.codigo}/actualizar`
-          : '${backend}api/mesas'; // Aquí suponemos que POST es para crear una nueva mesa
+          : `${backend}api/mesas`; // POST es para crear una nueva mesa
 
         response = await fetch(url, {
           method: isEdit ? 'PUT' : 'POST',
@@ -70,8 +69,7 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
           },
           body: JSON.stringify(cliente)
         });
-      }
-      else {
+      } else {
         response = await fetch(`${backend}api/clientes`, {
           method: 'POST',
           headers: {
@@ -85,6 +83,7 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
         const newClient = await response.json();
         toast.current.show({ severity: "success", summary: isEdit ? 'Cliente Actualizado' : 'Cliente Creado', detail: `Código: ${newClient.codigo}`, life: 15000 });
         console.log('Cliente', isEdit ? 'actualizado' : 'creado', ':', newClient);
+        setSavedClient(newClient); // Guarda los datos del cliente en el estado
         setButtonDisabled(true);
       } else {
         toast.current.show({ severity: 'error', summary: 'Error', detail: 'No se pudo guardar el cliente', life: 3000 });
@@ -95,6 +94,13 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
       console.error('Error en la conexión:', error);
     }
   };
+
+  // Efecto para llamar automáticamente a ButtonPayment después de guardar el cliente
+  useEffect(() => {
+    if (savedClient) {
+      console.log("Efectuando pago automáticamente con el cliente:", savedClient);
+    }
+  }, [savedClient]);
 
   return (
     <>
@@ -122,16 +128,25 @@ const NuevoClienteAside = ({ categorias, quantities, isEdit, clientData }) => {
             <span>${total}</span>
           </div>
         </div>
-        <div className="w-full px-4 mt-auto mb-16">
+
+        {/* Renderiza ButtonPayment automáticamente si hay un cliente guardado */}
+        <div className='w-full mt-auto mb-8'>
+        {savedClient && <ButtonPayment cliente={savedClient} />}
+        </div>
+       
+
+        <div className={`${buttonClass} w-full  mb-20`}>
           <Button
             id='buttonAction'
             label={isEdit ? "Actualizar Cliente" : "Crear Cliente"}
             onClick={createOrUpdateClient}
             disabled={buttonDisabled}
-            className={`${buttonClass} p-button-success p-4 flex items-center justify-center mx-auto bg-blue-500 text-white`}
+            className={`${buttonClass} p-button-success px-4 py-2 rounded-xl border-2 flex items-center justify-center mx-auto bg-blue-500 text-white`}
           />
         </div>
       </aside>
+
+
     </>
   );
 };

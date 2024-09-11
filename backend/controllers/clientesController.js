@@ -54,7 +54,8 @@ router.post('/', (req, res) => {
       codigo: newCodigo,
       horaLlegada,
       productos,
-      valorAcumulado
+      valorAcumulado,
+      tipoCliente: 'Individual'
     };
 
     clientes.push(nuevoCliente);
@@ -83,7 +84,8 @@ router.put('/:codigo', (req, res) => {
       ...clientes[clienteIndex],
       productos,
       valorAcumulado,
-      horaLlegada
+      horaLlegada,
+      tipoCliente : 'Individual'
     };
 
     clientes[clienteIndex] = clienteActualizado;
@@ -124,12 +126,17 @@ router.delete('/:codigo', (req, res) => {
 
 
 router.post('/pagos', async (req, res) => {
-  const { empresa, fecha, hora, productos, valorAcumulado } = req.body;
+  const { empresa, productos, valorAcumulado } = req.body;
 
   try {
     const pagos = readPagos(); // Lee los pagos existentes
 
+    // Obtener el último código
+    const ultimoCodigo = pagos.length > 0 ? pagos[pagos.length - 1].codigo : 0;
+    const nuevoCodigo = ultimoCodigo + 1; // Autoincrementa el último código
+
     const nuevoPago = {
+      codigo: nuevoCodigo, // Asigna el nuevo código
       empresa: empresa || '',
       fecha: new Date().toLocaleDateString(), // Formato de fecha
       hora: new Date().toLocaleTimeString(), // Formato de hora
@@ -140,40 +147,11 @@ router.post('/pagos', async (req, res) => {
     pagos.push(nuevoPago); // Agrega el nuevo pago a la lista
     savePagos(pagos); // Guarda los pagos actualizados
 
-    // Comando para abrir la caja
-    const openDrawerCommand = Buffer.from([0x1B, 0x70, 0x00, 0x19, 0xFF, 0xFF]); // Ajusta el comando si es necesario
-
-    // Verifica si el puerto está abierto antes de escribir
-    if (!port.isOpen) {
-      await new Promise((resolve, reject) => {
-        port.open((err) => {
-          if (err) {
-            return reject(err);
-          }
-          resolve();
-        });
-      });
-    }
-
-    await new Promise((resolve, reject) => {
-      port.write(openDrawerCommand, (err) => {
-        if (err) {
-          return reject(err);
-        }
-        resolve();
-      });
-    });
-
-    console.log('Caja abierta');
     res.status(201).json(nuevoPago);
   } catch (error) {
-    console.error('Error al procesar el pago o abrir la caja', error);
-    res.status(500).json({ error: 'Error al guardar el pago o abrir la caja registradora' });
+    res.status(500).json({ error: 'Error al guardar el pago' });
   }
 });
-
-
-
 
 
 export default router;

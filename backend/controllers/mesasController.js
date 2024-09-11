@@ -32,6 +32,7 @@ router.put('/:codigo/actualizar', (req, res) => {
     mesas[mesaIndex].valorAcumulado = valorAcumulado || mesas[mesaIndex].valorAcumulado;
     mesas[mesaIndex].estado = estado || mesas[mesaIndex].estado;
     mesas[mesaIndex].horaOcupado = horaOcupado || mesas[mesaIndex].horaOcupado;
+    mesas[mesaIndex].tipoCliente = 'Mesa';
 
     saveMesas(mesas);
     res.json(mesas[mesaIndex]);
@@ -56,6 +57,7 @@ router.put('/:codigo/desocupar', (req, res) => {
     mesas[mesaIndex].horaDesocupado = ''; // Cambia según lo que necesites
     mesas[mesaIndex].estado = 'Desocupado'; // Cambia el estado a "Desocupado"
     mesas[mesaIndex].productos = '';
+    mesas[mesaIndex].tipoCliente = 'Mesa';
 
     saveMesas(mesas);
     res.status(200).json({ message: 'Mesa actualizada correctamente' });
@@ -72,12 +74,17 @@ router.post('/pagos', (req, res) => {
   try {
     const pagos = readPagos(); // Lee los pagos existentes
 
+     // Obtener el último código
+     const ultimoCodigo = pagos.length > 0 ? pagos[pagos.length - 1].codigo : 0;
+     const nuevoCodigo = ultimoCodigo + 1; // Autoincrementa el último código
+
     const nuevoPago = {
+      codigo: nuevoCodigo, // Asigna el nuevo código
       empresa: empresa || '',
       fecha: new Date().toLocaleDateString(), // Formato de fecha
       hora: new Date().toLocaleTimeString(), // Formato de hora
       productos,
-      valorPago : valorAcumulado
+      valorPago: valorAcumulado
     };
 
     pagos.push(nuevoPago); // Agrega el nuevo pago a la lista

@@ -7,6 +7,7 @@ import CalculatorPanel from '../components/Calculadora';
 const PaidPage = () => {
   const location = useLocation();
   const { clientData } = location.state || {};
+  console.log(clientData);
 
 
   return (

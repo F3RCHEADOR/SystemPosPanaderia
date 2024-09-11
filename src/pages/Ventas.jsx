@@ -1,5 +1,5 @@
 import React from 'react';
-import InfoClientPaid from '../components/InfoClientPaid';
+import InfoClientPaid from '../layout/InfoClientPaid';
 
 
 const Ventas = () => {
