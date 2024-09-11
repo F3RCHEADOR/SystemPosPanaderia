@@ -72,11 +72,8 @@ router.post('/:id/productos', async (req, res) => {
 });
 
 // Eliminar un producto específico de una categoría
-<<<<<<< HEAD
-router.delete('/:categoriaId/productos/:productoId', async (req, res) => {
-=======
+
 router.delete('/:categoriaId/productos/:productoId', async (req, res)  => {
->>>>>>> 15fbc84d5994e2ffda33cdc13981fa274e13cbec
   try {
     const { categoriaId, productoId } = req.params;
     const result = await deleteProducto(categoriaId, productoId);
