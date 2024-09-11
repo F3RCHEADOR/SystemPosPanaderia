@@ -131,5 +131,206 @@
       }
     ],
     "valorPago": 23500
+  },
+  {
+    "codigo": 8,
+    "empresa": "Bavaria",
+    "fecha": "11/9/2024",
+    "hora": "10:43:20 a. m.",
+    "productos": [
+      {
+        "nombre": "Aguila",
+        "cantidad": 1,
+        "costo": 30000,
+        "costoIva": 35700
+      },
+      {
+        "nombre": "Poker",
+        "cantidad": 1,
+        "costo": 40000,
+        "costoIva": 47600
+      }
+    ],
+    "valorPago": null
+  },
+  {
+    "codigo": 9,
+    "empresa": "Comisariato",
+    "fecha": "11/9/2024",
+    "hora": "10:44:53 a. m.",
+    "productos": [
+      {
+        "nombre": "Fresas",
+        "cantidad": 1,
+        "costo": 20000,
+        "costoIva": 23800
+      },
+      {
+        "nombre": "Naranjas",
+        "cantidad": 1,
+        "costo": 20000,
+        "costoIva": 23800
+      }
+    ],
+    "valorPago": -47600
+  },
+  {
+    "codigo": 10,
+    "empresa": "Nutresa",
+    "fecha": "11/9/2024",
+    "hora": "10:52:25 a. m.",
+    "productos": [
+      {
+        "nombre": "Chocolate",
+        "cantidad": 1,
+        "costo": 20000,
+        "costoIva": 0
+      },
+      {
+        "nombre": "Cobertura",
+        "cantidad": 1,
+        "costo": 30000,
+        "costoIva": 0
+      }
+    ],
+    "valorPago": -50000
+  },
+  {
+    "codigo": 11,
+    "empresa": "",
+    "fecha": "11/9/2024",
+    "hora": "11:11:35 a. m.",
+    "productos": [
+      {
+        "nombre": "Agua gas Pequeña",
+        "precio": 1000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 1000
+  },
+  {
+    "codigo": 12,
+    "empresa": "Bavaria",
+    "fecha": "11/9/2024",
+    "hora": "11:14:27 a. m.",
+    "productos": [
+      {
+        "nombre": "Costeña",
+        "cantidad": 1,
+        "costo": 20000,
+        "costoIva": 0
+      },
+      {
+        "nombre": "Poker",
+        "cantidad": 2,
+        "costo": 40000,
+        "costoIva": 0
+      }
+    ],
+    "valorPago": -60000
+  },
+  {
+    "codigo": 13,
+    "empresa": "Comisariato",
+    "fecha": "11/9/2024",
+    "hora": "11:46:08 a. m.",
+    "productos": [
+      {
+        "nombre": "Pan",
+        "cantidad": 1,
+        "costo": 2000,
+        "costoIva": 0
+      },
+      {
+        "nombre": "Salvado",
+        "cantidad": 2,
+        "costo": 4000,
+        "costoIva": 0
+      }
+    ],
+    "valorPago": -6000
+  },
+  {
+    "codigo": 14,
+    "empresa": "Postobon",
+    "fecha": "11/9/2024",
+    "hora": "11:46:59 a. m.",
+    "productos": [
+      {
+        "nombre": "Colombiana",
+        "cantidad": 1,
+        "costo": 30000,
+        "costoIva": 0
+      },
+      {
+        "nombre": "Manzana",
+        "cantidad": 1,
+        "costo": 40000,
+        "costoIva": 0
+      }
+    ],
+    "valorPago": -70000
+  },
+  {
+    "codigo": 15,
+    "empresa": "Postobon",
+    "fecha": "11/9/2024",
+    "hora": "11:48:01 a. m.",
+    "productos": [
+      {
+        "nombre": "Uva",
+        "cantidad": 1,
+        "costo": 30000,
+        "costoIva": 0
+      },
+      {
+        "nombre": "Kola",
+        "cantidad": 1,
+        "costo": 30000,
+        "costoIva": 0
+      }
+    ],
+    "valorPago": -60000
+  },
+  {
+    "codigo": 16,
+    "empresa": "Comisariato",
+    "fecha": "11/9/2024",
+    "hora": "11:51:52 a. m.",
+    "productos": [
+      {
+        "nombre": "Salvado",
+        "cantidad": 1,
+        "costo": 2000,
+        "costoIva": 0
+      },
+      {
+        "nombre": "Grageas",
+        "cantidad": 1,
+        "costo": 3000,
+        "costoIva": 0
+      }
+    ],
+    "valorPago": -5000
+  },
+  {
+    "codigo": 17,
+    "empresa": "",
+    "fecha": "11/9/2024",
+    "hora": "11:53:22 a. m.",
+    "productos": [
+      {
+        "nombre": "Aromaticas",
+        "precio": 3000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Cafe con Leche Pequeno",
+        "precio": 3000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 6000
   }
 ]

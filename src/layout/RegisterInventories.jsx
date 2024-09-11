@@ -4,12 +4,19 @@ import Gaseosas from '../assets/gaseosas.png';
 import InventoryCategory from '../components/InventoryCategory';
 import FormInventories from '../components/FormInventories';
 
+const tipoNegocio = import.meta.env.VITE_BUSINESS_TYPE;
+
 function RegisterInventories() {
     const [selectedCategory, setSelectedCategory] = useState(null);
 
     const handleCategoryClick = (category) => {
-        setSelectedCategory(category);
+        if (selectedCategory === category) {
+            setSelectedCategory(null);
+        } else {
+            setSelectedCategory(category);
+        }
     };
+
 
     return (
         <section className="max-w-screen-xl mx-auto mt-8 px-4">
@@ -18,7 +25,7 @@ function RegisterInventories() {
                 {selectedCategory === 'panaderia' ? (
                     <>
                         <InventoryCategory
-                            title="Suministros Panadería"
+                            title={"Suministros " + tipoNegocio}
                             imageSrc={Harina}
                             altText="harina"
                             description={"Harina, Mantequilla, Huevos, Azucar."}

@@ -23,7 +23,7 @@ function Caja() {
             <Link to="/AddClient" className="border-4 p-1 rounded-xl hover:scale-110 duration-200"><img src={Client} alt="pago" className="size-20 mx-auto" /><span >Agregar Cliente</span></Link>
             <Link to="/ContadorBilletes" className="border-4 p-1 rounded-xl hover:scale-110 duration-200"><img src={Money} alt="pago" className="size-20 mx-auto" /><span >Abrir o Cerrar Caja</span></Link>
             <Link to="/Ventas" className="border-4 p-1 rounded-xl hover:scale-110 duration-200"><img src={Ventas} alt="Ventas" className="size-20 mx-auto" /><span >Ventas</span></Link>
-            <Link to="#" className="border-4 p-1 rounded-xl hover:scale-110 duration-200"><img src={Inventory} alt="pago" className="size-20 mx-auto" /><span >Agregar Inventario</span></Link>
+            <Link to="/Inventories" className="border-4 p-1 rounded-xl hover:scale-110 duration-200"><img src={Inventory} alt="pago" className="size-20 mx-auto" /><span >Agregar Inventario</span></Link>
           </div>
         </div>
       </div>

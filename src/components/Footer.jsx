@@ -30,7 +30,7 @@ function Footer() {
       </button>
       <footer
         id="footer"
-        className={`fixed bottom-0 left-0 w-full h-auto  bg-blue-50 border-t-8 border-blue-400 transition-all ${isFooterVisible ? 'block' : 'hidden'
+        className={`fixed bottom-0 left-0 w-full h-auto select-none bg-blue-50 border-t-8 border-blue-400 transition-all ${isFooterVisible ? 'block' : 'hidden'
           }`}
       >
         <ul className='flex items-center justify-around text-lg font-bold mt-2'>

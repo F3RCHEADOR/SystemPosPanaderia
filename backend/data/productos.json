@@ -212,11 +212,6 @@
           "precio": 4000
         },
         {
-          "id": "4-8",
-          "nombre": "Donas Roscon",
-          "precio": 2000
-        },
-        {
           "id": "4-9",
           "nombre": "Pan de Yuca",
           "precio": 2000
@@ -254,6 +249,11 @@
         {
           "id": "4-16",
           "nombre": "1/2 Tajado",
+          "precio": 3000
+        },
+        {
+          "id": "4-17",
+          "nombre": "Dona Roscon",
           "precio": 3000
         }
       ]
@@ -488,13 +488,13 @@
       "imagen": "./assets/imagen-1725481833159-796501568.png",
       "productos": [
         {
-          "id": "12-1",
-          "nombre": "Galleta",
+          "id": "12-2",
+          "nombre": "Merengue",
           "precio": 1000
         },
         {
-          "id": "12-2",
-          "nombre": "Merengue",
+          "id": "12-3",
+          "nombre": "Maiz",
           "precio": 1000
         }
       ]
