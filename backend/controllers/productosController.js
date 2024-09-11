@@ -4,7 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { getCategorias, createCategoria, getProductos, createProducto, deleteProducto } from '../services/productosService.js'; // Ajusta la ruta según la ubicación de tus servicios
 
-const router = express.Router(); 
+const router = express.Router();
 
 // Obtén la ruta del archivo actual y construye la ruta al directorio de imágenes
 const __filename = fileURLToPath(import.meta.url);
@@ -72,8 +72,7 @@ router.post('/:id/productos', async (req, res) => {
 });
 
 // Eliminar un producto específico de una categoría
-
-router.delete('/:categoriaId/productos/:productoId', async (req, res)  => {
+router.delete('/:categoriaId/productos/:productoId', async (req, res) => {
   try {
     const { categoriaId, productoId } = req.params;
     const result = await deleteProducto(categoriaId, productoId);
