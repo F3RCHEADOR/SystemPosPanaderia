@@ -9,35 +9,25 @@ function AsideVentas() {
     const [totalVentas, setTotalVentas] = useState(null);
     const backend = import.meta.env.VITE_BUSINESS_BACKEND;
 
-    // Obtener la fecha de hoy en formato DD/MM/YYYY
-    const today = new Date().toLocaleDateString("es-CO", {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-    });
+    // Función para normalizar las fechas
+    const normalizeDate = (dateString) => {
+        const [day, month, year] = dateString.split("/");
+        return `${day.padStart(2, "0")}/${month.padStart(2, "0")}/${year}`;
+    };
 
-    console.log(today);
+    const today = normalizeDate(new Date().toLocaleDateString("es-CO"));
 
     useEffect(() => {
         // Fetch para Ventas Acumuladas
         fetch(backend + 'api/pagos')
             .then(response => response.json())
             .then(data => {
-                // Filtramos los pagos del día de hoy asegurando el formato correcto
-                const ventasHoy = data.filter(pago => {
-                    const fechaPago = new Date(pago.fecha).toLocaleDateString("es-CO", {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit'
-                    });
-                    return fechaPago === today;
-                });
-
-                // Sumamos los valores de los pagos de hoy
+                // Normalizar la fecha en cada pago
+                const ventasHoy = data.filter(pago => normalizeDate(pago.fecha) === today);
                 const totalVentasAcumuladas = ventasHoy.reduce((total, pago) => total + Number(pago.valorPago), 0);
-                const pagosDelDia = ventasHoy.filter(pago => pago.empresa !== "");
-                const ventasDelDia = ventasHoy.filter(pago => pago.empresa === "");
 
+                const pagosDelDia = data.filter(pago => normalizeDate(pago.fecha) === today && pago.empresa !== "");
+                const ventasDelDia = data.filter(pago => normalizeDate(pago.fecha) === today && pago.empresa === "");
                 const totalPagosDelDia = pagosDelDia.reduce((total, pago) => total + Number(pago.valorPago), 0);
                 const totalVentasDelDia = ventasDelDia.reduce((total, pago) => total + Number(pago.valorPago), 0);
 
@@ -47,32 +37,12 @@ function AsideVentas() {
             })
             .catch(error => console.error('Error fetching ventas acumuladas:', error));
 
-        // Fetch para Última Apertura o Cierre
-        fetch(backend + 'api/caja')
-            .then(response => response.json())
-            .then(data => {
-                if (data.length > 0) {
-                    const ultimaAperturaData = data[data.length - 1];
-                    setUltimaApertura(ultimaAperturaData.hora);
-                    console.log('apertura del dia', ultimaAperturaData);
-                }
-            })
-            .catch(error => console.error('Error fetching ultima apertura:', error));
-
         // Fetch para Clientes Hoy
         fetch(backend + 'api/pagos')
             .then(response => response.json())
             .then(data => {
-                const clientesDelDia = data.filter(cliente => {
-                    const fechaPago = new Date(cliente.fecha).toLocaleDateString("es-CO", {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit'
-                    });
-                    return fechaPago === today && cliente.empresa === "";
-                });
+                const clientesDelDia = data.filter(cliente => normalizeDate(cliente.fecha) === today && cliente.empresa === "");
                 setClientesHoy(clientesDelDia.length);
-                console.log('Clientes del día', clientesDelDia);
             })
             .catch(error => console.error('Error fetching clientes hoy:', error));
 
@@ -80,16 +50,8 @@ function AsideVentas() {
         fetch(backend + 'api/pagos')
             .then(response => response.json())
             .then(data => {
-                const pagosDelDia = data.filter(pago => {
-                    const fechaPago = new Date(pago.fecha).toLocaleDateString("es-CO", {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit'
-                    });
-                    return fechaPago === today && pago.empresa !== "";
-                });
+                const pagosDelDia = data.filter(pago => normalizeDate(pago.fecha) === today && pago.empresa !== "");
                 setPagosHoy(pagosDelDia.length);
-                console.log('Pagos del día', pagosDelDia);
             })
             .catch(error => console.error('Error fetching pagos hoy:', error));
 
