@@ -5,6 +5,7 @@ import mesasRoutes from './controllers/mesasController.js';
 import categoriasRoutes from './controllers/productosController.js'; 
 import cajaRoutes from './controllers/cajaController.js';
 import inventarioRoutes from './controllers/inventarioController.js';
+import pagosRoutes from './controllers/pagosController.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000; // Puerto dinámico
@@ -19,6 +20,7 @@ app.use('/api/mesas', mesasRoutes); // Rutas para mesas
 app.use('/api/categorias', categoriasRoutes); // Rutas para categorías y productos
 app.use('/api/caja', cajaRoutes);
 app.use('/api/inventarios', inventarioRoutes); // Corrección aquí
+app.use('/api/pagos', pagosRoutes);
 
 // Iniciar el servidor
 app.listen(PORT, () => {

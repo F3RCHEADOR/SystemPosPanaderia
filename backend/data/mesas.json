@@ -5,7 +5,8 @@
     "estado": "Desocupado",
     "productos": "",
     "valorAcumulado": 4000,
-    "horaOcupado": "2024-09-11T03:48:05.042Z"
+    "horaOcupado": "2024-09-14T20:06:35.050Z",
+    "tipoCliente": "Mesa"
   },
   {
     "codigo": "M02",

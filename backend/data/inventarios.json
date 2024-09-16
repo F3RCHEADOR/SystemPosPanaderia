@@ -284,5 +284,95 @@
       }
     ],
     "costoTotal": 5000
+  },
+  {
+    "codigo": 15,
+    "empresa": "comisariato",
+    "fecha": "2024-09-12",
+    "hora": "10:53:34",
+    "productos": [
+      {
+        "nombre": "harina",
+        "cantidad": 1,
+        "costo": 20000,
+        "costoIva": 0
+      }
+    ],
+    "costoTotal": 20000
+  },
+  {
+    "codigo": 16,
+    "empresa": "console",
+    "fecha": "2024-09-12",
+    "hora": "11:01:24",
+    "productos": [
+      {
+        "nombre": "asd",
+        "cantidad": 1,
+        "costo": 19283,
+        "costoIva": 0
+      }
+    ],
+    "costoTotal": 19283
+  },
+  {
+    "codigo": 17,
+    "empresa": "Cocacola",
+    "fecha": "2024-09-14",
+    "hora": "15:12:52",
+    "productos": [
+      {
+        "nombre": "Litro",
+        "cantidad": 1,
+        "costo": 3500,
+        "costoIva": 0
+      }
+    ],
+    "costoTotal": 3500
+  },
+  {
+    "codigo": 18,
+    "empresa": "Postobon",
+    "fecha": "2024-09-14",
+    "hora": "16:01:27",
+    "productos": [
+      {
+        "nombre": "Litro",
+        "cantidad": 1,
+        "costo": 35000,
+        "costoIva": 0
+      }
+    ],
+    "costoTotal": 35000
+  },
+  {
+    "codigo": 19,
+    "empresa": "Postobon",
+    "fecha": "2024-09-16",
+    "hora": "21:41:17",
+    "productos": [
+      {
+        "nombre": "Litro",
+        "cantidad": 1,
+        "costo": 35000,
+        "costoIva": 41650
+      }
+    ],
+    "costoTotal": 41650
+  },
+  {
+    "codigo": 20,
+    "empresa": "comisariato",
+    "fecha": "2024-09-16",
+    "hora": "21:43:44",
+    "productos": [
+      {
+        "nombre": "harina",
+        "cantidad": 1,
+        "costo": 100000,
+        "costoIva": 0
+      }
+    ],
+    "costoTotal": 100000
   }
 ]

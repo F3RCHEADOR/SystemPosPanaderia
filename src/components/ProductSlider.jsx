@@ -32,7 +32,7 @@ const ProductSlider = ({ categorias, activeCategoriaId, handleCategoriaClick, qu
   };
 
   return (
-    <div className="ml-56 h-full mt-8  xl:px-8">
+    <div className="ml-56 h-full mt-8 xl:px-8">
     <h1 className="my-2.5 bg-gray-200 text-center text-3xl font-bold">Categorías</h1>
     <Slider {...sliderSettings}>
       {categorias
