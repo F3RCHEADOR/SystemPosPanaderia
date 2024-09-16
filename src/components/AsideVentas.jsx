@@ -10,7 +10,7 @@ function AsideVentas() {
     const backend = import.meta.env.VITE_BUSINESS_BACKEND;
 
     // Obtener la fecha de hoy en formato DD/MM/YYYY
-    const today = new Date().toLocaleDateString("es-ES");
+    const today = new Date().toLocaleDateString("es-CO");
 
     useEffect(() => {
         // Fetch para Ventas Acumuladas
