@@ -20,11 +20,7 @@
   {
     "codigo": "M03",
     "horaDesocupado": "",
-    "estado": "Desocupado",
-    "productos": "",
-    "valorAcumulado": 23500,
-    "horaOcupado": "2024-09-11T04:12:28.985Z",
-    "tipoCliente": "Mesa"
+    "estado": "Desocupado"
   },
   {
     "codigo": "M04",
@@ -34,37 +30,7 @@
   {
     "codigo": "M05",
     "horaDesocupado": "",
-    "estado": "Ocupado",
-    "productos": [
-      {
-        "nombre": "Pastel Pollo",
-        "precio": 4000,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Roscon de 1000",
-        "precio": 1000,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Pan de Yuca",
-        "precio": 2000,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Dona Roscon",
-        "precio": 3000,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Litro Vidrio",
-        "precio": 4000,
-        "cantidad": 1
-      }
-    ],
-    "valorAcumulado": 14000,
-    "horaOcupado": "2024-09-11T16:56:30.274Z",
-    "tipoCliente": "Mesa"
+    "estado": "Desocupado"
   },
   {
     "codigo": "M06",
@@ -74,26 +40,7 @@
   {
     "codigo": "M07",
     "horaDesocupado": "",
-    "estado": "Desocupado",
-    "productos": [
-      {
-        "nombre": "Torta vino",
-        "precio": 5000,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Brazo",
-        "precio": 2000,
-        "cantidad": 2
-      },
-      {
-        "nombre": "Pequeña Vidrio",
-        "precio": 2000,
-        "cantidad": 2
-      }
-    ],
-    "valorAcumulado": 13000,
-    "horaOcupado": "2024-09-05T16:31:12.333Z"
+    "estado": "Desocupado"
   },
   {
     "codigo": "M08",
@@ -103,35 +50,6 @@
   {
     "codigo": "M09",
     "horaDesocupado": "",
-    "estado": "Desocupado",
-    "productos": [
-      {
-        "nombre": "Avena",
-        "precio": 4000,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Masato",
-        "precio": 3000,
-        "cantidad": 3
-      },
-      {
-        "nombre": "Cafe con leche",
-        "precio": 4000,
-        "cantidad": 1
-      },
-      {
-        "nombre": "Palito Queso",
-        "precio": 2000,
-        "cantidad": 3
-      },
-      {
-        "nombre": "Pan 500",
-        "precio": 500,
-        "cantidad": 5
-      }
-    ],
-    "valorAcumulado": 25500,
-    "horaOcupado": "2024-09-03T23:10:43.584Z"
+    "estado": "Desocupado"
   }
 ]

@@ -43,6 +43,7 @@ function AsideVentas() {
                     // Obtener la última apertura o cierre (asumiendo que el array está ordenado por fecha)
                     const ultimaAperturaData = data[data.length - 1];
                     setUltimaApertura(ultimaAperturaData.hora);
+                    console.log('apertura del dia' + ultimaAperturaData)
                 }
             })
             .catch(error => console.error('Error fetching ultima apertura:', error));
@@ -54,6 +55,7 @@ function AsideVentas() {
                 // Filtramos los clientes del día de hoy (empresa vacía indica que es cliente)
                 const clientesDelDia = data.filter(cliente => cliente.fecha === today && cliente.empresa === "");
                 setClientesHoy(clientesDelDia.length);
+                console.log('Cliuentes del dia' + clientesDelDia)
             })
             .catch(error => console.error('Error fetching clientes hoy:', error));
 
@@ -64,6 +66,7 @@ function AsideVentas() {
                 // Filtramos los clientes del día de hoy (empresa vacía indica que es cliente)
                 const pagosDelDia = data.filter(pago => pago.fecha === today && pago.empresa !== "");
                 setPagosHoy(pagosDelDia.length);
+                console.log('Pagos del dia' + pagosDelDia)
 
             })
             .catch(error => console.error('Error fetching clientes hoy:', error));
