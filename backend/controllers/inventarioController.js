@@ -43,15 +43,12 @@ router.post('/pagos', async (req, res) => {
       const optionsFecha = { year: 'numeric', month: '2-digit', day: '2-digit' };
       const optionsHora = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
   
-      // Fecha y hora en la zona horaria de Colombia
-      const fecha = new Date().toLocaleDateString('es-CO', optionsFecha); // Fecha actual en formato colombiano
-      const hora = new Date().toLocaleTimeString('es-CO', optionsHora);   // Hora actual en formato colombiano
   
       const nuevoPago = {
         codigo: nuevoCodigo, // Asigna el nuevo código
         empresa: empresa || '',
-        fecha: fecha, // Formato de fecha
-        hora: hora, // Formato de hora
+        fecha: new Date().toLocaleDateString('es-CO', optionsFecha),
+        hora: new Date().toLocaleTimeString('es-CO', optionsHora),
         productos,
         valorPago: (costoTotal * -1)
       };

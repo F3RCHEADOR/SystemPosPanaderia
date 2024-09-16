@@ -43,18 +43,18 @@ router.post('/', (req, res) => {
     // Genera un nuevo código autoincremental
     const ultimoCodigo = pagos.length > 0 ? pagos[pagos.length - 1].codigo : 0;
     const nuevoCodigo = ultimoCodigo + 1;
-    const optionsFecha = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    const optionsHora = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
 
-    // Fecha y hora en la zona horaria de Colombia
-    const fecha = new Date().toLocaleDateString('es-CO', optionsFecha); // Fecha actual en formato colombiano
-    const hora = new Date().toLocaleTimeString('es-CO', optionsHora);   // Hora actual en formato colombiano
+    // Configuración para la fecha y hora en zona horaria de Colombia
+    const optionsFecha = { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'America/Bogota' };
+    const optionsHora = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'America/Bogota' };
 
     const nuevoPago = {
       codigo: nuevoCodigo,
       empresa: empresa || '',
-      fecha: fecha, // Asignar la fecha
-      hora: hora,   // Asignar la hora
+
+      // Fecha y hora en la zona horaria de Colombia
+      fecha: new Date().toLocaleDateString('es-CO', optionsFecha),
+      hora: new Date().toLocaleTimeString('es-CO', optionsHora),
       productos,
       valorPago
     };
@@ -67,6 +67,7 @@ router.post('/', (req, res) => {
     res.status(500).json({ error: 'Error al crear el pago' });
   }
 });
+
 
 // Actualizar un pago existente por su código
 router.put('/:codigo', (req, res) => {
