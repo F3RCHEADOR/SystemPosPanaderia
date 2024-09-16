@@ -11,6 +11,7 @@ function AsideVentas() {
 
     // Obtener la fecha de hoy en formato DD/MM/YYYY
     const today = new Date().toLocaleDateString("es-CO");
+    console.log(today);
 
     useEffect(() => {
         // Fetch para Ventas Acumuladas
