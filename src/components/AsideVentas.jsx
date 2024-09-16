@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 function AsideVentas() {
     const [ventasAcumuladas, setVentasAcumuladas] = useState(null);
@@ -7,75 +7,81 @@ function AsideVentas() {
     const [pagosHoy, setPagosHoy] = useState(null);
     const [totalGastos, setTotalGastos] = useState(null);
     const [totalVentas, setTotalVentas] = useState(null);
-    const [verdaderaVentasAcumuladas, setVerdaderaVentasAcumuladas] = useState(null);
-    const [totalCaja, setTotalCaja] = useState(null); // Estado para totalCaja
+    const [totalCaja, setTotalCaja] = useState(null);
     const backend = import.meta.env.VITE_BUSINESS_BACKEND;
 
     // Función para normalizar las fechas
     const normalizeDate = (dateString) => {
+        if (!dateString) return '';
         const [day, month, year] = dateString.split("/");
         return `${day.padStart(2, "0")}/${month.padStart(2, "0")}/${year}`;
     };
 
     const today = normalizeDate(new Date().toLocaleDateString("es-CO"));
 
+    const verdaderaVentasAcumuladas = useMemo(() => {
+        return totalVentas !== null && totalCaja !== null
+            ? totalVentas - totalCaja
+            : null;
+    }, [totalVentas, totalCaja]);
+
     useEffect(() => {
-        // Fetch para Ventas Acumuladas
-        fetch(backend + 'api/pagos')
-            .then(response => response.json())
-            .then(data => {
-                // Normalizar la fecha en cada pago
-                const ventasHoy = data.filter(pago => normalizeDate(pago.fecha) === today);
+        const fetchData = async () => {
+            try {
+                const [pagosResponse, cajaResponse] = await Promise.all([
+                    fetch(backend + 'api/pagos'),
+                    fetch(backend + 'api/caja')
+                ]);
+
+                const pagosData = await pagosResponse.json();
+                const cajaData = await cajaResponse.json();
+
+                if (!Array.isArray(pagosData) || !Array.isArray(cajaData)) {
+                    throw new Error("Datos inválidos");
+                }
+
+                // Calcular totalVentas y totalGastos
+                const ventasHoy = pagosData.filter(pago => normalizeDate(pago.fecha) === today);
                 const totalVentasAcumuladas = ventasHoy.reduce((total, pago) => total + Number(pago.valorPago), 0);
 
-                const verdaderaVentasAcumuladas = totalVentasAcumuladas - (totalCaja || 0);
+                const gastosHoy = pagosData.filter(pago => normalizeDate(pago.fecha) === today && pago.empresa !== "");
+                const ventasDelDia = pagosData.filter(pago => normalizeDate(pago.fecha) === today && pago.empresa === "");
+                const totalGastosHoy = gastosHoy.reduce((total, pago) => total + Number(pago.valorPago), 0);
+                const totalVentasHoy = ventasDelDia.reduce((total, pago) => total + Number(pago.valorPago), 0);
 
-                const pagosDelDia = data.filter(pago => normalizeDate(pago.fecha) === today && pago.empresa !== "");
-                const ventasDelDia = data.filter(pago => normalizeDate(pago.fecha) === today && pago.empresa === "");
-                const totalPagosDelDia = pagosDelDia.reduce((total, pago) => total + Number(pago.valorPago), 0);
-                const totalVentasDelDia = ventasDelDia.reduce((total, pago) => total + Number(pago.valorPago), 0);
-
-                setTotalGastos(totalPagosDelDia);
-                setTotalVentas(totalVentasDelDia);
+                setTotalGastos(totalGastosHoy);
+                setTotalVentas(totalVentasHoy);
                 setVentasAcumuladas(totalVentasAcumuladas);
-                setVerdaderaVentasAcumuladas(verdaderaVentasAcumuladas);
-            })
-            .catch(error => console.error('Error fetching ventas acumuladas:', error));
 
-        // Fetch para Clientes Hoy
-        fetch(backend + 'api/pagos')
-            .then(response => response.json())
-            .then(data => {
-                const clientesDelDia = data.filter(cliente => normalizeDate(cliente.fecha) === today && cliente.empresa === "");
-                setClientesHoy(clientesDelDia.length);
-            })
-            .catch(error => console.error('Error fetching clientes hoy:', error));
-
-        // Fetch para Última Apertura o Cierre
-        fetch(backend + 'api/caja')
-            .then(response => response.json())
-            .then(data => {
-                if (data.length > 0) {
-                    const aperturaDelDia = data
-                        .filter(caja => normalizeDate(new Date(caja.fecha).toLocaleDateString("es-CO")) === today && caja.tipoCaja === 'apertura')
-                        .sort((a, b) => new Date(a.fecha) - new Date(b.fecha))[0]; // Obtener la primera caja de apertura del día
-
-                    if (aperturaDelDia) {
-                        setTotalCaja(Number(aperturaDelDia.valorTotal)); // Establecer el valor total de la primera caja de apertura
-                        setUltimaApertura(aperturaDelDia.hora);
+                // Manejar aperturas
+                const aperturasDelDia = cajaData.filter(caja => normalizeDate(caja.fecha) === today && caja.tipoCaja === 'apertura');
+                
+                if (aperturasDelDia.length > 0) {
+                    const primeraAperturaDelDia = aperturasDelDia.sort((a, b) => new Date(a.fecha + ' ' + a.hora) - new Date(b.fecha + ' ' + b.hora))[0];
+                    
+                    if (primeraAperturaDelDia) {
+                        setTotalCaja(primeraAperturaDelDia.totalCaja);
+                        setUltimaApertura(primeraAperturaDelDia.hora);
+                    } else {
+                        console.warn('No se encontró apertura para el día');
                     }
+                } else {
+                    console.warn('No hay aperturas para el día');
                 }
-            })
-            .catch(error => console.error('Error fetching última apertura:', error));
 
-        // Fetch para Pagos Hoy
-        fetch(backend + 'api/pagos')
-            .then(response => response.json())
-            .then(data => {
-                const pagosDelDia = data.filter(pago => normalizeDate(pago.fecha) === today && pago.empresa !== "");
-                setPagosHoy(pagosDelDia.length);
-            })
-            .catch(error => console.error('Error fetching pagos hoy:', error));
+                // Calcular clientesHoy y pagosHoy
+                const clientesHoyData = pagosData.filter(cliente => normalizeDate(cliente.fecha) === today && cliente.empresa === "");
+                const pagosHoyData = pagosData.filter(pago => normalizeDate(pago.fecha) === today && pago.empresa !== "");
+
+                setClientesHoy(clientesHoyData.length);
+                setPagosHoy(pagosHoyData.length);
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
 
     }, [backend, today]);
 

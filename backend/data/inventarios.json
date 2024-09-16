@@ -11,5 +11,20 @@
       "costoIva": 0
     },
     "costoTotal": 0
+  },
+  {
+    "codigo": 2,
+    "empresa": "Postobon",
+    "fecha": "2024-09-16",
+    "hora": "23:32:28",
+    "productos": [
+      {
+        "nombre": "Litro",
+        "cantidad": 1,
+        "costo": 30000,
+        "costoIva": 0
+      }
+    ],
+    "costoTotal": 30000
   }
 ]

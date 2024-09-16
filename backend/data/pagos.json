@@ -17,6 +17,106 @@
       }
     ],
     "valorPago": 6000
+  },
+  {
+    "codigo": 2,
+    "empresa": "Postobon",
+    "fecha": "15/9/2024",
+    "hora": "23:32:28",
+    "productos": [
+      {
+        "nombre": "Litro",
+        "cantidad": 1,
+        "costo": 30000,
+        "costoIva": 0
+      }
+    ],
+    "valorPago": -30000
+  },
+  {
+    "codigo": 3,
+    "empresa": "",
+    "fecha": "15/9/2024",
+    "hora": "23:32:42",
+    "productos": [
+      {
+        "nombre": "Agua Litro",
+        "precio": 3000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Agua Personal",
+        "precio": 1800,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Agua gas Pequeña",
+        "precio": 1000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 5800
+  },
+  {
+    "codigo": 4,
+    "empresa": "",
+    "fecha": "15/9/2024",
+    "hora": "23:46:26",
+    "productos": [
+      {
+        "nombre": "Litro Plastico",
+        "precio": 4500,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Litro Vidrio",
+        "precio": 3500,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 8000
+  },
+  {
+    "codigo": 5,
+    "empresa": "",
+    "fecha": "15/9/2024",
+    "hora": "23:46:53",
+    "productos": [
+      {
+        "nombre": "Genovesa",
+        "precio": 5000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Leche Asada",
+        "precio": 6000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Gelatina",
+        "precio": 3500,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 14500
+  },
+  {
+    "codigo": 6,
+    "empresa": "",
+    "fecha": "15/9/2024",
+    "hora": "23:47:58",
+    "productos": [
+      {
+        "nombre": "Genovesa",
+        "precio": 5000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Gelatina",
+        "precio": 3500,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 8500
   }
- 
 ]

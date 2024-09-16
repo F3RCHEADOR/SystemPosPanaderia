@@ -304,6 +304,7 @@ const CalculatorPanel = ({ clientData }) => {
                 value={receivedAmount}
                 onClick={() => setActiveInput('receivedAmount')}
                 onChange={handleInputChange}
+                autoComplete='OFF'
               />
             </div>
 
