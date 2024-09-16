@@ -49,12 +49,44 @@ const ClientsPaid = () => {
   const pagosSinEmpresa = pagos.filter(pago => (pago.empresa === '' || !pago.empresa) && convertToDate(pago.fecha).toDateString() === new Date().toDateString());
   const pagosConEmpresa = pagos.filter(pago => pago.empresa && convertToDate(pago.fecha).toDateString() === new Date().toDateString());
 
+
+  function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={`${className} absolute right-2 top-1/2 z-20 transform translate-y-1/2 w-[20px] h-[17px] bg-gray-700 flex items-center justify-center m-auto rounded-full  cursor-pointer`}
+        style={{ ...style }}
+        onClick={onClick}
+      >
+      </div>
+    );
+  }
+
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={`${className} absolute left-2 top-1/2  z-20 transform translate-y-1/2  w-[20px] h-[17px]  bg-gray-700 flex items-center justify-center m-auto rounded-full  cursor-pointer`}
+        style={{ ...style }}
+        onClick={onClick}
+      >
+       
+      </div>
+    );
+  }
+
   const sliderSettings = {
     dots: true,
+    focusOnSelect: true,
     infinite: true,
+    autoplay: true,
     speed: 400,
-    slidesToShow: 7,
-    slidesToScroll: 7,
+    autoplaySpeed: 3000,
+    slidesToShow: 6,
+    slidesToScroll: 6,
+    cssEase: "linear",
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
     responsive: [
       {
         breakpoint: 1024,

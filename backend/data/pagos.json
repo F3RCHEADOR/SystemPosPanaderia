@@ -118,5 +118,187 @@
       }
     ],
     "valorPago": 8500
+  },
+  {
+    "codigo": 7,
+    "empresa": "",
+    "fecha": "16/09/2024",
+    "hora": "08:50:14",
+    "productos": [
+      {
+        "nombre": "Agua Litro",
+        "precio": 3000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Aromaticas",
+        "precio": 3000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Maiz",
+        "precio": 1000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 7000
+  },
+  {
+    "codigo": 8,
+    "empresa": "",
+    "fecha": "16/09/2024",
+    "hora": "08:51:54",
+    "productos": [
+      {
+        "nombre": "Fresas con Crema",
+        "precio": 3500,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Gelatina",
+        "precio": 3500,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 7000
+  },
+  {
+    "codigo": 9,
+    "empresa": "Comisariato",
+    "fecha": "16/09/2024",
+    "hora": "08:52:30",
+    "productos": [
+      {
+        "nombre": "Harina",
+        "cantidad": 1,
+        "costo": 118000,
+        "costoIva": 0
+      }
+    ],
+    "valorPago": -118000
+  },
+  {
+    "codigo": 10,
+    "empresa": "Postobon",
+    "fecha": "16/09/2024",
+    "hora": "08:53:02",
+    "productos": [
+      {
+        "nombre": "Litro Caja",
+        "cantidad": 1,
+        "costo": 36000,
+        "costoIva": 0
+      }
+    ],
+    "valorPago": -36000
+  },
+  {
+    "codigo": 11,
+    "empresa": "",
+    "fecha": "16/09/2024",
+    "hora": "09:43:22",
+    "productos": [
+      {
+        "nombre": "Avena",
+        "precio": 4000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Agua Personal",
+        "precio": 1800,
+        "cantidad": 2
+      },
+      {
+        "nombre": "Churro",
+        "precio": 2000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 9600
+  },
+  {
+    "codigo": 12,
+    "empresa": "",
+    "fecha": "16/09/2024",
+    "hora": "09:44:50",
+    "productos": [
+      {
+        "nombre": "1/2 Tajado",
+        "precio": 3000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Dona Roscon",
+        "precio": 3000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 6000
+  },
+  {
+    "codigo": 13,
+    "empresa": "",
+    "fecha": "16/09/2024",
+    "hora": "09:53:44",
+    "productos": [
+      {
+        "nombre": "Bombas",
+        "precio": 2500,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 2500
+  },
+  {
+    "codigo": 14,
+    "empresa": "",
+    "fecha": "16/09/2024",
+    "hora": "09:54:01",
+    "productos": [
+      {
+        "nombre": "Brownie",
+        "precio": 3000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Bombas",
+        "precio": 2500,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 5500
+  },
+  {
+    "codigo": 15,
+    "empresa": "",
+    "fecha": "16/09/2024",
+    "hora": "10:09:53",
+    "productos": [
+      {
+        "nombre": "Maiz",
+        "precio": 1000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 1000
+  },
+  {
+    "codigo": 16,
+    "empresa": "",
+    "fecha": "16/09/2024",
+    "hora": "11:43:20",
+    "productos": [
+      {
+        "nombre": "Agua Litro",
+        "precio": 3000,
+        "cantidad": 1
+      },
+      {
+        "nombre": "Agua gas Pequeña",
+        "precio": 1000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 4000
   }
 ]

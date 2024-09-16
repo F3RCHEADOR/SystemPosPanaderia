@@ -26,5 +26,35 @@
       }
     ],
     "costoTotal": 30000
+  },
+  {
+    "codigo": 3,
+    "empresa": "Comisariato",
+    "fecha": "2024-09-16",
+    "hora": "08:52:30",
+    "productos": [
+      {
+        "nombre": "Harina",
+        "cantidad": 1,
+        "costo": 118000,
+        "costoIva": 0
+      }
+    ],
+    "costoTotal": 118000
+  },
+  {
+    "codigo": 4,
+    "empresa": "Postobon",
+    "fecha": "2024-09-16",
+    "hora": "08:53:02",
+    "productos": [
+      {
+        "nombre": "Litro Caja",
+        "cantidad": 1,
+        "costo": 36000,
+        "costoIva": 0
+      }
+    ],
+    "costoTotal": 36000
   }
 ]

@@ -7,8 +7,10 @@ const Ventas = () => {
 
 
     return (
-        <>
-            <AsideVentas />
+        <>  <div className='absolute z-50'>
+               <AsideVentas />
+        </div>
+         
             <InfoClientPaid />
         </>
     );

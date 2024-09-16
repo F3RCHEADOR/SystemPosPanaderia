@@ -1,6 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import InvoiceSells from "./InvoiceSells";
 
 function InfoSellOrPaid({ info, onClose }) {
+
+  const [imprimir, setImprimir] = useState(false); // Estado para controlar la impresión
+
+  const handleImprimir = () => {
+    setImprimir(true);
+  }
+
+ // Reset the print flag after printing
+ useEffect(() => {
+  if (imprimir) {
+      // Here, you would need to reset the `imprimir` state in InvoiceInventory after print
+      // For simplicity, this example assumes `InvoiceInventory` handles resetting itself.
+      const timer = setTimeout(() => {
+          setImprimir(false);
+      }, 3000); // Adjust the timeout duration as needed
+
+      return () => clearTimeout(timer);
+  }
+}, [imprimir]);
+
   return (
     <>
       <div className="fixed top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2 w-96 h-auto z-50 bg-white border-8 rounded-lg p-4">
@@ -29,7 +50,12 @@ function InfoSellOrPaid({ info, onClose }) {
         </ul>
 
         <h1 className="mt-4 text-center font-semibold">Venta: {info.valorPago}</h1>
-        <button className="px-2.5 py-2 m-2 bg-green-300 font-bold border-4">Imprimir</button>
+        <button onClick={handleImprimir} className="px-2.5 py-2 m-2 bg-green-300 font-bold border-4">Imprimir</button>
+
+        <div className="flex items-center justify-center mx-auto">
+        {imprimir && <InvoiceSells clientData={info} imprimir={true} />}
+        </div>
+        
       </div>
     </>
   );

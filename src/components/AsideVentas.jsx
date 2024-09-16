@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
+import InfoAsideVentas from "./InfoAsideVentas";
 
 function AsideVentas() {
     const [ventasAcumuladas, setVentasAcumuladas] = useState(null);
@@ -8,6 +9,7 @@ function AsideVentas() {
     const [totalGastos, setTotalGastos] = useState(null);
     const [totalVentas, setTotalVentas] = useState(null);
     const [totalCaja, setTotalCaja] = useState(null);
+    const [selectedSection, setSelectedSection] = useState(null); // Estado para la sección seleccionada
     const backend = import.meta.env.VITE_BUSINESS_BACKEND;
 
     // Función para normalizar las fechas
@@ -20,10 +22,10 @@ function AsideVentas() {
     const today = normalizeDate(new Date().toLocaleDateString("es-CO"));
 
     const verdaderaVentasAcumuladas = useMemo(() => {
-        return totalVentas !== null && totalCaja !== null
-            ? totalVentas - totalCaja
+        return totalVentas !== null && totalCaja !== null && totalGastos
+            ? totalVentas - totalCaja + totalGastos
             : null;
-    }, [totalVentas, totalCaja]);
+    }, [totalVentas, totalCaja, totalGastos]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -55,10 +57,10 @@ function AsideVentas() {
 
                 // Manejar aperturas
                 const aperturasDelDia = cajaData.filter(caja => normalizeDate(caja.fecha) === today && caja.tipoCaja === 'apertura');
-                
+
                 if (aperturasDelDia.length > 0) {
                     const primeraAperturaDelDia = aperturasDelDia.sort((a, b) => new Date(a.fecha + ' ' + a.hora) - new Date(b.fecha + ' ' + b.hora))[0];
-                    
+
                     if (primeraAperturaDelDia) {
                         setTotalCaja(primeraAperturaDelDia.totalCaja);
                         setUltimaApertura(primeraAperturaDelDia.hora);
@@ -85,32 +87,32 @@ function AsideVentas() {
 
     }, [backend, today]);
 
+    const handlePrint = () => {
+        setSelectedSection({
+            totalVentas,
+            totalGastos,
+            verdaderaVentasAcumuladas,
+            ultimaApertura,
+            clientesHoy,
+            pagosHoy
+        });
+    };
+
     return (
-        <aside className='fixed h-full w-56 bg-white border-r-4 flex flex-col items-center justify-evenly text-center'>
+        <aside className={`fixed h-full w-60 bg-white border-r-4 flex flex-col pb-8 items-center ${selectedSection ? 'justify-start' : 'justify-center'} text-center`}>
             <div className='p-2 border-2 rounded-xl w-48'>
-                <h2 className='font-semibold text-lg'>Ventas Acumuladas</h2>
-                <p>{totalVentas !== null ? `$${totalVentas}` : '- - - - -- - - -'}</p>
-            </div>
-            <div className='p-2 border-2 rounded-xl w-48 h-20'>
-                <h2 className='font-semibold text-lg'>Gastos Acumulados</h2>
-                <p>{totalGastos !== null ? totalGastos : '- - - - -- - - -'}</p>
-            </div>
-            <div className='p-2 border-2 rounded-xl w-48 h-20'>
-                <h2 className='font-semibold text-lg'>Venta Total</h2>
+                <h2 className='font-semibold text-lg'>Ventas Totales</h2>
                 <p>{verdaderaVentasAcumuladas !== null ? `$${verdaderaVentasAcumuladas}` : '- - - - -- - - -'}</p>
+                <button 
+                    onClick={handlePrint}
+                    className="p-2 m-1 bg-red-300 rounded-xl border-4 font-bold"
+                >
+                    Información
+                </button>
             </div>
-            <div className='p-2 border-2 rounded-xl w-48 h-20'>
-                <h2 className='font-semibold text-lg'>Última Apertura</h2>
-                <p>{ultimaApertura !== null ? ultimaApertura : '- - - - -- - - -'}</p>
-            </div>
-            <div className='p-2 border-2 rounded-xl w-48 h-20'>
-                <h2 className='font-semibold text-lg'>Clientes Hoy</h2>
-                <p>{clientesHoy !== null ? clientesHoy : '- - - - -- - - -'}</p>
-            </div>
-            <div className='p-2 border-2 rounded-xl w-48 h-20'>
-                <h2 className='font-semibold text-lg'>Pagos Hoy</h2>
-                <p>{pagosHoy !== null ? pagosHoy : '- - - - -- - - -'}</p>
-            </div>
+          
+            {/* Pasa el pago seleccionado a InfoAsideVentas */}
+            {selectedSection && <InfoAsideVentas info={selectedSection} onClose={() => setSelectedSection(null)} />}
         </aside>
     );
 }
