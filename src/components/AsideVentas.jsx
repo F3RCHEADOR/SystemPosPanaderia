@@ -7,6 +7,8 @@ function AsideVentas() {
     const [pagosHoy, setPagosHoy] = useState(null);
     const [totalGastos, setTotalGastos] = useState(null);
     const [totalVentas, setTotalVentas] = useState(null);
+    const [verdaderaVentasAcumuladas, setVerdaderaVentasAcumuladas] = useState(null);
+    const [totalCaja, setTotalCaja] = useState(0); // Estado para totalCaja
     const backend = import.meta.env.VITE_BUSINESS_BACKEND;
 
     // Función para normalizar las fechas
@@ -26,6 +28,8 @@ function AsideVentas() {
                 const ventasHoy = data.filter(pago => normalizeDate(pago.fecha) === today);
                 const totalVentasAcumuladas = ventasHoy.reduce((total, pago) => total + Number(pago.valorPago), 0);
 
+                const verdaderaVentasAcumuladas = totalVentasAcumuladas - totalCaja;
+
                 const pagosDelDia = data.filter(pago => normalizeDate(pago.fecha) === today && pago.empresa !== "");
                 const ventasDelDia = data.filter(pago => normalizeDate(pago.fecha) === today && pago.empresa === "");
                 const totalPagosDelDia = pagosDelDia.reduce((total, pago) => total + Number(pago.valorPago), 0);
@@ -34,6 +38,7 @@ function AsideVentas() {
                 setTotalGastos(totalPagosDelDia);
                 setTotalVentas(totalVentasDelDia);
                 setVentasAcumuladas(totalVentasAcumuladas);
+                setVerdaderaVentasAcumuladas(verdaderaVentasAcumuladas);
             })
             .catch(error => console.error('Error fetching ventas acumuladas:', error));
 
@@ -46,6 +51,21 @@ function AsideVentas() {
             })
             .catch(error => console.error('Error fetching clientes hoy:', error));
 
+        // Fetch para Última Apertura o Cierre
+        fetch(backend + 'api/caja')
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    const ultimaAperturaData = data[data.length - 1];
+                    setUltimaApertura(ultimaAperturaData.hora);
+
+                    // Sumar el total de caja
+                    const totalCajaDelDia = data.reduce((total, caja) => total + Number(caja.total), 0);
+                    setTotalCaja(totalCajaDelDia);
+                }
+            })
+            .catch(error => console.error('Error fetching última apertura:', error));
+
         // Fetch para Pagos Hoy
         fetch(backend + 'api/pagos')
             .then(response => response.json())
@@ -55,7 +75,7 @@ function AsideVentas() {
             })
             .catch(error => console.error('Error fetching pagos hoy:', error));
 
-    }, [backend, today]);
+    }, [backend, today, totalCaja]); // Incluye totalCaja en las dependencias
 
     return (
         <aside className='fixed h-full w-56 bg-white border-r-4 flex flex-col items-center justify-evenly text-center'>
@@ -69,7 +89,7 @@ function AsideVentas() {
             </div>
             <div className='p-2 border-2 rounded-xl w-48 h-20'>
                 <h2 className='font-semibold text-lg'>Venta Total</h2>
-                <p>{ventasAcumuladas !== null ? `$${ventasAcumuladas}` : '- - - - -- - - -'}</p>
+                <p>{verdaderaVentasAcumuladas !== null ? `$${verdaderaVentasAcumuladas}` : '- - - - -- - - -'}</p>
             </div>
             <div className='p-2 border-2 rounded-xl w-48 h-20'>
                 <h2 className='font-semibold text-lg'>Última Apertura</h2>
