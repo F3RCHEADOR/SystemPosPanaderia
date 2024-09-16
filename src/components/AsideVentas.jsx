@@ -8,7 +8,7 @@ function AsideVentas() {
     const [totalGastos, setTotalGastos] = useState(null);
     const [totalVentas, setTotalVentas] = useState(null);
     const [verdaderaVentasAcumuladas, setVerdaderaVentasAcumuladas] = useState(null);
-    const [totalCaja, setTotalCaja] = useState(0); // Estado para totalCaja
+    const [totalCaja, setTotalCaja] = useState(null); // Estado para totalCaja
     const backend = import.meta.env.VITE_BUSINESS_BACKEND;
 
     // Función para normalizar las fechas
@@ -28,7 +28,7 @@ function AsideVentas() {
                 const ventasHoy = data.filter(pago => normalizeDate(pago.fecha) === today);
                 const totalVentasAcumuladas = ventasHoy.reduce((total, pago) => total + Number(pago.valorPago), 0);
 
-                const verdaderaVentasAcumuladas = totalVentasAcumuladas - totalCaja;
+                const verdaderaVentasAcumuladas = totalVentasAcumuladas - (totalCaja || 0);
 
                 const pagosDelDia = data.filter(pago => normalizeDate(pago.fecha) === today && pago.empresa !== "");
                 const ventasDelDia = data.filter(pago => normalizeDate(pago.fecha) === today && pago.empresa === "");
@@ -56,12 +56,14 @@ function AsideVentas() {
             .then(response => response.json())
             .then(data => {
                 if (data.length > 0) {
-                    const ultimaAperturaData = data[data.length - 1];
-                    setUltimaApertura(ultimaAperturaData.hora);
+                    const aperturaDelDia = data
+                        .filter(caja => normalizeDate(new Date(caja.fecha).toLocaleDateString("es-CO")) === today && caja.tipoCaja === 'apertura')
+                        .sort((a, b) => new Date(a.fecha) - new Date(b.fecha))[0]; // Obtener la primera caja de apertura del día
 
-                    // Sumar el total de caja
-                    const totalCajaDelDia = data.reduce((total, caja) => total + Number(caja.total), 0);
-                    setTotalCaja(totalCajaDelDia);
+                    if (aperturaDelDia) {
+                        setTotalCaja(Number(aperturaDelDia.valorTotal)); // Establecer el valor total de la primera caja de apertura
+                        setUltimaApertura(aperturaDelDia.hora);
+                    }
                 }
             })
             .catch(error => console.error('Error fetching última apertura:', error));
@@ -75,7 +77,7 @@ function AsideVentas() {
             })
             .catch(error => console.error('Error fetching pagos hoy:', error));
 
-    }, [backend, today, totalCaja]); // Incluye totalCaja en las dependencias
+    }, [backend, today]);
 
     return (
         <aside className='fixed h-full w-56 bg-white border-r-4 flex flex-col items-center justify-evenly text-center'>
