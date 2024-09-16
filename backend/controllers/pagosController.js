@@ -43,12 +43,18 @@ router.post('/', (req, res) => {
     // Genera un nuevo código autoincremental
     const ultimoCodigo = pagos.length > 0 ? pagos[pagos.length - 1].codigo : 0;
     const nuevoCodigo = ultimoCodigo + 1;
+    const optionsFecha = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const optionsHora = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+
+    // Fecha y hora en la zona horaria de Colombia
+    const fecha = new Date().toLocaleDateString('es-CO', optionsFecha); // Fecha actual en formato colombiano
+    const hora = new Date().toLocaleTimeString('es-CO', optionsHora);   // Hora actual en formato colombiano
 
     const nuevoPago = {
       codigo: nuevoCodigo,
       empresa: empresa || '',
-      fecha: new Date().toLocaleDateString(), // Fecha actual
-      hora: new Date().toLocaleTimeString(), // Hora actual
+      fecha: fecha, // Asignar la fecha
+      hora: hora,   // Asignar la hora
       productos,
       valorPago
     };
