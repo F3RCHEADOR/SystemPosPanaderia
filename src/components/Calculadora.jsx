@@ -168,7 +168,7 @@ const CalculatorPanel = ({ clientData }) => {
           throw new Error('Error al desocupar la mesa');
         }
 
-        const saveResponse = await fetch('api/mesas/pagos', {
+        const saveResponse = await fetch(backend+'api/mesas/pagos', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

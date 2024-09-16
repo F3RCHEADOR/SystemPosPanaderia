@@ -68,7 +68,7 @@ router.put('/:codigo/desocupar', (req, res) => {
 
 
 
-router.post('/pagos', (req, res) => {
+router.post('/pagos',async (req, res) => {
   const { empresa, fecha, hora, productos, valorAcumulado } = req.body;
 
   try {
