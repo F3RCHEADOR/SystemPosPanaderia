@@ -1,3 +1,4 @@
+
 import express from 'express';
 import cors from 'cors';
 import clientesRoutes from './controllers/clientesController.js';
@@ -26,3 +27,4 @@ app.use('/api/pagos', pagosRoutes);
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
+
