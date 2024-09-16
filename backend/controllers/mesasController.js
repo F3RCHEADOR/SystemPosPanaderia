@@ -78,11 +78,19 @@ router.post('/pagos',async (req, res) => {
      const ultimoCodigo = pagos.length > 0 ? pagos[pagos.length - 1].codigo : 0;
      const nuevoCodigo = ultimoCodigo + 1; // Autoincrementa el último código
 
+     // Configuración para la fecha y hora en zona horaria de Colombia
+    const optionsFecha = { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'America/Bogota' };
+    const optionsHora = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'America/Bogota' };
+
+    // Generar fecha y hora en la zona horaria de Colombia
+    const fecha = new Intl.DateTimeFormat('es-CO', optionsFecha).format(new Date());
+    const hora = new Intl.DateTimeFormat('es-CO', optionsHora).format(new Date());
+
     const nuevoPago = {
       codigo: nuevoCodigo, // Asigna el nuevo código
       empresa: empresa || '',
-      fecha: new Date().toLocaleDateString(), // Formato de fecha
-      hora: new Date().toLocaleTimeString(), // Formato de hora
+      fecha: fecha, // Formato de fecha
+      hora: hora, // Formato de hora
       productos,
       valorPago: valorAcumulado
     };

@@ -135,15 +135,19 @@ router.post('/pagos', async (req, res) => {
     const ultimoCodigo = pagos.length > 0 ? pagos[pagos.length - 1].codigo : 0;
     const nuevoCodigo = ultimoCodigo + 1; // Autoincrementa el último código
 
-    const optionsFecha = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    const optionsHora = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    // Configuración para la fecha y hora en zona horaria de Colombia
+    const optionsFecha = { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'America/Bogota' };
+    const optionsHora = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'America/Bogota' };
 
+    // Generar fecha y hora en la zona horaria de Colombia
+    const fecha = new Intl.DateTimeFormat('es-CO', optionsFecha).format(new Date());
+    const hora = new Intl.DateTimeFormat('es-CO', optionsHora).format(new Date());
 
     const nuevoPago = {
       codigo: nuevoCodigo, // Asigna el nuevo código
       empresa: empresa || '',
-      fecha: new Date().toLocaleDateString('es-CO', optionsFecha),
-      hora: new Date().toLocaleTimeString('es-CO', optionsHora),
+      fecha: fecha,
+      hora: hora,
       productos,
       valorPago: valorAcumulado
     };
@@ -156,6 +160,7 @@ router.post('/pagos', async (req, res) => {
     res.status(500).json({ error: 'Error al guardar el pago' });
   }
 });
+
 
 
 export default router;

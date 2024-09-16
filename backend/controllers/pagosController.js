@@ -33,7 +33,6 @@ router.get('/:codigo', (req, res) => {
   }
 });
 
-// Crear un nuevo pago
 router.post('/', (req, res) => {
   const { empresa, productos, valorPago } = req.body;
 
@@ -44,17 +43,27 @@ router.post('/', (req, res) => {
     const ultimoCodigo = pagos.length > 0 ? pagos[pagos.length - 1].codigo : 0;
     const nuevoCodigo = ultimoCodigo + 1;
 
-    // Configuración para la fecha y hora en zona horaria de Colombia
-    const optionsFecha = { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'America/Bogota' };
-    const optionsHora = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'America/Bogota' };
+    // Usar Intl.DateTimeFormat para Colombia
+    const fecha = new Intl.DateTimeFormat('es-CO', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      timeZone: 'America/Bogota'
+    }).format(new Date());
+
+    const hora = new Intl.DateTimeFormat('es-CO', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+      timeZone: 'America/Bogota'
+    }).format(new Date());
 
     const nuevoPago = {
       codigo: nuevoCodigo,
       empresa: empresa || '',
-
-      // Fecha y hora en la zona horaria de Colombia
-      fecha: new Date().toLocaleDateString('es-CO', optionsFecha),
-      hora: new Date().toLocaleTimeString('es-CO', optionsHora),
+      fecha: fecha,
+      hora: hora,
       productos,
       valorPago
     };

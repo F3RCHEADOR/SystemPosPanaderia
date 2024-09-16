@@ -31,36 +31,41 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/pagos', async (req, res) => {
-    const { empresa, productos, costoTotal } = req.body;
-  
-    try {
-      const pagos = readPagos(); // Lee los pagos existentes
-  
-      // Obtener el último código
-      const ultimoCodigo = pagos.length > 0 ? pagos[pagos.length - 1].codigo : 0;
-      const nuevoCodigo = ultimoCodigo + 1; // Autoincrementa el último código
+  const { empresa, productos, costoTotal } = req.body;
 
-      const optionsFecha = { year: 'numeric', month: '2-digit', day: '2-digit' };
-      const optionsHora = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
-  
-  
-      const nuevoPago = {
-        codigo: nuevoCodigo, // Asigna el nuevo código
-        empresa: empresa || '',
-        fecha: new Date().toLocaleDateString('es-CO', optionsFecha),
-        hora: new Date().toLocaleTimeString('es-CO', optionsHora),
-        productos,
-        valorPago: (costoTotal * -1)
-      };
-  
-      pagos.push(nuevoPago); // Agrega el nuevo pago a la lista
-      savePagos(pagos); // Guarda los pagos actualizados
-  
-      res.status(201).json(nuevoPago);
-    } catch (error) {
-      res.status(500).json({ error: 'Error al guardar el pago' });
-    }
-  });
-  
+  try {
+    const pagos = readPagos(); // Lee los pagos existentes
+
+    // Obtener el último código
+    const ultimoCodigo = pagos.length > 0 ? pagos[pagos.length - 1].codigo : 0;
+    const nuevoCodigo = ultimoCodigo + 1; // Autoincrementa el último código
+
+    // Configuración para la fecha y hora en zona horaria de Colombia
+    const optionsFecha = { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'America/Bogota' };
+    const optionsHora = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'America/Bogota' };
+
+    // Generar fecha y hora en la zona horaria de Colombia
+    const fecha = new Intl.DateTimeFormat('es-CO', optionsFecha).format(new Date());
+    const hora = new Intl.DateTimeFormat('es-CO', optionsHora).format(new Date());
+
+
+    const nuevoPago = {
+      codigo: nuevoCodigo, // Asigna el nuevo código
+      empresa: empresa || '',
+      fecha: fecha,
+      hora: hora,
+      productos,
+      valorPago: (costoTotal * -1)
+    };
+
+    pagos.push(nuevoPago); // Agrega el nuevo pago a la lista
+    savePagos(pagos); // Guarda los pagos actualizados
+
+    res.status(201).json(nuevoPago);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al guardar el pago' });
+  }
+});
+
 
 export default router;
