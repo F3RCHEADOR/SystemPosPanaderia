@@ -37,7 +37,7 @@ function ContadorBilletes() {
       if (!response.ok) throw new Error('Error al obtener el estado de la caja');
 
       const data = await response.json();
-
+      console.log(data);
       // Obtiene el último registro
       const ultimoRegistro = data[data.length - 1];
       console.log(ultimoRegistro);
