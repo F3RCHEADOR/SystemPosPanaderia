@@ -300,5 +300,19 @@
       }
     ],
     "valorPago": 4000
+  },
+  {
+    "codigo": 17,
+    "empresa": "",
+    "fecha": "25/09/2024",
+    "hora": "09:07:35",
+    "productos": [
+      {
+        "nombre": "Aromaticas",
+        "precio": 3000,
+        "cantidad": 1
+      }
+    ],
+    "valorPago": 3000
   }
 ]

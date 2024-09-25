@@ -12,7 +12,9 @@ const ItemTypes = {
 const backend = import.meta.env.VITE_BUSINESS_BACKEND;
 
 
+
 const Mesa = ({ mesa, onClienteDrop, selectedMesa, onMesaClick }) => {
+ 
   const [{ isOver, canDrop }, drop] = useDrop(() => ({
     accept: ItemTypes.CLIENT,
     canDrop: () => mesa.estado !== 'Ocupado', // Solo permite dropear si la mesa no está ocupada
@@ -64,6 +66,33 @@ const MesaList = ({ onClienteDrop }) => {
   const [mesas, setMesas] = useState([]);
   const [clientes, setClientes] = useState([]);
   const [selectedMesa, setSelectedMesa] = useState(null);
+  const [tipoCaja, setTipoCaja] = useState(null); // Inicializa el estado de tipoCaja
+
+  useEffect(() => {
+    const obtenerEstadoCaja = async () => {
+      try {
+        const response = await fetch(`${backend}api/caja`); // Espera la respuesta
+        if (!response.ok) throw new Error('Error al obtener el estado de la caja');
+
+        const data = await response.json();
+        console.log(data);
+
+        // Obtén el último registro
+        const ultimoRegistro = data[data.length - 1];
+        console.log(ultimoRegistro);
+
+        // Determina el tipo de caja para la siguiente operación
+        if (ultimoRegistro) {
+          setTipoCaja(ultimoRegistro.tipoCaja === 'apertura' ? 'Abierta' : 'Cerrada');
+        } 
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Ocurrió un error al verificar el estado de la caja');
+      }
+    };
+
+    obtenerEstadoCaja(); // Ejecuta la función para obtener el estado de la caja
+  }, []); // Se ejecuta solo una vez cuando el componente se monta
 
   useEffect(() => {
     const fetchData = async () => {
@@ -132,11 +161,15 @@ const MesaList = ({ onClienteDrop }) => {
   return (
     <div className="px-6 pt-4 bg-gray-100 h-full w-full">
       <div className='flex items-center justify-between'>
-        <h2 className="text-2xl font-bold  text-center">Lista de Mesas</h2>
-        <Reloj></Reloj>
+        <h2 className="text-2xl font-bold text-center">Lista de Mesas</h2>
+        {/* Mostrar tipoCaja dinámicamente */}
+        <p className={`${tipoCaja === 'Abierta' ? 'bg-blue-300' : 'bg-red-300'} rounded-lg p-2 font-bold italic text-xl`}>
+          {tipoCaja ? `Caja ${tipoCaja}` : 'Cargando estado de la caja...'}
+        </p>
+        <Reloj />
         <div>
           <span className='p-2.5 rounded-full w-4 h-4 bg-red-400 mx-2 font-bold'>Ocupado</span>
-          <span className='p-2.5 rounded-full w-4 h-4 bg-green-400 mx-2 font-bold'>Desocupado</span>
+          <span className='p-2.5 rounded-full w-4 h-4 bg-green-400 mx-2 font-bold'>Libre</span>
         </div>
       </div>
       <div className="grid grid-cols-3 max-w-screen-xl mx-auto gap-8 my-8">
@@ -152,6 +185,7 @@ const MesaList = ({ onClienteDrop }) => {
       </div>
     </div>
   );
+  
 };
 
 export default MesaList;
