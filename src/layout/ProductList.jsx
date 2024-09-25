@@ -162,6 +162,7 @@ const ProductList = () => {
       <Toast ref={toast} />
       <div className="p-6 bg-gray-100">
         <div className="flex items-center justify-between mb-6">
+
           <h1 className="text-3xl font-bold mb-6">Listado de Categorías/<span className="text-xl font-medium">Productos</span></h1>
           <button
             className="bg-green-200 p-2 border-4 border-green-400 rounded-xl font-bold text-gray-800 group hover:scale-105 duration-200 hover:bg-green-300 hover:border-green-500"
@@ -186,8 +187,9 @@ const ProductList = () => {
               {activeCategoriaId === categoria.id && (
                 <div className='border-8 border-gray-400 rounded-xl fixed top-1/2 z-30 h-96 overflow-auto left-1/2 bg-white p-8 transform -translate-y-1/2 -translate-x-1/2'>
                   <ul className="space-y-2 w-[500px]">
-                    <button className="absolute top-2 right-2 flex items-center justify-center bg-red-500 px-2 py-1 font-extrabold text-white rounded-full border-4 border-gray-800" onClick={() => handleCategoriaClick(categoria.id)}>X</button>
-                    <h2 className='font-bold underline m-4 text-center pt-4'> Lista de Productos de {categoria.nombre}</h2>
+                    <button className="absolute top-2 left-2 block w-28 hover:bg-purple-600 bg-purple-800 font-bold text-white rounded-lg border-2 " onClick={() => handleCategoriaClick(categoria.id)}>Eliminar Categoria</button>
+                    <button className="absolute top-0 right-2 flex items-center justify-center bg-red-500 px-2 py-1 font-extrabold text-white rounded-full border-4 border-gray-800" onClick={() => handleCategoriaClick(categoria.id)}>X</button>
+                    <h2 className='font-bold underline m-4  text-center pt-12'> Lista de Productos de {categoria.nombre}</h2>
                     <div className='px-4 py-2 grid grid-cols-4 gap-4 font-bold text-lg underline'>
                       <span className='col-span-2'>Producto</span>
                       <span>Precio</span>
@@ -209,6 +211,8 @@ const ProductList = () => {
                   <button onClick={() => handleNewProduct(categoria)} className='flex items-center justify-center p-2 mt-6 rounded-xl border-4 font-bold bg-green-400 mx-auto'>
                     <p className='space-x-2'>Agregar Más<span className='px-2'>{categoria.nombre}</span></p>
                   </button>
+
+                  
                 </div>
               )}
             </div>
@@ -220,19 +224,19 @@ const ProductList = () => {
               <h2 className="bg-green-200 text-center p-2 m-2 text-xl font-bold underline rounded-xl">Nuevo Producto en {selectedCategoria.nombre}</h2>
               <button className="absolute top-4 right-4 w-8 h-8 bg-red-300 font-bold rounded-full text-center hover:scale-105 hover:text-white" onClick={handleCloseNewProduct}>X</button>
               <div className="flex flex-col items-center p-6">
-                <label className="block mb-2">Nombre del Producto</label>
+                <label className="block mb-2 font-bold">Nombre del Producto</label>
                 <input
                   type="text"
                   value={newProductName}
                   onChange={(e) => setNewProductName(e.target.value)}
-                  className="border p-2 rounded mb-4 w-full"
+                  className="border-4 p-2 rounded mb-4 w-full capitalize"
                 />
-                <label className="block mb-2">Precio</label>
+                <label className="block mb-2 font-bold">Precio</label>
                 <input
                   type="number"
                   value={newProductPrice}
                   onChange={(e) => setNewProductPrice(e.target.value)}
-                  className="border p-2 rounded mb-4 w-full"
+                  className="border-4 p-2 rounded mb-4 w-full"
                 />
                 <button
                   onClick={createProduct}
