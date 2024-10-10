@@ -8,8 +8,10 @@ import Inventories from './pages/Inventories.jsx';
 import PaidPage from './pages/PaidPage.jsx';
 import ContadorBilletes from './pages/ContadorBilletes.jsx';
 import Ventas from './pages/Ventas.jsx';
+import Login from './pages/Login.jsx';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import ProtectedRoute from './components/ProtectedRoute'; // Importa el componente
 
 function App() {
   return (
@@ -18,12 +20,37 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />  {/* Redirige a /home */}
           <Route path="/second" element={<Second />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/AddClient" element={<AddClient />} />
-          <Route path="/Inventories" element={<Inventories />} />
-          <Route path="/PaidPage" element={<PaidPage />} />
-          <Route path="/ContadorBilletes" element={<ContadorBilletes />} />
-          <Route path="/Ventas" element={<Ventas />} />
+          <Route path="/home" element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          } />
+          <Route path="/AddClient" element={
+            <ProtectedRoute>
+              <AddClient />
+            </ProtectedRoute>
+          } />
+          <Route path="/Inventories" element={
+            <ProtectedRoute>
+              <Inventories />
+            </ProtectedRoute>
+          } />
+          <Route path="/PaidPage" element={
+            <ProtectedRoute>
+              <PaidPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/ContadorBilletes" element={
+            <ProtectedRoute>
+              <ContadorBilletes />
+            </ProtectedRoute>
+          } />
+          <Route path="/Ventas" element={
+            <ProtectedRoute>
+              <Ventas />
+            </ProtectedRoute>
+          } />
+          <Route path="/Login" element={<Login />} />
         </Routes>
       </MainLayout>
     </DndProvider>

@@ -1,0 +1,9 @@
+### Crear un Usuario
+GET http://localhost:5000/api/usuarios
+Content-Type: application/json
+
+{
+    "username": "usuario1",
+    "password": "clave123"
+}
+
