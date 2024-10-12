@@ -59,8 +59,8 @@ const ClientList = ({ onDropCliente, onEditClient  }) => {
 
 
   return (
-    <div className="fixed overflow-y-auto p-6 bg-gray-100 max-h-full min-h-screen border-r-4 w-56">
-      <h1 className="text-3xl font-bold mb-6 text-center">Clientes</h1>
+    <div className="fixed overflow-y-auto p-4 xl:p-6 bg-gray-100  xl:min-h-screen border-r-4 w-32 xl:w-56">
+      <h1 className="text-2xl font-bold mb-6 text-center">Clientes</h1>
       <div className="space-y-8 mt-12">
         {clientes.map((cliente) => (
           <Client

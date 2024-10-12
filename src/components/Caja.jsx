@@ -48,12 +48,12 @@ function Caja() {
   return (
     <div>
       <div className="relative flex  bg-white items-center justify-center "><button onClick={toogleMenu}><img src={CajaRegistradora} alt="" className="size-20" /></button>
-        <div className={`${isMenuVisibe ? 'block' : 'hidden'} absolute bg-white translate-y-20 mt-20 w-[550px] h-44 border-4 rounded-xl p-2 z-20`}>
-          <div className="grid grid-cols-4 gap-4 font-bold text-sm text-center">
-            <Link to="/AddClient" className="border-4 p-1 rounded-xl hover:scale-110 duration-200"><img src={Client} alt="pago" className="size-20 mx-auto" /><span >Agregar Cliente</span></Link>
-            <Link to="/ContadorBilletes" className={`${tipoCaja === 'Abrir' ? 'bg-blue-300' : 'bg-red-300'} border-4 p-1 rounded-xl hover:scale-110 duration-200`}><img src={Money} alt="pago" className="size-20 mx-auto" /><span >{tipoCaja} Caja</span></Link>
-            <Link to="/Ventas" className="border-4 p-1 rounded-xl hover:scale-110 duration-200"><img src={Ventas} alt="Ventas" className="size-20 mx-auto" /><span >Ventas</span></Link>
-            <Link to="/Inventories" className="border-4 p-1 rounded-xl hover:scale-110 duration-200"><img src={Inventory} alt="pago" className="size-20 mx-auto" /><span >Agregar Inventario</span></Link>
+        <div className={`${isMenuVisibe ? 'block' : 'hidden'} absolute bg-white translate-y-20 mt-20 w-80 xl:w-[550px] h-32 xl:h-44 border-4 rounded-xl p-2 z-20`}>
+          <div className="grid grid-cols-4 gap-4 font-bold text-xs xl:text-sm text-center">
+            <Link to="/AddClient" className="border-4 p-1  rounded-xl hover:scale-110 duration-200"><img src={Client} alt="pago" className="size-10 xl:size-20 mx-auto" /><span >Agregar Cliente</span></Link>
+            <Link to="/ContadorBilletes" className={`${tipoCaja === 'Abrir' ? 'bg-blue-300' : 'bg-red-300'} border-4 p-1 rounded-xl hover:scale-110 duration-200`}><img src={Money} alt="pago" className="size-10 xl:size-20 mx-auto" /><span >{tipoCaja} Caja</span></Link>
+            <Link to="/Ventas" className="border-4 p-1 rounded-xl hover:scale-110 duration-200"><img src={Ventas} alt="Ventas" className="size-10 xl:size-20 mx-auto" /><span >Ventas</span></Link>
+            <Link to="/Inventories" className="border-4 p-1 rounded-xl hover:scale-110 duration-200"><img src={Inventory} alt="pago" className="size-10 xl:size-20 mx-auto overflow-auto" /><span >Agregar Inventario</span></Link>
           </div>
         </div>
       </div>

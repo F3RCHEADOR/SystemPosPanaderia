@@ -36,13 +36,13 @@ const Mesa = ({ mesa, onClienteDrop, selectedMesa, onMesaClick }) => {
   return (
     <div
       ref={drop}
-      className={`relative border rounded-xl p-4 ${mesaBackgroundColor} ${overlayColor}`}
+      className={`relative border-2 rounded-xl p-4 h-auto ${mesaBackgroundColor} ${overlayColor}`}
     >
       <button
         className="flex items-center justify-center w-full"
         onClick={() => onMesaClick(mesa.codigo)}
       >
-        <img src={MesaImagen} alt={`Mesa ${mesa.codigo}`} className="w-28 mx-auto transition-all" />
+        <img src={MesaImagen} alt={`Mesa ${mesa.codigo}`} className="w-auto xl:w-28 mx-auto transition-all" />
       </button>
 
       {selectedMesa === mesa.codigo && (
@@ -159,20 +159,20 @@ const MesaList = ({ onClienteDrop }) => {
 
 
   return (
-    <div className="px-6 pt-4 bg-gray-100 h-full w-full">
+    <div className="px-6 pt-4 bg-gray-100 h-auto xl:h-full w-full">
       <div className='flex items-center justify-between'>
         <h2 className="text-2xl font-bold text-center">Lista de Mesas</h2>
         {/* Mostrar tipoCaja dinámicamente */}
-        <p className={`${tipoCaja === 'Abierta' ? 'bg-blue-300' : 'bg-red-300'} rounded-lg p-2 font-bold italic text-xl`}>
+        <p className={`${tipoCaja === 'Abierta' ? 'bg-blue-300' : 'bg-red-300'} hidden xl:block rounded-lg p-2 font-bold italic text-xl`}>
           {tipoCaja ? `Caja ${tipoCaja}` : 'Cargando estado de la caja...'}
         </p>
         <Reloj />
-        <div>
+        <div className='hidden xl:block'>
           <span className='p-2.5 rounded-full w-4 h-4 bg-red-400 mx-2 font-bold'>Ocupado</span>
           <span className='p-2.5 rounded-full w-4 h-4 bg-green-400 mx-2 font-bold'>Libre</span>
         </div>
       </div>
-      <div className="grid grid-cols-3 max-w-screen-xl mx-auto gap-8 my-8">
+      <div className="grid grid-cols-2 xl:grid-cols-3 max-w-screen-xl mx-auto gap-8 my-8">
         {mesas.map((mesa) => (
           <Mesa
             key={mesa.codigo}

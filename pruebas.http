@@ -1,9 +1,3 @@
-### Crear un Usuario
-GET http://localhost:5000/api/usuarios
+### Obtener un producto por ID
+GET http://localhost:5000/api/productos/67093fdbf4f894673cab5c55
 Content-Type: application/json
-
-{
-    "username": "usuario1",
-    "password": "clave123"
-}
-

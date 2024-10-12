@@ -12,7 +12,7 @@ function Reloj() {
   }, []);
 
   return (
-    <button className="text-4xl font-bold text-gray-800">
+    <button className="text-2xl xl:text-3xl font-bold text-gray-800">
       {hora.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
     </button>
 
