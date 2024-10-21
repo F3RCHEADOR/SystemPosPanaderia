@@ -19,7 +19,11 @@ function App() {
       <MainLayout>
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />  {/* Redirige a /home */}
-          <Route path="/second" element={<Second />} />
+          <Route path="/second" element={
+            <ProtectedRoute>
+              <Second />
+            </ProtectedRoute> 
+          } />
           <Route path="/home" element={
             <ProtectedRoute>
               <Home />

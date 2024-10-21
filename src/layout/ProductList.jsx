@@ -21,29 +21,30 @@ const ProductList = () => {
   const [loading, setLoading] = useState(false); // Estado de carga
 
   // Cargar las categorías al montar el componente
-  useEffect(() => {
-    const fetchCategorias = async () => {
-      const localId = localStorage.getItem("localId");
-      if (localId) {
-        setLoading(true);
-        try {
-          const response = await fetch(`${backend}api/categorias/local/${localId}`);
-          const data = await response.json();
-          if (Array.isArray(data)) {
-            setCategorias(data);
-          } else {
-            console.error("Datos recibidos no son un array:", data);
-          }
-        } catch (error) {
-          console.error("Error al cargar categorías:", error);
-        } finally {
-          setLoading(false);
+  const fetchCategorias = async () => {
+    const localId = localStorage.getItem("localId");
+    if (localId) {
+      setLoading(true);
+      try {
+        const response = await fetch(`${backend}api/categorias/local/${localId}`);
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          setCategorias(data);
+        } else {
+          console.error("Datos recibidos no son un array:", data);
         }
-      } else {
-        console.error("No se encontró localId en el almacenamiento local.");
+      } catch (error) {
+        console.error("Error al cargar categorías:", error);
+      } finally {
+        setLoading(false);
       }
-    };
+    } else {
+      console.error("No se encontró localId en el almacenamiento local.");
+    }
+  };
 
+  // Llama a fetchCategorias cuando el componente se monta
+  useEffect(() => {
     fetchCategorias();
   }, [backend]);
 
@@ -212,25 +213,15 @@ const ProductList = () => {
     if (confirm("¿Deseas Eliminar el Producto Seleccionado?")) {
       try {
         const response = await fetch(
-          `${backend}api/categorias/${categoriaId}/productos/${productoId}`,
+          `${backend}api/productos/${productoId}`,
           {
             method: "DELETE",
           }
         );
 
         if (response.ok) {
-          const updatedCategorias = categorias.map((categoria) => {
-            if (categoria._id === categoriaId) {
-              return {
-                ...categoria,
-                productos: categoria.productos.filter(
-                  (producto) => producto._id !== productoId
-                ),
-              };
-            }
-            return categoria;
-          });
-          setCategorias(updatedCategorias);
+          fetchCategorias();
+          handleCategoriaClick();
           toast.current.show({
             severity: "success",
             summary: "Producto Eliminado",
@@ -292,7 +283,7 @@ const ProductList = () => {
 
               {activeCategoriaId === categoria._id && (
                 <div className="border-8 border-gray-400 rounded-xl fixed top-1/2 z-30 h-96 overflow-auto left-1/2 bg-white p-8 transform -translate-y-1/2 -translate-x-1/2">
-                                <button className="absolute top-4 right-4 w-8 h-8 bg-red-400 font-bold rounded-full text-center hover:scale-105 hover:text-white" onClick={handleCategoriaClick}>X</button>
+                  <button className="absolute top-4 right-4 w-8 h-8 bg-red-400 font-bold rounded-full text-center hover:scale-105 hover:text-white" onClick={handleCategoriaClick}>X</button>
                   <ul className="space-y-2 w-[550px]">
                     <h2 className="font-bold text-xl bg-gray-100 underline m-4 flex items-center justify-center h-12 mt-2">
                       Lista de Productos de {categoria.nombre}
