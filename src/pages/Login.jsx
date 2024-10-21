@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
+import { data } from 'autoprefixer';
 
 const Login = () => {
     const toast = useRef(null);
@@ -20,32 +21,35 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-
+    
         try {
             const response = await axios.post('http://localhost:5000/api/usuarios/login', {
                 username,
                 password,
             });
             console.log('Inicio de sesión exitoso:', response.data);
+            console.log(data)
+            // Guardar el token y el localId en localStorage
             localStorage.setItem('token', response.data.token);
+            localStorage.setItem('localId', response.data.localId); // Guardar el localId
+    
             // Mostrar el toast
             toast.current.show({ severity: "success", summary: 'Sesión Iniciada Con Éxito', life: 3000 });
-
+    
             // Redirigir después de 3 segundos
             setTimeout(() => {
                 navigate('/home'); // Redirige a otra ruta
             }, 2000);
         } catch (err) {
             if (err.response) {
-                setError(err.response.data.error); // Muestra el mensaje de error del servidor
+                setError(err.response.data.error); // Mostrar error del servidor
                 toast.current.show({ severity: "error", summary: err.response.data.error, life: 3000 });
-
             } else {
                 setError('Error en la conexión al servidor');
             }
         }
     };
-
+    
     return (
         <>
             <Toast ref={toast} />

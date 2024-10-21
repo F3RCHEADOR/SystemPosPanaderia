@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/', create); // Ruta para crear categoría
 
 // Obtener todas las categorías de un local específico
-router.get('/:localId', getAllByLocal); // Ruta para obtener todas las categorías por local
+router.get('/local/:localId', getAllByLocal); // Cambiado a '/local/:localId'
 
 // Obtener una categoría por ID
 router.get('/:id', getById); // Ruta para obtener categoría por ID

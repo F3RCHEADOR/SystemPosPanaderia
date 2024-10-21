@@ -1,10 +1,9 @@
-import Plus from '../assets/plus.svg';
-import React, { useState, useEffect, useRef } from 'react';
-import { Toast } from 'primereact/toast';
+import Plus from "../assets/plus.svg";
+import React, { useState, useEffect, useRef } from "react";
+import { Toast } from "primereact/toast";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 
 const backend = import.meta.env.VITE_BUSINESS_BACKEND;
-
 
 const ProductList = () => {
   const toast = useRef(null);
@@ -13,24 +12,31 @@ const ProductList = () => {
   const [showNewCategory, setShowNewCategory] = useState(false);
   const [showNewProduct, setShowNewProduct] = useState(false);
   const [selectedCategoria, setSelectedCategoria] = useState(null);
-  const [newCategoryName, setNewCategoryName] = useState('');
+  const [newCategoryName, setNewCategoryName] = useState("");
   const [newCategoryImage, setNewCategoryImage] = useState(null);
-  const [newProductName, setNewProductName] = useState('');
-  const [newProductPrice, setNewProductPrice] = useState('');
+  const [newProductName, setNewProductName] = useState("");
+  const [newProductPrice, setNewProductPrice] = useState("");
 
   // Cargar las categorías al montar el componente
   useEffect(() => {
-    fetch(backend + 'api/categorias')
-      .then(response => response.json())
-      .then(data => {
-        if (data && Array.isArray(data)) {
-          setCategorias(data);
-        } else {
-          console.error('Datos recibidos no son un array:', data);
-        }
-      })
-      .catch(error => console.error('Error al cargar categorías:', error));
-  }, []);
+    const localId = localStorage.getItem("localId"); // Obtener el localId del almacenamiento local
+    console.log(localId)
+    if (localId) {
+      fetch(`${backend}api/categorias/${localId}`) // Incluir localId en la URL
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+          if (data && Array.isArray(data)) {
+            setCategorias(data);
+          } else {
+            console.error("Datos recibidos no son un array:", data);
+          }
+        })
+        .catch((error) => console.error("Error al cargar categorías:", error));
+    } else {
+      console.error("No se encontró localId en el almacenamiento local.");
+    }
+  }, [backend]);
 
   // Manejar el clic en una categoría
   const handleCategoriaClick = (id) => {
@@ -59,31 +65,46 @@ const ProductList = () => {
   // Crear nueva categoría
   const createCategory = async () => {
     const formData = new FormData();
-    formData.append('nombre', newCategoryName);
+    formData.append("nombre", newCategoryName);
     if (newCategoryImage) {
-      formData.append('imagen', newCategoryImage);
+      formData.append("imagen", newCategoryImage);
     }
 
     try {
-      const response = await fetch(backend + 'api/categorias', {
-        method: 'POST',
+      const response = await fetch(backend + "api/categorias", {
+        method: "POST",
         body: formData,
       });
 
       if (response.ok) {
         const newCategory = await response.json();
         setCategorias([...categorias, newCategory]);
-        setNewCategoryName('');
+        setNewCategoryName("");
         setNewCategoryImage(null);
         setShowNewCategory(false);
-        toast.current.show({ severity: "success", summary: 'Categoría Creada', detail: `Nombre: ${newCategory.nombre}`, life: 15000 });
+        toast.current.show({
+          severity: "success",
+          summary: "Categoría Creada",
+          detail: `Nombre: ${newCategory.nombre}`,
+          life: 15000,
+        });
       } else {
-        toast.current.show({ severity: 'error', summary: 'Error', detail: 'No se pudo crear la categoría', life: 3000 });
-        console.error('Error al crear categoría:', response.statusText);
+        toast.current.show({
+          severity: "error",
+          summary: "Error",
+          detail: "No se pudo crear la categoría",
+          life: 3000,
+        });
+        console.error("Error al crear categoría:", response.statusText);
       }
     } catch (error) {
-      toast.current.show({ severity: 'error', summary: 'Error', detail: 'Error en la conexión', life: 3000 });
-      console.error('Error en la conexión:', error);
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "Error en la conexión",
+        life: 3000,
+      });
+      console.error("Error en la conexión:", error);
     }
   };
 
@@ -95,64 +116,105 @@ const ProductList = () => {
     };
 
     try {
-      const response = await fetch(backend + `api/categorias/${selectedCategoria.id}/productos`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(product),
-      });
+      const response = await fetch(
+        backend + `api/categorias/${selectedCategoria.id}/productos`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(product),
+        }
+      );
 
       if (response.ok) {
         const newProduct = await response.json();
-        const updatedCategorias = categorias.map(categoria => {
+        const updatedCategorias = categorias.map((categoria) => {
           if (categoria.id === selectedCategoria.id) {
-            return { ...categoria, productos: [...categoria.productos, newProduct] };
+            return {
+              ...categoria,
+              productos: [...categoria.productos, newProduct],
+            };
           }
           return categoria;
         });
         setCategorias(updatedCategorias);
-        setNewProductName('');
-        setNewProductPrice('');
+        setNewProductName("");
+        setNewProductPrice("");
         setShowNewProduct(false);
         setSelectedCategoria(null);
-        toast.current.show({ severity: "success", summary: 'Producto Creado', detail: `Nombre: ${newProduct.nombre}`, life: 15000 });
+        toast.current.show({
+          severity: "success",
+          summary: "Producto Creado",
+          detail: `Nombre: ${newProduct.nombre}`,
+          life: 15000,
+        });
       } else {
-        toast.current.show({ severity: 'error', summary: 'Error', detail: 'No se pudo crear el producto', life: 3000 });
-        console.error('Error al crear producto:', response.statusText);
+        toast.current.show({
+          severity: "error",
+          summary: "Error",
+          detail: "No se pudo crear el producto",
+          life: 3000,
+        });
+        console.error("Error al crear producto:", response.statusText);
       }
     } catch (error) {
-      toast.current.show({ severity: 'error', summary: 'Error', detail: 'Error en la conexión', life: 3000 });
-      console.error('Error en la conexión:', error);
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "Error en la conexión",
+        life: 3000,
+      });
+      console.error("Error en la conexión:", error);
     }
   };
 
   const handleDeleteProduct = async (categoriaId, productoId) => {
-    if (confirm('¿Deseas Eliminar el Producto Seleccionado?')) {
+    if (confirm("¿Deseas Eliminar el Producto Seleccionado?")) {
       try {
-        const response = await fetch(`${backend}api/categorias/${categoriaId}/productos/${productoId}`, {
-          method: 'DELETE',
-        });
+        const response = await fetch(
+          `${backend}api/categorias/${categoriaId}/productos/${productoId}`,
+          {
+            method: "DELETE",
+          }
+        );
 
         if (response.ok) {
-          const updatedCategorias = categorias.map(categoria => {
+          const updatedCategorias = categorias.map((categoria) => {
             if (categoria.id === categoriaId) {
               return {
                 ...categoria,
-                productos: categoria.productos.filter(producto => producto.id !== productoId),
+                productos: categoria.productos.filter(
+                  (producto) => producto.id !== productoId
+                ),
               };
             }
             return categoria;
           });
           setCategorias(updatedCategorias);
-          toast.current.show({ severity: 'success', summary: 'Producto Eliminado', detail: 'El producto ha sido eliminado', life: 3000 });
+          toast.current.show({
+            severity: "success",
+            summary: "Producto Eliminado",
+            detail: "El producto ha sido eliminado",
+            life: 3000,
+          });
         } else {
-          toast.current.show({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el producto', life: 3000 });
-          console.error('Error al eliminar producto:', response.statusText);
+          toast.current.show({
+            severity: "error",
+            summary: "Error",
+            detail: "No se pudo eliminar el producto",
+            life: 3000,
+          });
+          console.error("Error al eliminar producto:", response.statusText);
         }
       } catch (error) {
-        toast.current.show({ severity: 'error', summary: 'Error', detail: 'Error en la conexión', life: 3000 });
-        console.error('Error en la conexión:', error);
+        toast.current.show({
+          severity: "error",
+          summary: "Error",
+          detail: "Error en la conexión",
+          life: 3000,
+        });
+        console.error("Error en la conexión:", error);
       }
     }
   };
@@ -162,21 +224,30 @@ const ProductList = () => {
       <Toast ref={toast} />
       <div className="p-6 bg-gray-100">
         <div className="flex items-center justify-between mb-6">
-
-          <h1 className="text-3xl font-bold mb-6">Listado de Categorías/<span className="text-xl font-medium">Productos</span></h1>
+          <h1 className="text-3xl font-bold mb-6">
+            Listado de Categorías/
+            <span className="text-xl font-medium">Productos</span>
+          </h1>
           <button
             className="bg-green-200 p-2 border-4 border-green-400 rounded-xl font-bold text-gray-800 group hover:scale-105 duration-200 hover:bg-green-300 hover:border-green-500"
             onClick={handleNewCategory}
           >
             <img className="size-8 mx-auto" src={Plus} alt="plus" />
-            <span className="text-center group-hover:text-white">Crear Categoria</span>
+            <span className="text-center group-hover:text-white">
+              Crear Categoria
+            </span>
           </button>
         </div>
         <div className="relative grid grid-cols-3 gap-8">
           {categorias.map((categoria) => (
             <div key={categoria.id} className="mb-4 group">
-              <h2 className="text-2xl font-semibold mb-4 text-center group-hover:font-bold group-hover:bg-gray-200">{categoria.nombre}</h2>
-              <button className='w-full group-hover:scale-110 duration-150' onClick={() => handleCategoriaClick(categoria.id)}>
+              <h2 className="text-2xl font-semibold mb-4 text-center group-hover:font-bold group-hover:bg-gray-200">
+                {categoria.nombre}
+              </h2>
+              <button
+                className="w-full group-hover:scale-110 duration-150"
+                onClick={() => handleCategoriaClick(categoria.id)}
+              >
                 <img
                   src={categoria.imagen}
                   alt={categoria.nombre}
@@ -185,34 +256,60 @@ const ProductList = () => {
               </button>
 
               {activeCategoriaId === categoria.id && (
-                <div className='border-8 border-gray-400 rounded-xl fixed top-1/2 z-30 h-96 overflow-auto left-1/2 bg-white p-8 transform -translate-y-1/2 -translate-x-1/2'>
+                <div className="border-8 border-gray-400 rounded-xl fixed top-1/2 z-30 h-96 overflow-auto left-1/2 bg-white p-8 transform -translate-y-1/2 -translate-x-1/2">
                   <ul className="space-y-2 w-[500px]">
-                    <button className="absolute top-2 left-2 block w-28 hover:bg-purple-600 bg-purple-800 font-bold text-white rounded-lg border-2 " onClick={() => handleCategoriaClick(categoria.id)}>Eliminar Categoria</button>
-                    <button className="absolute top-0 right-2 flex items-center justify-center bg-red-500 px-2 py-1 font-extrabold text-white rounded-full border-4 border-gray-800" onClick={() => handleCategoriaClick(categoria.id)}>X</button>
-                    <h2 className='font-bold underline m-4  text-center pt-12'> Lista de Productos de {categoria.nombre}</h2>
-                    <div className='px-4 py-2 grid grid-cols-4 gap-4 font-bold text-lg underline'>
-                      <span className='col-span-2'>Producto</span>
+                    <button
+                      className="absolute top-2 left-2 block w-28 hover:bg-purple-600 bg-purple-800 font-bold text-white rounded-lg border-2 "
+                      onClick={() => handleCategoriaClick(categoria.id)}
+                    >
+                      Eliminar Categoria
+                    </button>
+                    <button
+                      className="absolute top-0 right-2 flex items-center justify-center bg-red-500 px-2 py-1 font-extrabold text-white rounded-full border-4 border-gray-800"
+                      onClick={() => handleCategoriaClick(categoria.id)}
+                    >
+                      X
+                    </button>
+                    <h2 className="font-bold underline m-4  text-center pt-12">
+                      {" "}
+                      Lista de Productos de {categoria.nombre}
+                    </h2>
+                    <div className="px-4 py-2 grid grid-cols-4 gap-4 font-bold text-lg underline">
+                      <span className="col-span-2">Producto</span>
                       <span>Precio</span>
                       <span>Acciones</span>
                     </div>
                     {categoria.productos.map((producto) => (
-                      <li key={producto.id} className="p-4 grid grid-cols-4 gap-4 bg-white shadow-md">
-                        <span className="col-span-2 font-semibold">{producto.nombre}</span>
-                        <span className="text-gray-500">${producto.precio}</span>
+                      <li
+                        key={producto.id}
+                        className="p-4 grid grid-cols-4 gap-4 bg-white shadow-md"
+                      >
+                        <span className="col-span-2 font-semibold">
+                          {producto.nombre}
+                        </span>
+                        <span className="text-gray-500">
+                          ${producto.precio}
+                        </span>
                         <button
-                          className='bg-red-200 p-1 font-bold rounded-full'
-                          onClick={() => handleDeleteProduct(categoria.id, producto.id)}
+                          className="bg-red-200 p-1 font-bold rounded-full"
+                          onClick={() =>
+                            handleDeleteProduct(categoria.id, producto.id)
+                          }
                         >
                           Eliminar
                         </button>
                       </li>
                     ))}
                   </ul>
-                  <button onClick={() => handleNewProduct(categoria)} className='flex items-center justify-center p-2 mt-6 rounded-xl border-4 font-bold bg-green-400 mx-auto'>
-                    <p className='space-x-2'>Agregar Más<span className='px-2'>{categoria.nombre}</span></p>
+                  <button
+                    onClick={() => handleNewProduct(categoria)}
+                    className="flex items-center justify-center p-2 mt-6 rounded-xl border-4 font-bold bg-green-400 mx-auto"
+                  >
+                    <p className="space-x-2">
+                      Agregar Más
+                      <span className="px-2">{categoria.nombre}</span>
+                    </p>
                   </button>
-
-                  
                 </div>
               )}
             </div>
@@ -220,11 +317,22 @@ const ProductList = () => {
 
           {/* Formulario para Nuevo Producto */}
           {showNewProduct && selectedCategoria && (
-            <div className={`absolute top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2 w-[500px] h-auto bg-white border-8 rounded-xl`}>
-              <h2 className="bg-green-200 text-center p-2 m-2 text-xl font-bold underline rounded-xl">Nuevo Producto en {selectedCategoria.nombre}</h2>
-              <button className="absolute top-4 right-4 w-8 h-8 bg-red-300 font-bold rounded-full text-center hover:scale-105 hover:text-white" onClick={handleCloseNewProduct}>X</button>
+            <div
+              className={`absolute top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2 w-[500px] h-auto bg-white border-8 rounded-xl`}
+            >
+              <h2 className="bg-green-200 text-center p-2 m-2 text-xl font-bold underline rounded-xl">
+                Nuevo Producto en {selectedCategoria.nombre}
+              </h2>
+              <button
+                className="absolute top-4 right-4 w-8 h-8 bg-red-300 font-bold rounded-full text-center hover:scale-105 hover:text-white"
+                onClick={handleCloseNewProduct}
+              >
+                X
+              </button>
               <div className="flex flex-col items-center p-6">
-                <label className="block mb-2 font-bold">Nombre del Producto</label>
+                <label className="block mb-2 font-bold">
+                  Nombre del Producto
+                </label>
                 <input
                   type="text"
                   value={newProductName}
@@ -250,9 +358,16 @@ const ProductList = () => {
 
           {/* Formulario para Nueva Categoría */}
           {showNewCategory && (
-            <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] bg-white border-8 rounded-xl p-6'>
-              <h2 className="bg-green-200 text-center p-2 m-2 text-xl font-bold underline rounded-xl">Nueva Categoría</h2>
-              <button className="absolute top-4 right-4 w-8 h-8 bg-red-300 font-bold rounded-full text-center hover:scale-105 hover:text-white" onClick={() => setShowNewCategory(false)}>X</button>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] bg-white border-8 rounded-xl p-6">
+              <h2 className="bg-green-200 text-center p-2 m-2 text-xl font-bold underline rounded-xl">
+                Nueva Categoría
+              </h2>
+              <button
+                className="absolute top-4 right-4 w-8 h-8 bg-red-300 font-bold rounded-full text-center hover:scale-105 hover:text-white"
+                onClick={() => setShowNewCategory(false)}
+              >
+                X
+              </button>
               <div className="flex flex-col items-center">
                 <label className="block mb-2">Nombre de la Categoría</label>
                 <input
