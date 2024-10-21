@@ -3,8 +3,7 @@ import bcrypt from 'bcrypt';
 
 // Crear un nuevo usuario
 export const createUsuario = async (username, password, role, localId) => {
-  const hashedPassword = await bcrypt.hash(password, 10); // Encriptar la contraseña
-  const nuevoUsuario = new User({ username, password: hashedPassword, role, localId });
+  const nuevoUsuario = new User({ username, password, role, localId });
   return await nuevoUsuario.save();
 };
 
