@@ -16,32 +16,57 @@ const ProductList = () => {
   const [newCategoryImage, setNewCategoryImage] = useState(null);
   const [newProductName, setNewProductName] = useState("");
   const [newProductPrice, setNewProductPrice] = useState("");
+  const [productos, setProductos] = useState([]); // Estado para productos
+  const [hasIva, setHasIva] = useState(false); // Estado para el IVA
+  const [loading, setLoading] = useState(false); // Estado de carga
 
   // Cargar las categorías al montar el componente
   useEffect(() => {
-    const localId = localStorage.getItem("localId"); // Obtener el localId del almacenamiento local
-    console.log(localId)
-    if (localId) {
-      fetch(`${backend}api/categorias/${localId}`) // Incluir localId en la URL
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data)
-          if (data && Array.isArray(data)) {
+    const fetchCategorias = async () => {
+      const localId = localStorage.getItem("localId");
+      if (localId) {
+        setLoading(true);
+        try {
+          const response = await fetch(`${backend}api/categorias/local/${localId}`);
+          const data = await response.json();
+          if (Array.isArray(data)) {
             setCategorias(data);
           } else {
             console.error("Datos recibidos no son un array:", data);
           }
-        })
-        .catch((error) => console.error("Error al cargar categorías:", error));
-    } else {
-      console.error("No se encontró localId en el almacenamiento local.");
-    }
+        } catch (error) {
+          console.error("Error al cargar categorías:", error);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        console.error("No se encontró localId en el almacenamiento local.");
+      }
+    };
+
+    fetchCategorias();
   }, [backend]);
 
   // Manejar el clic en una categoría
-  const handleCategoriaClick = (id) => {
+  const handleCategoriaClick = async (id) => {
     setActiveCategoriaId(activeCategoriaId === id ? null : id);
     setShowNewCategory(false);
+
+    if (activeCategoriaId !== id) {
+      try {
+        const response = await fetch(`http://localhost:5000/api/productos?categoriaId=${id}`);
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          setProductos(data);
+        } else {
+          console.error("Datos recibidos no son un array:", data);
+        }
+      } catch (error) {
+        console.error("Error al cargar productos:", error);
+      }
+    } else {
+      setProductos([]);
+    }
   };
 
   // Mostrar/ocultar el formulario de nueva categoría
@@ -64,6 +89,16 @@ const ProductList = () => {
 
   // Crear nueva categoría
   const createCategory = async () => {
+    if (!newCategoryName) {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "El nombre de la categoría es requerido.",
+        life: 3000,
+      });
+      return;
+    }
+
     const formData = new FormData();
     formData.append("nombre", newCategoryName);
     if (newCategoryImage) {
@@ -89,35 +124,44 @@ const ProductList = () => {
           life: 15000,
         });
       } else {
-        toast.current.show({
-          severity: "error",
-          summary: "Error",
-          detail: "No se pudo crear la categoría",
-          life: 3000,
-        });
-        console.error("Error al crear categoría:", response.statusText);
+        throw new Error(response.statusText);
       }
     } catch (error) {
       toast.current.show({
         severity: "error",
         summary: "Error",
-        detail: "Error en la conexión",
+        detail: "No se pudo crear la categoría",
         life: 3000,
       });
-      console.error("Error en la conexión:", error);
+      console.error("Error al crear categoría:", error);
     }
   };
 
   // Crear nuevo producto
   const createProduct = async () => {
+    if (!newProductName || !newProductPrice) {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "El nombre y precio del producto son requeridos.",
+        life: 3000,
+      });
+      return;
+    }
+
+    const iva = hasIva ? 19 : 0;
+
     const product = {
       nombre: newProductName,
       precio: parseFloat(newProductPrice),
+      iva: iva,
+      categoriaId: selectedCategoria, // ID de la categoría seleccionada
+      localId: localStorage.getItem("localId"), // Obtener el localId del almacenamiento local
     };
 
     try {
       const response = await fetch(
-        backend + `api/categorias/${selectedCategoria.id}/productos`,
+        backend + `api/productos/`,
         {
           method: "POST",
           headers: {
@@ -130,7 +174,7 @@ const ProductList = () => {
       if (response.ok) {
         const newProduct = await response.json();
         const updatedCategorias = categorias.map((categoria) => {
-          if (categoria.id === selectedCategoria.id) {
+          if (categoria._id === selectedCategoria) {
             return {
               ...categoria,
               productos: [...categoria.productos, newProduct],
@@ -150,24 +194,19 @@ const ProductList = () => {
           life: 15000,
         });
       } else {
-        toast.current.show({
-          severity: "error",
-          summary: "Error",
-          detail: "No se pudo crear el producto",
-          life: 3000,
-        });
-        console.error("Error al crear producto:", response.statusText);
+        throw new Error(response.statusText);
       }
     } catch (error) {
       toast.current.show({
         severity: "error",
         summary: "Error",
-        detail: "Error en la conexión",
+        detail: "No se pudo crear el producto",
         life: 3000,
       });
-      console.error("Error en la conexión:", error);
+      console.error("Error al crear producto:", error);
     }
   };
+
 
   const handleDeleteProduct = async (categoriaId, productoId) => {
     if (confirm("¿Deseas Eliminar el Producto Seleccionado?")) {
@@ -181,11 +220,11 @@ const ProductList = () => {
 
         if (response.ok) {
           const updatedCategorias = categorias.map((categoria) => {
-            if (categoria.id === categoriaId) {
+            if (categoria._id === categoriaId) {
               return {
                 ...categoria,
                 productos: categoria.productos.filter(
-                  (producto) => producto.id !== productoId
+                  (producto) => producto._id !== productoId
                 ),
               };
             }
@@ -199,22 +238,16 @@ const ProductList = () => {
             life: 3000,
           });
         } else {
-          toast.current.show({
-            severity: "error",
-            summary: "Error",
-            detail: "No se pudo eliminar el producto",
-            life: 3000,
-          });
-          console.error("Error al eliminar producto:", response.statusText);
+          throw new Error(response.statusText);
         }
       } catch (error) {
         toast.current.show({
           severity: "error",
           summary: "Error",
-          detail: "Error en la conexión",
+          detail: "Error al eliminar el producto",
           life: 3000,
         });
-        console.error("Error en la conexión:", error);
+        console.error("Error al eliminar producto:", error);
       }
     }
   };
@@ -238,15 +271,17 @@ const ProductList = () => {
             </span>
           </button>
         </div>
+
+
         <div className="relative grid grid-cols-3 gap-8">
           {categorias.map((categoria) => (
-            <div key={categoria.id} className="mb-4 group">
+            <div key={categoria._id} className="mb-4 group">
               <h2 className="text-2xl font-semibold mb-4 text-center group-hover:font-bold group-hover:bg-gray-200">
                 {categoria.nombre}
               </h2>
               <button
                 className="w-full group-hover:scale-110 duration-150"
-                onClick={() => handleCategoriaClick(categoria.id)}
+                onClick={() => handleCategoriaClick(categoria._id)}
               >
                 <img
                   src={categoria.imagen}
@@ -255,45 +290,37 @@ const ProductList = () => {
                 />
               </button>
 
-              {activeCategoriaId === categoria.id && (
+              {activeCategoriaId === categoria._id && (
                 <div className="border-8 border-gray-400 rounded-xl fixed top-1/2 z-30 h-96 overflow-auto left-1/2 bg-white p-8 transform -translate-y-1/2 -translate-x-1/2">
-                  <ul className="space-y-2 w-[500px]">
-                    <button
-                      className="absolute top-2 left-2 block w-28 hover:bg-purple-600 bg-purple-800 font-bold text-white rounded-lg border-2 "
-                      onClick={() => handleCategoriaClick(categoria.id)}
-                    >
-                      Eliminar Categoria
-                    </button>
-                    <button
-                      className="absolute top-0 right-2 flex items-center justify-center bg-red-500 px-2 py-1 font-extrabold text-white rounded-full border-4 border-gray-800"
-                      onClick={() => handleCategoriaClick(categoria.id)}
-                    >
-                      X
-                    </button>
-                    <h2 className="font-bold underline m-4  text-center pt-12">
-                      {" "}
+                                <button className="absolute top-4 right-4 w-8 h-8 bg-red-400 font-bold rounded-full text-center hover:scale-105 hover:text-white" onClick={handleCategoriaClick}>X</button>
+                  <ul className="space-y-2 w-[550px]">
+                    <h2 className="font-bold text-xl bg-gray-100 underline m-4 flex items-center justify-center h-12 mt-2">
                       Lista de Productos de {categoria.nombre}
                     </h2>
-                    <div className="px-4 py-2 grid grid-cols-4 gap-4 font-bold text-lg underline">
+                    <div className="px-4 py-2 grid grid-cols-5 gap-4 font-bold text-lg underline">
                       <span className="col-span-2">Producto</span>
-                      <span>Precio</span>
-                      <span>Acciones</span>
+                      <span className="text-center">Precio</span>
+                      <span className="text-center">IVA</span>
+                      <span className="text-center">Acciones</span>
                     </div>
-                    {categoria.productos.map((producto) => (
+                    {productos.map((producto) => (
                       <li
-                        key={producto.id}
-                        className="p-4 grid grid-cols-4 gap-4 bg-white shadow-md"
+                        key={producto._id}
+                        className="p-4 grid grid-cols-5 gap-2 bg-white shadow-md"
                       >
                         <span className="col-span-2 font-semibold">
                           {producto.nombre}
                         </span>
-                        <span className="text-gray-500">
+                        <span className="text-gray-500 text-center">
                           ${producto.precio}
                         </span>
+                        <span className="text-gray-500 text-center">
+                          ${producto.iva}
+                        </span>
                         <button
-                          className="bg-red-200 p-1 font-bold rounded-full"
+                          className="bg-red-400 p-1 font-bold rounded-full"
                           onClick={() =>
-                            handleDeleteProduct(categoria.id, producto.id)
+                            handleDeleteProduct(categoria._id, producto._id)
                           }
                         >
                           Eliminar
@@ -314,25 +341,14 @@ const ProductList = () => {
               )}
             </div>
           ))}
-
-          {/* Formulario para Nuevo Producto */}
           {showNewProduct && selectedCategoria && (
-            <div
-              className={`absolute top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2 w-[500px] h-auto bg-white border-8 rounded-xl`}
-            >
+            <div className={`absolute top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2 w-[500px] h-auto bg-white border-8 rounded-xl`}>
               <h2 className="bg-green-200 text-center p-2 m-2 text-xl font-bold underline rounded-xl">
                 Nuevo Producto en {selectedCategoria.nombre}
               </h2>
-              <button
-                className="absolute top-4 right-4 w-8 h-8 bg-red-300 font-bold rounded-full text-center hover:scale-105 hover:text-white"
-                onClick={handleCloseNewProduct}
-              >
-                X
-              </button>
+              <button className="absolute top-4 right-4 w-8 h-8 bg-red-300 font-bold rounded-full text-center hover:scale-105 hover:text-white" onClick={handleCloseNewProduct}>X</button>
               <div className="flex flex-col items-center p-6">
-                <label className="block mb-2 font-bold">
-                  Nombre del Producto
-                </label>
+                <label className="block mb-2 font-bold">Nombre del Producto</label>
                 <input
                   type="text"
                   value={newProductName}
@@ -346,6 +362,15 @@ const ProductList = () => {
                   onChange={(e) => setNewProductPrice(e.target.value)}
                   className="border-4 p-2 rounded mb-4 w-full"
                 />
+                <label className="flex items-center mb-4">
+                  <input
+                    type="checkbox"
+                    checked={hasIva}
+                    onChange={() => setHasIva(!hasIva)}
+                    className="mr-2"
+                  />
+                  Incluye IVA (19%)
+                </label>
                 <button
                   onClick={createProduct}
                   className="bg-green-200 p-2 border-4 border-green-400 rounded-xl font-bold text-gray-800 hover:scale-105 duration-200 hover:bg-green-300 hover:border-green-500"
@@ -358,16 +383,9 @@ const ProductList = () => {
 
           {/* Formulario para Nueva Categoría */}
           {showNewCategory && (
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] bg-white border-8 rounded-xl p-6">
-              <h2 className="bg-green-200 text-center p-2 m-2 text-xl font-bold underline rounded-xl">
-                Nueva Categoría
-              </h2>
-              <button
-                className="absolute top-4 right-4 w-8 h-8 bg-red-300 font-bold rounded-full text-center hover:scale-105 hover:text-white"
-                onClick={() => setShowNewCategory(false)}
-              >
-                X
-              </button>
+            <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] bg-white border-8 rounded-xl p-6'>
+              <h2 className="bg-green-200 text-center p-2 m-2 text-xl font-bold underline rounded-xl">Nueva Categoría</h2>
+              <button className="absolute top-4 right-4 w-8 h-8 bg-red-300 font-bold rounded-full text-center hover:scale-105 hover:text-white" onClick={() => setShowNewCategory(false)}>X</button>
               <div className="flex flex-col items-center">
                 <label className="block mb-2">Nombre de la Categoría</label>
                 <input
@@ -392,6 +410,7 @@ const ProductList = () => {
             </div>
           )}
         </div>
+
       </div>
     </>
   );

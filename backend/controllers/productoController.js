@@ -21,8 +21,8 @@ export const create = async (req, res) => {
 // Obtener todos los productos de un local
 export const getAllByLocal = async (req, res) => {
     try {
-        const localId = req.query.localId; // Cambiar a req.query
-        const productos = await getProductosByLocal(localId);
+        const categoriaId = req.query.categoriaId; // Cambiar a req.query
+        const productos = await getProductosByLocal(categoriaId);
         res.json(productos);
     } catch (error) {
         res.status(500).json({ error: 'Error al obtener los productos' });

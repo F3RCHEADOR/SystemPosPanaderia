@@ -1,3 +1,4 @@
+### Iniciar sesión de usuario
 POST http://localhost:5000/api/usuarios/login
 Content-Type: application/json
 
@@ -6,15 +7,17 @@ Content-Type: application/json
     "password": "usuario1"
 }
 
-
 ###
 
 
+### Obtener todos los usuarios
 GET http://localhost:5000/api/usuarios/
 Content-Type: application/json
 
 ###
 
+
+### Crear un nuevo usuario
 POST http://localhost:5000/api/usuarios/
 Content-Type: application/json
 
@@ -27,6 +30,34 @@ Content-Type: application/json
 
 ###
 
+
+### Eliminar un usuario específico
 DELETE http://localhost:5000/api/usuarios/67166a2446d48b775cb79555
 Content-Type: application/json
 
+###
+
+###Obtener Todas las Categorias de un Local
+GET http://localhost:5000/api/categorias/local/6707e96e46c6e33cdd8a322d
+Content-Type: application/json
+
+###Obtener La Informacion de Una Categoria
+GET http://localhost:5000/api/categorias/67093d9549e3527282fa085a
+Content-Type: application/json
+
+### Obtener todos los productos de una Categoria específica
+GET http://localhost:5000/api/productos?categoriaId=67093d9549e3527282fa085a
+Content-Type: application/json
+
+###
+
+
+### Crear un nuevo producto (ejemplo adicional si lo necesitas)
+POST http://localhost:5000/api/productos/
+Content-Type: application/json
+
+{
+    "nombre": "Pan",
+    "precio": 1.50,
+    "categoriaId": "6707e96e46c6e33cdd8a322d"
+}

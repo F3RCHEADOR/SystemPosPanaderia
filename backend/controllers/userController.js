@@ -92,12 +92,13 @@ export const login = async (req, res) => {
         }
 
         const token = jwt.sign({ id: usuario._id, role: usuario.role }, JWT_SECRET, { expiresIn: '1h' });
-        res.json({ message: 'Inicio de sesión exitoso', token });
+        res.json({ message: 'Inicio de sesión exitoso', token, localId: usuario.localId }); // Agregar localId a la respuesta
     } catch (error) {
         console.error('Error en el login:', error); // Para depuración
         res.status(500).json({ error: 'Error en el servidor' });
     }
 };
+
 
 
 export default router;

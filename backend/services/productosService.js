@@ -7,8 +7,8 @@ export const createProducto = async (nombre, precio, iva, categoriaId, localId) 
 };
 
 // Obtener todos los productos de un local específico
-export const getProductosByLocal = async (localId) => {
-    return await Producto.find({ localId });
+export const getProductosByLocal = async (categoriaId) => {
+    return await Producto.find({ categoriaId });
 };
 
 // Obtener un producto por ID
