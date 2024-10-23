@@ -2,6 +2,7 @@ import Plus from "../assets/plus.svg";
 import React, { useState, useEffect, useRef } from "react";
 import { Toast } from "primereact/toast";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
+import SliderCategories from "../components/ProducsCategories/SliderCategories";
 
 const backend = import.meta.env.VITE_BUSINESS_BACKEND;
 
@@ -12,12 +13,13 @@ const ProductList = () => {
   const [showNewCategory, setShowNewCategory] = useState(false);
   const [showNewProduct, setShowNewProduct] = useState(false);
   const [selectedCategoria, setSelectedCategoria] = useState(null);
-  const [newCategoryName, setNewCategoryName] = useState("");
   const [newCategoryImage, setNewCategoryImage] = useState(null);
   const [newProductName, setNewProductName] = useState("");
   const [newProductPrice, setNewProductPrice] = useState("");
   const [productos, setProductos] = useState([]); // Estado para productos
   const [hasIva, setHasIva] = useState(false); // Estado para el IVA
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [selectedImage, setSelectedImage] = useState('');
   const [loading, setLoading] = useState(false); // Estado de carga
 
   // Cargar las categorías al montar el componente
@@ -88,6 +90,7 @@ const ProductList = () => {
     setSelectedCategoria(null);
   };
 
+
   // Crear nueva categoría
   const createCategory = async () => {
     if (!newCategoryName) {
@@ -100,23 +103,29 @@ const ProductList = () => {
       return;
     }
 
-    const formData = new FormData();
-    formData.append("nombre", newCategoryName);
-    if (newCategoryImage) {
-      formData.append("imagen", newCategoryImage);
+    console.log(newCategoryName);
+    console.log(selectedImage); // Esto debe ser la URL de la imagen
+
+    const categorie = {
+      nombre: newCategoryName,
+      imagen: selectedImage,
+      localId: localStorage.getItem("localId")
     }
 
     try {
-      const response = await fetch(backend + "api/categorias", {
+      const response = await fetch(backend + "api/categorias/", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(categorie),
       });
+
 
       if (response.ok) {
         const newCategory = await response.json();
         setCategorias([...categorias, newCategory]);
         setNewCategoryName("");
-        setNewCategoryImage(null);
         setShowNewCategory(false);
         toast.current.show({
           severity: "success",
@@ -125,6 +134,7 @@ const ProductList = () => {
           life: 15000,
         });
       } else {
+        console.log(response)
         throw new Error(response.statusText);
       }
     } catch (error) {
@@ -137,6 +147,7 @@ const ProductList = () => {
       console.error("Error al crear categoría:", error);
     }
   };
+
 
   // Crear nuevo producto
   const createProduct = async () => {
@@ -385,12 +396,7 @@ const ProductList = () => {
                   onChange={(e) => setNewCategoryName(e.target.value)}
                   className="border p-2 rounded mb-4 w-full"
                 />
-                <label className="block mb-2">Imagen de la Categoría</label>
-                <input
-                  type="file"
-                  onChange={(e) => setNewCategoryImage(e.target.files[0])}
-                  className="border p-2 rounded mb-4 w-full"
-                />
+                <SliderCategories onSelect={setSelectedImage} />
                 <button
                   onClick={createCategory}
                   className="bg-green-200 p-2 border-4 border-green-400 rounded-xl font-bold text-gray-800 hover:scale-105 duration-200 hover:bg-green-300 hover:border-green-500"

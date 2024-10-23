@@ -9,7 +9,7 @@ import {
   // Crear una nueva categoría
   export const create = async (req, res) => {
     try {
-        const { nombre, imagen, localId } = req.body; // Asegúrate de que 'imagen' se pase en el body
+        const { nombre, imagen, localId } = req.body; 
         const nuevaCategoria = await createCategoria(nombre, imagen, localId);
         res.status(201).json(nuevaCategoria);
     } catch (error) {
