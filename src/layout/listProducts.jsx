@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import NuevoClienteAside from "../components/NuevoClienteAside";
-import ProductSlider from "../components/ProductSlider";
+import ProductSlider from "../components/ProducsCategories/ProductSlider";
 
-const backend = import.meta.env.VITE_BUSINESS_BACKEND;
-
+const backend = import.meta.env.VITE_BUSINESS_BACKEND; // Asegúrate de que esta línea esté aquí
+  const localId = localStorage.getItem("localId");
 
 const ListProducts = ({ clientData, isEdit }) => {
   const [categorias, setCategorias] = useState([]);
@@ -11,7 +11,8 @@ const ListProducts = ({ clientData, isEdit }) => {
   const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
-    fetch(backend+'api/categorias')
+ 
+    fetch(backend+'api/categorias/'+localId)
       .then(response => response.json())
       .then(data => {
         if (data && Array.isArray(data)) {
@@ -67,7 +68,8 @@ const ListProducts = ({ clientData, isEdit }) => {
   };
 
   return (
-    <>
+    <> 
+    
       <NuevoClienteAside    
         categorias={categorias}
         quantities={quantities}
@@ -75,12 +77,7 @@ const ListProducts = ({ clientData, isEdit }) => {
         clientData={clientData}
       />
       <ProductSlider
-        categorias={categorias}
-        activeCategoriaId={activeCategoriaId}
-        handleCategoriaClick={handleCategoriaClick}
-        quantities={quantities}
-        handleIncrement={handleIncrement}
-        handleDecrement={handleDecrement}
+       
       />
     </>
   );

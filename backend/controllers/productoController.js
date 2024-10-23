@@ -1,6 +1,7 @@
 import { 
     createProducto, 
     getProductosByLocal, 
+    getProductosByCategory, 
     getProductoById, 
     updateProducto, 
     deleteProducto 
@@ -18,11 +19,23 @@ export const create = async (req, res) => {
 };
 
 
+// Obtener todos los productos de una Categoria
+export const getAllByCategory = async (req, res) => {
+    try {
+        const categoriaId = req.params.categoriaId; // Ahora se obtiene desde los parámetros
+        const productos = await getProductosByCategory(categoriaId);
+        res.json(productos);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener los productos' });
+    }
+};
+
+
 // Obtener todos los productos de un local
 export const getAllByLocal = async (req, res) => {
     try {
-        const categoriaId = req.query.categoriaId; // Cambiar a req.query
-        const productos = await getProductosByLocal(categoriaId);
+        const localId = req.params.localId; // Cambiar a req.query
+        const productos = await getProductosByLocal(localId);
         res.json(productos);
     } catch (error) {
         res.status(500).json({ error: 'Error al obtener los productos' });

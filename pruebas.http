@@ -46,11 +46,16 @@ GET http://localhost:5000/api/categorias/6719145c221ee1345ff947cd
 Content-Type: application/json
 
 ### Obtener todos los productos de una Categoria específica
-GET http://localhost:5000/api/productos?categoriaId=67093d9549e3527282fa085a
+GET http://localhost:5000/api/productos/categoria/67093d9549e3527282fa085a
 Content-Type: application/json
 
 ###
 
+
+GET http://localhost:5000/api/productos/local/6707e96e46c6e33cdd8a322d
+Content-Type: application/json
+
+###
 
 ### Crear un nuevo producto (ejemplo adicional si lo necesitas)
 POST http://localhost:5000/api/productos/
