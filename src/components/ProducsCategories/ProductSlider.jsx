@@ -3,15 +3,18 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const ProductSlider = () => {
+const ProductSlider = ({ onUpdateCart }) => {
   const backend = import.meta.env.VITE_BUSINESS_BACKEND;
   const localId = localStorage.getItem("localId");
 
   const [categorias, setCategorias] = useState([]);
   const [productos, setProductos] = useState([]);
-  const [allProductos, setAllProductos] = useState([]); // Estado para todos los productos
+  const [allProductos, setAllProductos] = useState([]);
   const [activeCategoriaId, setActiveCategoriaId] = useState(null);
+  const [activeCategoriaNombre, setActiveCategoriaNombre] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [cantidades, setCantidades] = useState({});
+  const [carrito, setCarrito] = useState({}); // Nuevo estado para el carrito
 
   useEffect(() => {
     const fetchCategorias = async () => {
@@ -27,7 +30,7 @@ const ProductSlider = () => {
 
     const fetchAllProductos = async () => {
       try {
-        const response = await fetch(`${backend}api/productos/local/${localId}`); // Cambia esto a tu URL real
+        const response = await fetch(`${backend}api/productos/local/${localId}`);
         if (!response.ok) throw new Error('Error al cargar los productos');
         const data = await response.json();
         setAllProductos(data);
@@ -43,18 +46,53 @@ const ProductSlider = () => {
   const fetchProductos = async (categoriaId) => {
     try {
       const response = await fetch(`${backend}api/productos/categoria/${categoriaId}`);
-      console.log(response)
       if (!response.ok) throw new Error('Error al cargar los productos');
       const data = await response.json();
       setProductos(data);
+
+      const updatedCantidades = { ...cantidades };
+      data.forEach(producto => {
+        if (!(producto._id in updatedCantidades)) {
+          updatedCantidades[producto._id] = 0;
+        }
+      });
+      setCantidades(updatedCantidades);
     } catch (error) {
       console.error("Error al obtener productos:", error);
     }
   };
 
-  const handleCategoriaClick = (id) => {
+  const handleCategoriaClick = (id, nombre) => {
     setActiveCategoriaId(id);
+    setActiveCategoriaNombre(nombre);
     fetchProductos(id);
+  };
+
+  const handleIncrement = (id, nombre, precio) => {
+    setCantidades(prev => {
+      const newCantidades = { ...prev, [id]: (prev[id] || 0) + 1 };
+      updateCarrito(id, nombre, precio, newCantidades[id]); // Actualizar el carrito
+      return newCantidades;
+    });
+  };
+
+  const handleDecrement = (id, nombre, precio) => {
+    setCantidades(prev => {
+      const newCantidades = {
+        ...prev,
+        [id]: Math.max(0, (prev[id] || 0) - 1)
+      };
+      updateCarrito(id, nombre, precio, newCantidades[id]); // Actualizar el carrito
+      return newCantidades;
+    });
+  };
+
+  const updateCarrito = (id, nombre, precio, cantidad) => {
+    setCarrito(prev => {
+      const newCarrito = { ...prev, [id]: { nombre, precio, cantidad } };
+      onUpdateCart(newCarrito); // Enviar el carrito completo al padre
+      return newCarrito;
+    });
   };
 
   const sliderSettings = {
@@ -83,10 +121,11 @@ const ProductSlider = () => {
     ]
   };
 
-  // Filtrar productos por el término de búsqueda
-  const filteredProductos = allProductos.filter(producto =>
-    producto.nombre.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const displayedProductos = searchTerm
+    ? allProductos.filter(producto =>
+      producto.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    : productos;
 
   return (
     <div className="ml-56 h-full mb-8 xl:px-8">
@@ -107,9 +146,9 @@ const ProductSlider = () => {
           .slice()
           .sort((a, b) => a.nombre.localeCompare(b.nombre))
           .map((categoria) => (
-            <div key={categoria.id} className="p-4 border rounded-xl">
+            <div key={categoria._id} className="p-4 border rounded-xl">
               <h2 className="text-2xl font-semibold mb-4 text-center">{categoria.nombre}</h2>
-              <button className="w-full group-hover:scale-110 duration-150" onClick={() => handleCategoriaClick(categoria._id)}>
+              <button className="w-full group-hover:scale-110 duration-150" onClick={() => handleCategoriaClick(categoria._id, categoria.nombre)}>
                 <img
                   src={categoria.imagen}
                   alt={categoria.nombre}
@@ -122,17 +161,17 @@ const ProductSlider = () => {
 
       {activeCategoriaId && (
         <div className="border-4 p-2 mt-4 rounded">
-          <h2 className="text-xl font-semibold mb-4">Productos de la categoría seleccionada:</h2>
+          <h2 className="text-xl font-semibold mb-4">Productos de la categoría seleccionada: {activeCategoriaNombre}</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
-            {productos.map((producto) => (
-              <div key={producto.id} className="p-4 border-2 rounded-xl">
+            {displayedProductos.map((producto) => (
+              <div key={producto._id} className="p-4 border-4 border-gray-400 rounded-xl">
                 <h3 className="text-lg font-semibold mb-2 text-center">{producto.nombre}</h3>
                 <div className="flex space-x-2 items-center justify-between my-2">
                   <span className="bg-green-300 text-center font-bold">${producto.precio}</span>
                   <div className="flex space-x-2">
-                    <button className="px-1 py-1 bg-blue-500 text-white rounded">+</button>
-                    <span className="font-semibold">1</span>
-                    <button className="px-1 py-1 bg-red-500 text-white rounded">-</button>
+                    <button className="px-2.5 py-1 bg-blue-500 text-white rounded" onClick={() => handleIncrement(producto._id, producto.nombre, producto.precio)}>+</button>
+                    <span className="font-semibold px-2">{cantidades[producto._id] || 0}</span>
+                    <button className="px-2.5 py-1 bg-red-500 text-white rounded" onClick={() => handleDecrement(producto._id, producto.nombre, producto.precio)}>-</button>
                   </div>
                 </div>
               </div>
@@ -141,20 +180,19 @@ const ProductSlider = () => {
         </div>
       )}
 
-      {/* Resultados de búsqueda */}
-      {searchTerm && (
+      {searchTerm && displayedProductos.length > 0 && (
         <div className="border-4 p-2 mt-4 rounded">
           <h2 className="text-xl font-semibold mb-4">Resultados de la búsqueda:</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
-            {filteredProductos.map((producto) => (
-              <div key={producto.id} className="p-4 border-2 rounded-xl">
+            {displayedProductos.map((producto) => (
+              <div key={producto._id} className="p-4 border-2 rounded-xl">
                 <h3 className="text-lg font-semibold mb-2 text-center">{producto.nombre}</h3>
                 <div className="flex space-x-2 items-center justify-between my-2">
                   <span className="bg-green-300 text-center font-bold">${producto.precio}</span>
                   <div className="flex space-x-2">
-                    <button className="px-1 py-1 bg-blue-500 text-white rounded">+</button>
-                    <span className="font-semibold">1</span>
-                    <button className="px-1 py-1 bg-red-500 text-white rounded">-</button>
+                    <button className="px-2.5 py-1 bg-blue-500 text-white rounded" onClick={() => handleIncrement(producto._id, producto.nombre, producto.precio)}>+</button>
+                    <span className="font-semibold px-2">{cantidades[producto._id] || 0}</span>
+                    <button className="px-2.5 py-1 bg-red-500 text-white rounded" onClick={() => handleDecrement(producto._id, producto.nombre, producto.precio)}>-</button>
                   </div>
                 </div>
               </div>

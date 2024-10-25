@@ -1,14 +1,10 @@
 import express from 'express';
 import cors from 'cors';
-import clientesRoutes from './controllers/clientesController.js';
-import mesasRoutes from './controllers/mesasController.js'; 
-import categoriasRoutes from './routes/categoriaRoutes.js'; // Rutas para categorías
-import productosRoutes from './routes/productosRoutes.js'; // Rutas para productos
-import cajaRoutes from './controllers/cajaController.js';
-import inventarioRoutes from './controllers/inventarioController.js';
-import pagosRoutes from './controllers/pagosController.js';
-import localRoutes from './routes/localRoutes.js'; // Rutas para locales
-import userRoutes from './routes/userRoutes.js'; // Rutas para usuarios
+import clientesRoutes from './routes/clienteRoutes.js';
+import categoriasRoutes from './routes/categoriaRoutes.js'; 
+import productosRoutes from './routes/productosRoutes.js'; 
+import localRoutes from './routes/localRoutes.js'; 
+import userRoutes from './routes/userRoutes.js'; 
 import mongoose from 'mongoose';
 
 const app = express();
@@ -33,12 +29,8 @@ app.use(express.urlencoded({ extended: true })); // Habilita el análisis de dat
 
 // Rutas
 app.use('/api/clientes', clientesRoutes); // Rutas para clientes
-app.use('/api/mesas', mesasRoutes); // Rutas para mesas
 app.use('/api/categorias', categoriasRoutes); // Rutas para categorías
 app.use('/api/productos', productosRoutes); // Rutas para productos
-app.use('/api/caja', cajaRoutes); // Rutas para caja
-app.use('/api/inventarios', inventarioRoutes); // Rutas para inventarios
-app.use('/api/pagos', pagosRoutes); // Rutas para pagos
 app.use('/api/locales', localRoutes); // Rutas para locales
 app.use('/api/usuarios', userRoutes); // Rutas para usuarios
 

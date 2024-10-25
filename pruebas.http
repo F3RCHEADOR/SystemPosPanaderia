@@ -67,3 +67,30 @@ Content-Type: application/json
     "categoriaId": "6707e96e46c6e33cdd8a322d"
 }
 
+###
+
+POST http://localhost:5000/api/clientes/
+Content-Type: application/json
+
+{
+    "nombre": "Juan Pérez",
+    "productos": [
+        {
+            "productoId": "67167d3cefeb256e719c4525",
+            "cantidad": 2,
+            "valorTotal": 8000
+        }
+    ],
+    "localId": "6707e96e46c6e33cdd8a322d"
+}
+
+
+###
+GET http://localhost:5000/api/clientes/local/6707e96e46c6e33cdd8a322d
+
+
+###
+GET http://localhost:5000/api/clientes/671bb60ec60aeb78434bcbed
+
+###
+DELETE http://localhost:5000/api/clientes/671bb948c60aeb78434bcc15
