@@ -3,7 +3,7 @@ import Client from '../../assets/client.png';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
-import ButtonPayment from '../ButtonPayment';
+import ButtonPayment from '../Cliente/ButtonPayment';
 
 const NuevoClienteAside = ({ isEdit, clientData, productos }) => {
   const backend = import.meta.env.VITE_BUSINESS_BACKEND;
@@ -50,7 +50,7 @@ const NuevoClienteAside = ({ isEdit, clientData, productos }) => {
       if (response.ok) {
         const newClient = await response.json();
         setSavedClient(newClient);
-        toast.current.show({ severity: 'success', summary: 'Cliente Creado', detail: `Código: ${newClient._id}`, life: 3000 });
+        toast.current.show({ severity: 'success', summary: 'Cliente Creado', detail: `${newClient.nombre ? newClient.nombre : 'Exitosamente'}`, life: 3000 });
         setClientName(''); // Reinicia el input
         setButtonDisabled(true)
       } else {

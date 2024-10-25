@@ -1,8 +1,8 @@
 import Local from '../models/Local.js'; // Asegúrate de que la ruta sea correcta
 
 // Crear un nuevo local
-export const createLocal = async (nombre, planSuscripcion) => {
-    const nuevoLocal = new Local({ nombre, planSuscripcion });
+export const createLocal = async (nombre, nit, planSuscripcion) => {
+    const nuevoLocal = new Local({ nombre, nit, planSuscripcion });
     return await nuevoLocal.save();
 };
 

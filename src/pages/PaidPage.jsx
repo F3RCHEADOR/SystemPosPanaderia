@@ -1,14 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import Client from '../assets/client.png';
 import { useLocation } from 'react-router-dom';
-import CalculatorPanel from '../components/Calculadora';
-
+import CalculatorPanel from '../components/Cliente/Calculadora';
 
 const PaidPage = () => {
   const location = useLocation();
   const { clientData } = location.state || {};
-  console.log(clientData);
+  const [clientDetails, setClientDetails] = useState(null);
+  const backend = import.meta.env.VITE_BUSINESS_BACKEND;
 
+  useEffect(() => {
+    const fetchClientData = async () => {
+      if (clientData && clientData._id) {
+        try {
+          const response = await fetch(`${backend}api/clientes/${clientData._id}`);
+          if (response.ok) {
+            const data = await response.json();
+            setClientDetails(data);
+          } else {
+            console.error('Error fetching client data:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error fetching client data:', error);
+        }
+      }
+    };
+
+    fetchClientData();
+  }, [clientData, backend]);
 
   return (
     <>
@@ -19,12 +38,12 @@ const PaidPage = () => {
         <img src={Client} alt="client" className='mx-auto my-4' />
         <h2 className="text-lg font-bold mb-4">Selección:</h2>
         <ul className="w-full px-4">
-          {clientData && clientData.productos && clientData.productos.length > 0 ? (
-            clientData.productos.map((producto, index) => (   
-              <li key={index} className="flex justify-between items-center mb-2">
-                <span className="font-semibold text-base">{producto.nombre}</span>
+          {clientDetails && clientDetails.productos && clientDetails.productos.length > 0 ? (
+            clientDetails.productos.map((producto) => (
+              <li key={producto._id} className="flex justify-between items-center mb-2">
+                <span className="font-semibold text-base">{producto.productoId.nombre}</span>
                 <span className="text-nowrap bg-green-300 p-1 font-bold">
-                  {producto.cantidad} x ${producto.precio}
+                  {producto.cantidad} x ${producto.productoId.precio}
                 </span>
               </li>
             ))
@@ -36,16 +55,13 @@ const PaidPage = () => {
           <hr className="my-2" />
           <div className="flex justify-between items-center font-bold text-xl">
             <span>Total:</span>
-            <span>{clientData?.valorAcumulado}</span>
+            <span>${clientDetails?.productos.reduce((acc, producto) => acc + producto.valorTotal, 0)}</span>
           </div>
         </div>
       </aside>
 
-
-      <section className='ml-60  px-1 xl:px-4'>
-  
-       <CalculatorPanel clientData={clientData} />
-
+      <section className='ml-60 px-1 xl:px-4'>
+        {clientDetails && <CalculatorPanel clientData={clientDetails} />}
       </section>
     </>
   );

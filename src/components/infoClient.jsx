@@ -1,8 +1,8 @@
 // ClientInfo.js
 import React from 'react';
 import clienteImagen from '../assets/client.png';
-import ButtonPayment from './ButtonPayment';
-import ButtonEditClient from './ButtonEditClient';
+import ButtonPayment from './Cliente/ButtonPayment';
+import ButtonEditClient from './Cliente/ButtonEditClient';
 
 const ClientInfo = ({ cliente, onClose }) => {
   if (!cliente) return null;

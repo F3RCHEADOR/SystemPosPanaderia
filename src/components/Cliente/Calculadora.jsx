@@ -6,12 +6,13 @@ import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import ButtonCalculator from './ButtonCalculator';
-import InvoiceDetail from './InvoiceDetail';
+import InvoiceDetail from '../InvoiceDetail';
 
 const backend = import.meta.env.VITE_BUSINESS_BACKEND;
 
 const CalculatorPanel = ({ clientData }) => {
   const [costTotal, setCostTotal] = useState('');
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const [receivedAmount, setReceivedAmount] = useState('');
   const [change, setChange] = useState('');
   const [activeInput, setActiveInput] = useState('costTotal');
@@ -21,28 +22,21 @@ const CalculatorPanel = ({ clientData }) => {
   const toastBC = useRef(null);
 
   useEffect(() => {
-    if (clientData && clientData.valorAcumulado !== undefined) {
-      setCostTotal(clientData.valorAcumulado);
+    if (clientData && clientData.productos) {
+      const total = clientData.productos.reduce((acc, producto) => acc + producto.valorTotal, 0);
+      setCostTotal(total);
     }
   }, [clientData]);
 
   useEffect(() => {
-    // Recalcular el costo total con descuento cuando cambie el porcentaje de descuento
-    if (applyDiscount) {
-      const discount = parseFloat(discountPercentage) || 0;
-      const total = parseFloat(clientData.valorAcumulado) || 0;
-      const discountedTotal = total - (total * (discount / 100));
-      setCostTotal(discountedTotal);
-    } else {
-      // Restaurar el costo total original si el descuento no está aplicado
-      setCostTotal(clientData.valorAcumulado);
-    }
-  }, [applyDiscount, discountPercentage, clientData]);
-
-  useEffect(() => {
-    // Recalcular el cambio cuando cambie el costo total o el monto recibido
     calculateChange();
   }, [costTotal, receivedAmount]);
+
+  const calculateChange = () => {
+    const total = parseFloat(costTotal) || 0;
+    const received = parseFloat(receivedAmount) || 0;
+    setChange(received - total);
+  };
 
   const handleButtonClick = (value) => {
     if (activeInput === 'costTotal') {
@@ -54,15 +48,8 @@ const CalculatorPanel = ({ clientData }) => {
     }
   };
 
-  const calculateChange = () => {
-    const total = parseFloat(costTotal) || 0;
-    const received = parseFloat(receivedAmount) || 0;
-    const result = received - total;
-    setChange(result);
-  };
-
   const clearInputs = () => {
-    setCostTotal(clientData.valorAcumulado);
+    setCostTotal(clientData.productos.reduce((acc, producto) => acc + producto.valorTotal, 0));
     setReceivedAmount('');
     setChange('');
     setApplyDiscount(false);
@@ -70,30 +57,11 @@ const CalculatorPanel = ({ clientData }) => {
   };
 
   const handlePurchase = () => {
-    if (!costTotal) {
+    if (!costTotal || !receivedAmount || parseFloat(receivedAmount) < parseFloat(costTotal)) {
       toastBC.current.show({
         severity: 'error',
         summary: 'Error',
-        detail: 'El campo "Costo Total" está vacío.',
-        life: 3000
-      });
-      return;
-    }
-    if (!receivedAmount) {
-      toastBC.current.show({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'El campo "Recibe" está vacío.',
-        life: 3000
-      });
-      return;
-    }
-
-    if (receivedAmount < costTotal) {
-      toastBC.current.show({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'El campo "Recibe" No Puede ser menor que el "Costo Total".',
+        detail: 'Por favor verifica que todos los campos estén llenos y que el monto recibido sea mayor o igual al costo total.',
         life: 3000
       });
       return;
@@ -102,83 +70,27 @@ const CalculatorPanel = ({ clientData }) => {
   };
 
   const confirmPurchase = async () => {
-    if (!costTotal) {
-      toastBC.current.show({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'El campo "Costo Total" está vacío.',
-        life: 3000
-      });
-      return;
-    }
-    if (!receivedAmount) {
-      toastBC.current.show({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'El campo "Recibe" está vacío.',
-        life: 3000
-      });
-      return;
-    }
-
-    if (receivedAmount < costTotal) {
-      toastBC.current.show({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'El campo "Recibe" No Puede ser menor que el "Costo Total".',
-        life: 3000
-      });
-      return;
-    }
-
     try {
-      if (clientData.tipoCliente === "Individual") {
-        const deleteResponse = await fetch(backend+`api/clientes/${clientData.codigo}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
 
-        if (!deleteResponse.ok) {
-          throw new Error('Error al eliminar el cliente');
-        }
+      const response = await fetch(backend + 'api/pagos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          nombre: clientData.nombre || 'Cliente Recurrente', // Ajusta según tu lógica
+          productos: clientData.productos.map(producto => ({
+            productoId: producto.productoId._id, // Asegúrate de que este campo exista
+            cantidad: producto.cantidad,
+            valorTotal: producto.valorTotal
+          })),
+          valorTotal: costTotal,
+          localId: clientData.localId, // Agrega el ID del local
+        })
+      });
 
-        const saveResponse = await fetch(backend+'api/clientes/pagos', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(clientData)
-        });
-
-        if (!saveResponse.ok) {
-          throw new Error('Error al guardar los datos en pagos');
-        }
-      } else if (clientData.tipoCliente === "Mesa") {
-        const desocuparResponse = await fetch(backend+`api/mesas/${clientData.codigo}/desocupar`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(clientData)
-        });
-
-        if (!desocuparResponse.ok) {
-          throw new Error('Error al desocupar la mesa');
-        }
-
-        const saveResponse = await fetch(backend+'api/mesas/pagos', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(clientData)
-        });
-
-        if (!saveResponse.ok) {
-          throw new Error('Error al guardar los datos en pagos');
-        }
+      if (!response.ok) {
+        throw new Error('Error al procesar el pago');
       }
 
       toastBC.current.show({
@@ -187,8 +99,9 @@ const CalculatorPanel = ({ clientData }) => {
         detail: 'La compra se ha efectuado con éxito.',
         life: 10000
       });
-
+      clearInputs();
       setShowConfirm(false);
+      setButtonDisabled(true)
 
     } catch (error) {
       toastBC.current.show({
@@ -197,13 +110,13 @@ const CalculatorPanel = ({ clientData }) => {
         detail: `Ocurrió un error: ${error.message}`,
         life: 10000
       });
-      console.error('Error en la operación:', error);
     }
   };
 
   const cancelPurchase = () => {
     setShowConfirm(false);
   };
+
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -335,19 +248,19 @@ const CalculatorPanel = ({ clientData }) => {
               >
                 Limpiar
               </button>
-              <button
-                className="bg-green-500 text-white rounded-xl border-4 px-4 py-2 font-bold hover:scale-105 active:bg-green-600"
+              <Button
+                className={`bg-green-500 text-white rounded-xl border-4 px-4 py-2 font-bold hover:scale-105 active:bg-green-600`}
                 onClick={handlePurchase}
-              >
-                Aceptar
-              </button>
+                disabled={buttonDisabled}
+                label={'Aceptar'}
+              />
             </div>
           </div>
         </div>
       </div>
-    <div className='w-full'>
-    <InvoiceDetail clientData={clientData} recibe={receivedAmount} cambio={change} total={costTotal ? costTotal : '0'} />
-    </div>          
+      <div className='w-full'>
+        <InvoiceDetail clientData={clientData} recibe={receivedAmount} cambio={change} total={costTotal ? costTotal : '0'} />
+      </div>
     </div>
   );
 

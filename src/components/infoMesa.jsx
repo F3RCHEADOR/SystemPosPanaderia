@@ -1,7 +1,7 @@
 import React from 'react';
 import MesaImagen from '../assets/mesa.png';
-import ButtonPayment from './ButtonPayment';
-import ButtonEditClient from './ButtonEditClient';
+import ButtonPayment from './Cliente/ButtonPayment';
+import ButtonEditClient from './Cliente/ButtonEditClient';
 
 const InfoMesa = ({ mesa, onClose }) => {
   if (!mesa) return null;

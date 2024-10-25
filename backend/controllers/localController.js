@@ -12,8 +12,8 @@ const router = express.Router();
 // Crear un nuevo local
 export const create = async (req, res) => {
     try {
-        const { nombre, planSuscripcion } = req.body;
-        const nuevoLocal = await createLocal(nombre, planSuscripcion);
+        const { nombre, nit, planSuscripcion } = req.body;
+        const nuevoLocal = await createLocal(nombre,nit, planSuscripcion);
         res.status(201).json(nuevoLocal);
     } catch (error) {
         res.status(500).json({ error: 'Error al crear el local' });
