@@ -8,17 +8,37 @@ import {
     getPagosPorLocal
 } from '../services/pagosService.js';
 
+import Pago from '../models/Pagos.js';
+
 const router = express.Router();
 
 // Crear un nuevo pago
 export const create = async (req, res) => {
     try {
-        console.log(req.body)
+        console.log(req.body);
         const { consecutivo, nombre, productos, valorTotal, localId } = req.body;
+        // Crear el nuevo pago
         const nuevoPago = await createPago(consecutivo, nombre, productos, valorTotal, localId);
+        console.log(nuevoPago)
         res.status(201).json(nuevoPago);
     } catch (error) {
+        console.error(error); // Imprime el error en la consola del servidor
         res.status(500).json({ error: 'Error al crear el pago' });
+    }
+
+};
+
+// Obtener el último consecutivo
+export const getUltimoConsecutivo = async (req, res) => {
+    try {
+        console.log('Controlador getUltimoConsecutivo llamado');
+        const ultimoPago = await Pago.findOne({}, {}, { sort: { consecutivo: -1 } });
+        const consecutivo = ultimoPago ? ultimoPago.consecutivo : 0; // Devuelve 0 si no hay pagos
+        console.log('Último consecutivo encontrado:', consecutivo);
+        res.json({ consecutivo });
+    } catch (error) {
+        console.error('Error al obtener el último consecutivo:', error);
+        res.status(500).json({ error: 'Error al obtener el último consecutivo' });
     }
 };
 
@@ -46,6 +66,36 @@ export const getPorFecha = async (req, res) => {
         res.status(500).json({ error: 'Error al obtener los pagos por fecha' });
     }
 };
+
+// Obtener pagos por local y fecha
+export const getPagosPorLocalYFecha = async (req, res) => {
+    try {
+        const { localId, fecha } = req.query; // Espera el localId y la fecha en la query
+        
+        if (!localId || !fecha) {
+            return res.status(400).json({ error: 'Se requiere localId y fecha' });
+        }
+
+        // Filtrar por fecha
+        const startDate = new Date(fecha);
+        const endDate = new Date(fecha);
+        endDate.setDate(endDate.getDate() + 1); // Añadir un día para cubrir todo el día
+
+        const pagos = await Pago.find({
+            localId: localId,
+            creado: { // Asegúrate de que 'creado' es el campo donde guardas la fecha
+                $gte: startDate,
+                $lt: endDate
+            }
+        });
+
+        res.json(pagos);
+    } catch (error) {
+        console.error('Error al obtener pagos:', error);
+        res.status(500).json({ error: 'Error al obtener los pagos' });
+    }
+};
+
 
 // Obtener pagos por local
 export const getPorLocal = async (req, res) => {

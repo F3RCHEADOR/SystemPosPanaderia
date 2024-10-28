@@ -1,10 +1,7 @@
 import Pago from '../models/Pagos.js';
-import { getNextConsecutivo } from './counterService.js'; // Ajusta la ruta
 
 // Crear un nuevo pago
-export const createPago = async (nombre, productos, valorTotal, localId) => {
-    const consecutivo = await getNextConsecutivo(); // Obtiene el siguiente consecutivo
-    console.log(consecutivo);
+export const createPago = async (consecutivo, nombre, productos, valorTotal, localId) => {
     const nuevoPago = new Pago({ consecutivo, nombre, productos, valorTotal, localId });
     return await nuevoPago.save();
 };

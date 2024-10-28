@@ -5,6 +5,8 @@ import {
     getPorFecha,
     getPorLocal,
     update,
+    getUltimoConsecutivo,
+    getPagosPorLocalYFecha,
     remove
 } from '../controllers/pagoController.js';
 
@@ -14,7 +16,13 @@ const router = express.Router();
 router.post('/', create);
 
 // Obtener un pago por ID
-router.get('/:id', getById);
+router.get('/pagoId/:id', getById);
+
+// Obtener el último consecutivo
+router.get('/ultimo-consecutivo', getUltimoConsecutivo);
+
+// Obtener el último consecutivo
+router.get('/ventasHoy', getPagosPorLocalYFecha);
 
 // Obtener pagos por fecha específica
 router.get('/fecha', getPorFecha);

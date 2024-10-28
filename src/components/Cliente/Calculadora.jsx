@@ -71,47 +71,58 @@ const CalculatorPanel = ({ clientData }) => {
 
   const confirmPurchase = async () => {
     try {
+        // Obtener el último consecutivo
+        const consecutivoResponse = await fetch(backend + 'api/pagos/ultimo-consecutivo'); // Ajusta la URL según tu API
+        if (!consecutivoResponse.ok) {
+            throw new Error('Error al obtener el último consecutivo');
+        }
 
-      const response = await fetch(backend + 'api/pagos', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          nombre: clientData.nombre || 'Cliente Recurrente', // Ajusta según tu lógica
-          productos: clientData.productos.map(producto => ({
-            productoId: producto.productoId._id, // Asegúrate de que este campo exista
-            cantidad: producto.cantidad,
-            valorTotal: producto.valorTotal
-          })),
-          valorTotal: costTotal,
-          localId: clientData.localId, // Agrega el ID del local
-        })
-      });
+        const { consecutivo } = await consecutivoResponse.json();
+        const nuevoConsecutivo = consecutivo + 1;
 
-      if (!response.ok) {
-        throw new Error('Error al procesar el pago');
-      }
+        // Crear el pago
+        const response = await fetch(backend + 'api/pagos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                consecutivo: nuevoConsecutivo, // Usar el nuevo consecutivo
+                nombre: clientData.nombre || 'Cliente Recurrente',
+                productos: clientData.productos.map(producto => ({
+                    productoId: producto.productoId._id, // Asegúrate de que este campo exista
+                    cantidad: producto.cantidad,
+                    valorTotal: producto.valorTotal
+                })),
+                valorTotal: costTotal,
+                localId: clientData.localId,
+            })
+        });
 
-      toastBC.current.show({
-        severity: 'success',
-        summary: 'Compra efectuada',
-        detail: 'La compra se ha efectuado con éxito.',
-        life: 10000
-      });
-      clearInputs();
-      setShowConfirm(false);
-      setButtonDisabled(true)
+        if (!response.ok) {
+            throw new Error('Error al procesar el pago');
+        }
+
+        toastBC.current.show({
+            severity: 'success',
+            summary: 'Compra efectuada',
+            detail: 'La compra se ha efectuado con éxito.',
+            life: 10000
+        });
+        clearInputs();
+        setShowConfirm(false);
+        setButtonDisabled(true);
 
     } catch (error) {
-      toastBC.current.show({
-        severity: 'error',
-        summary: 'Error',
-        detail: `Ocurrió un error: ${error.message}`,
-        life: 10000
-      });
+        toastBC.current.show({
+            severity: 'error',
+            summary: 'Error',
+            detail: `Ocurrió un error: ${error.message}`,
+            life: 10000
+        });
     }
-  };
+};
+
 
   const cancelPurchase = () => {
     setShowConfirm(false);

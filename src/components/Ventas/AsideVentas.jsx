@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import InfoAsideVentas from "./InfoAsideVentas";
+import InfoAsideVentas from "../InfoAsideVentas";
 
 function AsideVentas() {
     const [ventasAcumuladas, setVentasAcumuladas] = useState(null);
@@ -9,8 +9,10 @@ function AsideVentas() {
     const [totalGastos, setTotalGastos] = useState(null);
     const [totalVentas, setTotalVentas] = useState(null);
     const [totalCaja, setTotalCaja] = useState(null);
-    const [selectedSection, setSelectedSection] = useState(null); // Estado para la sección seleccionada
+    const [selectedSection, setSelectedSection] = useState(null); 
+    
     const backend = import.meta.env.VITE_BUSINESS_BACKEND;
+    const localId = localStorage.getItem("localId");
 
     // Función para normalizar las fechas
     const normalizeDate = (dateString) => {
@@ -31,11 +33,13 @@ function AsideVentas() {
         const fetchData = async () => {
             try {
                 const [pagosResponse, cajaResponse] = await Promise.all([
-                    fetch(backend + 'api/pagos'),
-                    fetch(backend + 'api/caja')
+                    fetch(backend + 'api/pagos/ventasHoy'),
+                    fetch(backend + 'api/cajas')
                 ]);
 
                 const pagosData = await pagosResponse.json();
+                console.log(pagosData)
+
                 const cajaData = await cajaResponse.json();
 
                 if (!Array.isArray(pagosData) || !Array.isArray(cajaData)) {

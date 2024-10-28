@@ -1,6 +1,6 @@
 import React from 'react';
 import InfoClientPaid from '../layout/InfoSellPaid.jsx';
-import AsideVentas from '../components/AsideVentas.jsx';
+import AsideVentas from '../components/Ventas/AsideVentas.jsx';
 
 
 const Ventas = () => {

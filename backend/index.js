@@ -6,6 +6,7 @@ import productosRoutes from './routes/productosRoutes.js';
 import pagosRoutes from './routes/pagosRoutes.js';
 import localRoutes from './routes/localRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import cajaRoutes from './routes/cajaRoutes.js';
 import mongoose from 'mongoose';
 
 const app = express();
@@ -34,7 +35,8 @@ app.use('/api/categorias', categoriasRoutes);
 app.use('/api/productos', productosRoutes);
 app.use('/api/pagos', pagosRoutes)
 app.use('/api/locales', localRoutes);
-app.use('/api/usuarios', userRoutes);
+app.use('/api/usuarios', userRoutes);   
+app.use('/api/cajas', cajaRoutes);
 
 // Iniciar el servidor
 app.listen(PORT, () => {

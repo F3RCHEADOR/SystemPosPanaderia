@@ -71,20 +71,14 @@ const MesaList = ({ onClienteDrop }) => {
   useEffect(() => {
     const obtenerEstadoCaja = async () => {
       try {
-        const response = await fetch(`${backend}api/caja`); // Espera la respuesta
+        const response = await fetch(`${backend}api/cajas/ultima-caja`); // Espera la respuesta
         if (!response.ok) throw new Error('Error al obtener el estado de la caja');
 
         const data = await response.json();
-        console.log(data);
-
-        // Obtén el último registro
-        const ultimoRegistro = data[data.length - 1];
-        console.log(ultimoRegistro);
-
-        // Determina el tipo de caja para la siguiente operación
-        if (ultimoRegistro) {
-          setTipoCaja(ultimoRegistro.tipoCaja === 'apertura' ? 'Abierta' : 'Cerrada');
-        } 
+       
+        if (data) {
+          setTipoCaja(data.ultimaCaja.tipoCaja === 'cierre' ? 'Cerrar' : 'Abrir');
+        }
       } catch (error) {
         console.error('Error:', error);
         alert('Ocurrió un error al verificar el estado de la caja');
@@ -163,9 +157,7 @@ const MesaList = ({ onClienteDrop }) => {
       <div className='flex items-center justify-between'>
         <h2 className="text-2xl font-bold text-center">Lista de Mesas</h2>
         {/* Mostrar tipoCaja dinámicamente */}
-        <p className={`${tipoCaja === 'Abierta' ? 'bg-blue-300' : 'bg-red-300'} hidden xl:block rounded-lg p-2 font-bold italic text-xl`}>
-          {tipoCaja ? `Caja ${tipoCaja}` : 'Cargando estado de la caja...'}
-        </p>
+      <p>{tipoCaja}</p>
         <Reloj />
         <div className='hidden xl:block'>
           <span className='p-2.5 rounded-full w-4 h-4 bg-red-400 mx-2 font-bold'>Ocupado</span>

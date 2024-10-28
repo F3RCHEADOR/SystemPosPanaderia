@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MesaList from '../layout/MesaList';
 import ClientList from '../layout/ClientList';
 import clientesData from '../data/cliente.json';
-import Caja from '../components/Caja';
+import Caja from '../components/Caja/Caja';
 
 const Home = () => {
   const [clientes, setClientes] = useState(clientesData);

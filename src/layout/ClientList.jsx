@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDrag } from 'react-dnd';
-import ClientInfo from '../components/infoClient';
+import ClientInfo from '../components/Home/infoClient';
 import clienteImagen from "../assets/client.png";
 
 const backend = import.meta.env.VITE_BUSINESS_BACKEND;
