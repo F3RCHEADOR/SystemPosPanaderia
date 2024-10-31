@@ -14,6 +14,7 @@ const ListProducts = ({ clientData, isEdit }) => {
     fetch(backend+'api/categorias')
       .then(response => response.json())
       .then(data => {
+        console.log(data);
         if (data && Array.isArray(data)) {
           setCategorias(data);
 
