@@ -34,7 +34,7 @@ function Footer() {
           }`}
       >
         <ul className='flex items-center justify-around text-lg font-bold mt-2'>
-          <li className='border-l-8 pb-1 border-r-8 px-2 hover:scale-105 duration-200'><Link to={'/'} className='flex flex-row items-center'><img src={Home} className='size-12' /><span>Inicio</span></Link></li>
+          <li className='border-l-8 pb-1 border-r-8 px-2 hover:scale-105 duration-200'><Link to={'Home'} className='flex flex-row items-center'><img src={Home} className='size-12' /><span>Inicio</span></Link></li>
           <li className='border-l-8 pb-1 border-r-8 px-2 hover:scale-105 duration-200'><Link to={'Second'} className='flex flex-row items-center'><img src={Productos} className='size-12' /><span>Productos</span></Link></li>
           <li className='border-l-8 pb-1 border-r-8 px-2 hover:scale-105 duration-200'><Link to={'Inventories'} className='flex flex-row items-center'><img src={Inventory} className='size-12' /><span>Inventarios</span></Link></li>
           <li className='border-l-8 pb-1 border-r-8 px-2 hover:scale-105 duration-200'><Link to={'Ventas'} className='flex flex-row items-center'><img src={Cash} className='size-12' /><span>Ventas</span></Link></li>

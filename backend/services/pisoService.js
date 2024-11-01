@@ -19,7 +19,7 @@ export const getPisoById = async (id) => {
 
 // Obtener pisos por local
 export const getPisosByLocal = async (localId) => {
-  return await Piso.find({ localId }).populate("localId")
+  return await Piso.find({ localId }).populate("localId").sort({ nombre: 1 });
 };
 
 // Actualizar un piso

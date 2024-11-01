@@ -173,10 +173,15 @@ DELETE http://localhost:5000/api/clientes/671bb948c60aeb78434bcc15
 DELETE http://localhost:5000/api/pagos/671bcb5a01f94944127c906c
 
 ###
-GET http://localhost:5000/api/pisos/local/6707e96e46c6e33cdd8a322d
+GET http://localhost:5000/api/pisos/local/6707e96e46c6e33cdd8a322d?sort=nombre&order=asc
+
+###
+GET http://localhost:5000/api/mesas/piso/6723a2ebb654466b822867fb
+
 
 ###
 GET http://localhost:5000/api/mesas
+
 
 ###
 POST http://localhost:5000/api/mesas
@@ -189,4 +194,11 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5000/api/mesas/67239e6ed9f33f965991ff0e
+DELETE http://localhost:5000/api/mesas/6723ca3dbbd82a0914474d77
+
+###
+GET http://localhost:5000/api/pisos/local/6707e96e46c6e33cdd8a322d
+
+
+###
+GET http://localhost:5000/api/clientes/local/6707e96e46c6e33cdd8a322d

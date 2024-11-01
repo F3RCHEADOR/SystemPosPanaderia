@@ -9,6 +9,10 @@ const clienteSchema = new mongoose.Schema({
                 ref: 'Producto',
                 required: true
             },
+            nombreProducto: {
+                type: String,
+                required: true
+            },
             cantidad: {
                 type: Number,
                 required: true,

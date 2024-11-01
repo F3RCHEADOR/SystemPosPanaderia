@@ -1,4 +1,3 @@
-// ClientInfo.js
 import React from 'react';
 import clienteImagen from '../../assets/client.png';
 import ButtonPayment from '../Cliente/ButtonPayment';
@@ -7,30 +6,28 @@ import ButtonEditClient from '../Cliente/ButtonEditClient';
 const ClientInfo = ({ cliente, onClose }) => {
   if (!cliente) return null;
 
-  const clienteConTipo = {
-    ...cliente,
-    tipoCliente: 'Individual' // Campo adicional
-  };
+  // Calcular el valor total acumulado de los productos
+  const valorAcumulado = cliente.productos.reduce((total, producto) => total + producto.valorTotal, 0);
 
   return (
     <div className="fixed z-50 top-20 left-48 w-60 h-auto max-h-80 overflow-auto p-4 bg-white border-4 shadow-lg rounded-xl">
       <button onClick={onClose} className="absolute top-2 right-2 text-gray-900 font-bold rounded-full p-2 bg-red-200">X</button>
-      <img src={clienteImagen} alt={cliente.codigo} className="w-16 mx-auto" />
-      <p className="text-gray-600 mb-2 text-center bg-red-100">Hora: {cliente.horaLlegada}</p>
+      <img src={clienteImagen} alt={cliente._id} className="w-16 mx-auto" />
+      <h2 className="text-lg font-semibold text-center">{cliente.nombre || 'Sin nombre'}</h2> {/* Mostrar nombre o un texto por defecto */}
       <ul className="space-y-1 mb-2">
-        {cliente.productos.map((producto, index) => (
-          <li key={index} className="flex justify-between p-2 bg-gray-50 rounded">
-            <span>{producto.nombre}</span>
-            <span>${producto.precio}</span>
+        {cliente.productos.map((producto) => (
+          <li key={producto._id} className="flex justify-between p-2 bg-gray-50 rounded">
+            <span>{producto.nombreProducto}</span> {/* Cambié 'nombre' por 'nombreProducto' */}
+            <span>${producto.valorTotal}</span>
           </li>
         ))}
       </ul>
       <div className="flex justify-between font-semibold border-4 p-1 rounded-xl">
         <span>Total:</span>
-        <span>${cliente.valorAcumulado}</span>
+        <span>${valorAcumulado}</span>
       </div>
-      <ButtonEditClient cliente={clienteConTipo} />
-      <ButtonPayment cliente={clienteConTipo} />
+      <ButtonEditClient cliente={cliente} />
+      <ButtonPayment cliente={cliente} />
     </div>
   );
 };

@@ -34,11 +34,11 @@ const UpdateMesaModal = ({ isOpen, onClose, onSubmit, mesa, pisos }) => {
     if (mesa) {
       setNombre(mesa.nombre);
       setSelectedImage(mesa.imagen);
-      setSelectedPiso(mesa.piso); // Asigna el piso actual
+      setSelectedPiso(mesa.piso);
     } else {
       setNombre("");
       setSelectedImage("");
-      setSelectedPiso(""); // Reinicia al crear nueva mesa
+      setSelectedPiso("");
     }
   }, [mesa]);
 
@@ -48,17 +48,56 @@ const UpdateMesaModal = ({ isOpen, onClose, onSubmit, mesa, pisos }) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
+    // Validaciones
+    if (!nombre) {
+      alert("Por favor, ingresa un nombre para la mesa.");
+      return;
+    }
+    if (!selectedImage) {
+      alert("Por favor, selecciona una imagen para la mesa.");
+      return;
+    }
+    if (!selectedPiso) {
+      alert("Por favor, selecciona un piso para la mesa.");
+      return;
+    }
+
     const mesaData = {
       nombre,
       imagen: selectedImage,
-      piso: selectedPiso, // Toma el ID del piso seleccionado
+      piso: selectedPiso,
     };
     onSubmit(mesaData);
   };
 
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 400,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   return (
-    <div className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center ${isOpen ? '' : 'hidden'}`}>
-      <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+    <div className={`fixed inset-0 max-w-xl mx-auto flex items-center justify-center ${isOpen ? '' : 'hidden'}`}>
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full">
         <h2 className="text-xl font-bold mb-4">{mesa ? "Actualizar Mesa" : "Crear Mesa"}</h2>
         <form onSubmit={handleFormSubmit}>
           <div className="mb-4">
@@ -67,7 +106,7 @@ const UpdateMesaModal = ({ isOpen, onClose, onSubmit, mesa, pisos }) => {
               type="text"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
-              className="border rounded p-2 w-full"
+              className="border rounded p-2 w-full capitalize"
               required
             />
           </div>
@@ -89,18 +128,18 @@ const UpdateMesaModal = ({ isOpen, onClose, onSubmit, mesa, pisos }) => {
             </select>
           </div>
 
-          <div className="mb-4">
+          <div className="mb-12 md:mb-4">
             <label className="block mb-2">Selecciona una Imagen:</label>
-            <Slider dots={true} infinite={true} speed={500} slidesToShow={1} slidesToScroll={1}>
+            <Slider {...sliderSettings}>
               {mesas.map((mesa) => (
                 <div key={mesa.id} onClick={() => handleImageSelect(mesa.imagen)} className="cursor-pointer">
-                  <img src={mesa.imagen} alt={mesa.nombre} className={`w-full ${selectedImage === mesa.imagen ? 'border-2 border-blue-500' : ''}`} />
+                  <img src={mesa.imagen} alt={mesa.nombre} className={`w-56 mx-auto md:w-full p-4 ${selectedImage === mesa.imagen ? 'border-2 border-blue-500' : ''}`} />
                 </div>
               ))}
             </Slider>
           </div>
 
-          <div className="flex justify-end">
+          <div className="flex justify-between md:justify-end">
             <button type="button" onClick={onClose} className="bg-gray-300 text-black px-4 py-2 rounded-md mr-2">Cancelar</button>
             <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
               {mesa ? "Actualizar" : "Crear"}

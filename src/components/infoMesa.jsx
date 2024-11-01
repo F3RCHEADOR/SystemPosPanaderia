@@ -25,11 +25,9 @@ const InfoMesa = ({ mesa, onClose }) => {
       >
         X
       </button>
-      <h3 className="text-xl font-semibold text-center bg-orange-300">Mesa {mesa.codigo}</h3>
-      <img src={MesaImagen} alt={`Mesa ${mesa.codigo}`} className='w-28 mx-auto my-2' />
-      <p className='pl-4'>
-        <strong>Hora Ocupado:</strong> {mesa.horaOcupado ? new Date(mesa.horaOcupado).toLocaleString() : 'No disponible'}
-      </p>
+      <h3 className="text-xl font-semibold text-center bg-orange-300 capitalize">Mesa {mesa.nombre}</h3>
+      <img src={mesa.imagen} alt={`Mesa ${mesa.nombre}`} className='w-28 mx-auto my-2' />
+      
       <p className='pl-4'>
         <strong>Valor Acumulado:</strong> ${valorAcumulado}
       </p>

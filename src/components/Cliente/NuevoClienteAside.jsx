@@ -4,6 +4,7 @@ import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import ButtonPayment from '../Cliente/ButtonPayment';
+import Producto from '../../../backend/models/Productos';
 
 const NuevoClienteAside = ({ isEdit, clientData, productos }) => {
   const backend = import.meta.env.VITE_BUSINESS_BACKEND;
@@ -27,16 +28,24 @@ const NuevoClienteAside = ({ isEdit, clientData, productos }) => {
   };
 
   const total = useMemo(() => calculateTotal(), [productos]);
+  console.log(productos)
 
   const createOrUpdateClient = async () => {
     const cliente = {
       nombre: clientName, // Usamos el nombre ingresado en el input
-      productos: Object.entries(productos).flatMap(([id, { cantidad }]) =>
-        cantidad > 0 ? [{ productoId: id, cantidad, valorTotal: productos[id]?.precio * cantidad }] : []
+      productos: Object.entries(productos).flatMap(([id, { nombre, cantidad }]) => // Asegúrate de incluir el nombre
+        cantidad > 0 ? [{
+          productoId: id,
+          nombreProducto: nombre, // Extraemos el nombre del producto
+          cantidad,
+          valorTotal: productos[id]?.precio * cantidad
+        }] : []
       ),
-      localId: localId, 
+      localId: localId,
       creado: new Date()
     };
+
+    console.log(cliente);
 
     try {
       const response = await fetch(`${backend}api/clientes`, {

@@ -2,8 +2,8 @@
 import Mesa from '../models/Mesa.js'; // Asegúrate de que la ruta sea correcta
 
 // Crear una nueva mesa
-export const createMesa = async (nombre, imagen, pisoId) => {
-    const nuevaMesa = new Mesa({ nombre, imagen, piso: pisoId });
+export const createMesa = async (nombre, mesaEstado, imagen, pisoId) => {
+    const nuevaMesa = new Mesa({ nombre, estado: mesaEstado ,imagen, piso: pisoId });
     return await nuevaMesa.save();
 };
 
@@ -19,7 +19,7 @@ export const getMesaById = async (id) => {
 };
 
 export const getMesasByPiso = async (pisoId) => {
-  return await Mesa.find({ piso: pisoId }).populate('piso').populate('productos.productoId');
+  return await Mesa.find({ piso: pisoId }).populate('piso');
 };
 
 // Actualizar una mesa

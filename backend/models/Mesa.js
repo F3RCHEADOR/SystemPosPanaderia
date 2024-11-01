@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const mesaSchema = new mongoose.Schema({
   nombre: { type: String, required: true },
   imagen: { type: String, required: true },
+  estado: { type: String },
   piso: { type: mongoose.Schema.Types.ObjectId, ref: "Piso", required: true },
   productos: [
     {

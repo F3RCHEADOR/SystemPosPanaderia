@@ -15,7 +15,8 @@ const router = express.Router();
 export const create = async (req, res) => {
   try {
     const { nombre, imagen, piso } = req.body;
-    const nuevaMesa = await createMesa(nombre, imagen, piso);
+    const mesaEstado = "libre"
+    const nuevaMesa = await createMesa(nombre, mesaEstado ,imagen, piso);
     res.status(201).json(nuevaMesa);
   } catch (error) {
     console.error(error);
