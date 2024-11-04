@@ -80,18 +80,12 @@ const MesaList = () => {
     setSelectedMesa(selectedMesa === codigo ? null : codigo);
   };
 
-  const columnCount = () => {
-    if (mesas.length === 0) return 1;
-    if (mesas.length < 4) return 2;
-    if (mesas.length <= 6) return 3;
-    if (mesas.length <= 10) return 4;
-    return 4;
-  };
+ 
 
   const mesasFiltradas = selectedPiso ? mesas.filter(mesa => mesa.piso._id === selectedPiso) : mesas;
 
   return (
-    <div className="px-6 pt-4 bg-white text-gray-800 h-auto xl:h-full mb-8 lg:mb-24 w-full">
+    <div className="px-6 pt-4 bg-white text-gray-800 h-full mb-8 lg:mb-24 w-full">
       <div className='flex items-center justify-between'>
         <h2 className="text-2xl font-bold text-center">Lista de Mesas</h2>
         <p>{tipoCaja}</p>
@@ -116,7 +110,7 @@ const MesaList = () => {
           Todos
         </button>
       </div>
-      <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${columnCount()} max-w-screen-xl mx-auto gap-8 my-8`}>
+      <div className={`grid grid-cols-2 md:grid-cols-4 place-content-center max-w-screen-xl mx-auto gap-8 my-8`}>
         {mesasFiltradas.map(mesa => (
           <Mesa
             key={mesa._id}

@@ -202,3 +202,15 @@ GET http://localhost:5000/api/pisos/local/6707e96e46c6e33cdd8a322d
 
 ###
 GET http://localhost:5000/api/clientes/local/6707e96e46c6e33cdd8a322d
+
+###
+GET http://localhost:5000/api/productos/categoria/6719145c221ee1345ff947cd
+
+###
+GET  http://localhost:5000/api/clientes/6725061b805cd1c51237623e
+
+###
+GET http://localhost:5000/api/clientes/local/6707e96e46c6e33cdd8a322d
+
+###
+GET http://localhost:5000/api/pagos/local/6707e96e46c6e33cdd8a322d

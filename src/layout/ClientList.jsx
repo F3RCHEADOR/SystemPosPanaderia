@@ -11,7 +11,7 @@ const ItemTypes = {
   CLIENT: 'client',
 };
 
-const Client = ({ cliente, selectedCliente, onClientClick }) => {
+const Client = ({ cliente, selectedCliente, onClientClick, onDelete }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.CLIENT,
     item: cliente,
@@ -34,13 +34,14 @@ const Client = ({ cliente, selectedCliente, onClientClick }) => {
         <ClientInfo
           cliente={cliente}
           onClose={() => onClientClick(null)}
+          onDelete={onDelete} 
         />
       )}
     </div>
   );
 };
 
-const ClientList = ({ onDropCliente, onEditClient }) => {
+const ClientList = () => {
   const [clientes, setClientes] = useState([]);
   const [selectedCliente, setSelectedCliente] = useState(null);
 
@@ -61,6 +62,20 @@ const ClientList = ({ onDropCliente, onEditClient }) => {
     setSelectedCliente(selectedCliente === id ? null : id);
   };
 
+  const handleDeleteClient = async (clientId) => {
+    const confirmDelete = window.confirm(`¿Estás seguro de que quieres eliminar este cliente?`);
+    if (confirmDelete) {
+      try {
+        await axios.delete(`${backend}api/clientes/${clientId}`);
+        setClientes(clientes.filter(cliente => cliente._id !== clientId)); // Actualizar la lista de clientes
+        alert('Cliente eliminado con éxito');
+      } catch (error) {
+        console.error('Error al eliminar el cliente:', error);
+        alert('Hubo un problema al eliminar el cliente');
+      }
+    }
+  };
+
   return (
     <div className="fixed overflow-y-auto p-4 xl:p-6 bg-gray-100 xl:min-h-screen border-r-4 w-32 xl:w-56">
       <h1 className="text-2xl font-bold mb-6 text-center">Clientes</h1>
@@ -71,6 +86,7 @@ const ClientList = ({ onDropCliente, onEditClient }) => {
             cliente={cliente}
             selectedCliente={selectedCliente}
             onClientClick={handleClientClick}
+            onDelete={handleDeleteClient} 
           />
         ))}
       </div>

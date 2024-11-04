@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import FlechaArriba from '../assets/arrowUp.jsx';
-import Home from "../assets/hogar.png";
-import Inventory from "../assets/inventory.png";
-import Productos from "../assets/dairy.png";
-import Cash from "../assets/money.png";
+import FlechaArriba from '../../assets/arrowUp';
+import Home from "../../assets/hogar.png";
+import Inventory from "../../assets/inventory.png";
+import Productos from "../../assets/dairy.png";
+import Cash from "../../assets/money.png";
 import { Link } from 'react-router-dom';
 
 function Footer() {

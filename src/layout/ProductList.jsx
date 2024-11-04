@@ -57,7 +57,7 @@ const ProductList = () => {
 
     if (activeCategoriaId !== id) {
       try {
-        const response = await fetch(`http://localhost:5000/api/productos?categoriaId=${id}`);
+        const response = await fetch(`http://localhost:5000/api/productos/categoria/${id}`);
         const data = await response.json();
         if (Array.isArray(data)) {
           setProductos(data);
@@ -257,7 +257,7 @@ const ProductList = () => {
   return (
     <>
       <Toast ref={toast} />
-      <div className="p-6 bg-gray-100">
+      <div className="p-6 bg-white">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold mb-6">
             Listado de Categorías/

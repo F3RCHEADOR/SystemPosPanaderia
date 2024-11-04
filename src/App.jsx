@@ -8,6 +8,7 @@ import Inventories from "./pages/Inventories.jsx";
 import PaidPage from "./pages/PaidPage.jsx";
 import ContadorBilletes from "./pages/ContadorBilletes.jsx";
 import Ventas from "./pages/Ventas.jsx";
+import MenuVentas from "./pages/MenuVentas.jsx";
 import Login from "./pages/Login.jsx";
 import ConfigurationPage from "./pages/ConfigurationPage.jsx";
 import { DndProvider } from "react-dnd";
@@ -74,6 +75,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Ventas />
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/MenuVentas"
+            element={
+              <ProtectedRoute>
+                <MenuVentas />
               </ProtectedRoute>
             }
           />

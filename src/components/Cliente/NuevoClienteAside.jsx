@@ -4,7 +4,7 @@ import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import ButtonPayment from '../Cliente/ButtonPayment';
-import Producto from '../../../backend/models/Productos';
+
 
 const NuevoClienteAside = ({ isEdit, clientData, productos }) => {
   const backend = import.meta.env.VITE_BUSINESS_BACKEND;
