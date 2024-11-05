@@ -26,32 +26,27 @@ function ContadorBilletes() {
   const [ultimoTotal, setUltimoTotal] = useState(null);
   const [ultimoTotalLetras, setUltimoTotalLetras] = useState(null);
   const [ultimoFecha, setUltimoFecha] = useState(null);
-  const [ultimoHora, setUltimoHora] = useState(null);
   const [idCaja, setIdCaja] = useState(null);
-  const [imprimir, setImprimir] = useState(false); // Estado para manejar impresión
-  const [imprimirEnviada, setImprimirEnviada] = useState(false); // Estado para manejar impresión
+  const [imprimir, setImprimir] = useState(false);
+  const [imprimirEnviada, setImprimirEnviada] = useState(false);
 
   const verificarEstadoCaja = async () => {
     try {
-      const response = await fetch(backend + 'api/caja');
+      const response = await fetch(`${backend}api/cajas`);
       if (!response.ok) throw new Error('Error al obtener el estado de la caja');
 
       const data = await response.json();
-      console.log(data);
-      // Obtiene el último registro
       const ultimoRegistro = data[data.length - 1];
-      console.log(ultimoRegistro);
 
-      // Determina el tipo de caja para la siguiente operación
       if (ultimoRegistro) {
         setTipoCaja(ultimoRegistro.tipoCaja === 'apertura' ? 'cierre' : 'apertura');
         setIdCaja(ultimoRegistro.id + 1);
         setUltimoTotal(ultimoRegistro.totalCaja);
         setUltimoTotalLetras(convertirNumero(ultimoRegistro.totalCaja));
-        setUltimoFecha(ultimoRegistro.fecha);
-        setUltimoHora(ultimoRegistro.hora);
+        setUltimoFecha(ultimoRegistro.creado);
+
       } else {
-        setTipoCaja('apertura'); // Si no hay registros, comienza con 'apertura'
+        setTipoCaja('apertura');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -69,11 +64,8 @@ function ContadorBilletes() {
     }
   }, [imprimir]);
 
-  // Efecto para restablecer el estado de impresión después de imprimir
   useEffect(() => {
     if (imprimirEnviada) {
-      // Aquí puedes manejar la lógica de impresión, como cerrar la ventana de impresión si es necesario
-      // Después de manejar la impresión, restablecemos el estado de impresión
       setImprimir(false);
       setImprimirEnviada(false);
     }
@@ -86,11 +78,7 @@ function ContadorBilletes() {
     }));
   };
 
-  const mensaje = tipoCaja === 'apertura'
-    ? 'Abrir Caja'
-    : tipoCaja === 'cierre'
-      ? 'Cerrar Caja'
-      : 'Estado de Caja';
+  const mensaje = tipoCaja === 'apertura' ? 'Abrir Caja' : 'Cerrar Caja';
 
   const confirmarCaja = async () => {
     if (confirm('¿Estás seguro de realizar esta acción?')) {
@@ -99,17 +87,32 @@ function ContadorBilletes() {
           alert('No se pudo determinar el tipo de caja');
           return;
         }
+        // Obtener el último consecutivo
+        const consecutivoResponse = await fetch(backend + 'api/cajas/ultimo-consecutivo'); // Ajusta la URL según tu API
+        if (!consecutivoResponse.ok) {
+          throw new Error('Error al obtener el último consecutivo');
+        }
 
-        const response = await fetch(`${backend}api/caja/registrar`, {
+        const { consecutivo } = await consecutivoResponse.json();
+        const nuevoConsecutivo = consecutivo + 1;
+
+        const total = Object.keys(billetes).reduce(
+          (acc, denom) => acc + billetes[denom] * denom,
+          0
+        );
+
+        const response = await fetch(`${backend}api/cajas`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
+            consecutivo: nuevoConsecutivo, 
             tipoCaja,
-            fecha: formatearFecha().split(' ')[0],
-            hora: formatearFecha().split(' ')[1],
-            tipoMoneda: billetes,
+            tipoMoneda: Object.entries(billetes).map(([valor, cantidad]) => ({
+              valor,
+              cantidad
+            })),
             totalCaja: total
           }),
         });
@@ -122,7 +125,6 @@ function ContadorBilletes() {
         toast.current.show({ severity: "success", summary: mensaje + ' realizado correctamente', life: 15000 });
         console.log('Resultado:', resultado);
 
-        // Activa la impresión
         setImprimir(true);
         verificarEstadoCaja();
       } catch (error) {
@@ -159,7 +161,7 @@ function ContadorBilletes() {
             <div className="grid grid-cols-2 gap-4 border-4 p-4 rounded-xl">
               <h2 className='text-center col-span-2 text-2xl font-extrabold'>Contenido de la Caja</h2>
               {Object.keys(billetes)
-                .sort((a, b) => b - a) // Ordena las denominaciones de mayor a menor
+                .sort((a, b) => b - a)
                 .map((denominacion) => (
                   <div
                     key={denominacion}
@@ -180,15 +182,14 @@ function ContadorBilletes() {
             </div>
           </div>
           <div className="flex flex-col items-center ">
-            <div className='bg-slate-100 border-4 rounded-xl p-2 w-full m-2 mb-4 space-y-2 '>
-              <h2 className='text-center font-bold text-lg italic bg-blue-100'>Datos {tipoCaja === 'apertura' ? 'Ultimo Cierre' : tipoCaja === 'cierre' ? 'Ultima Apertura' : 'Ultima Apertura'} de Caja</h2>
+            <div className='bg-slate-100 border-4 rounded-xl p-2 w-full m-2 mb-4 space-y-2'>
+              <h2 className='text-center font-bold text-lg italic bg-blue-100'>Datos {tipoCaja === 'apertura' ? 'Ultimo Cierre' : 'Ultima Apertura'} de Caja</h2>
               <div className='flex items-center justify-between font-semibold italic'>
                 <span className='bg-blue-200 p-1 rounded-full'>Fecha</span>
-                <span className='bg-blue-200 p-1 rounded-full'>Hora</span>
+
               </div>
               <div className='flex items-center justify-between font-bold underline'>
                 <span>{ultimoFecha}</span>
-                <span>{ultimoHora}</span>
               </div>
               <div className='flex items-center justify-between font-bold'>
                 <span className='italic bg-blue-200 p-1 rounded-full'>Total Caja</span>
@@ -198,18 +199,17 @@ function ContadorBilletes() {
                 Total en Letras: <span className='underline'>{ultimoTotalLetras}</span>
               </h2>
               <Button label={'Imprimir'} className='bg-green-400 p-2 font-bold border-4 flex items-center justify-center mx-auto rounded-xl hover:bg-green-500 ' />
-
             </div>
             <div className='w-full border-4 p-2'>
-              <h1 className='text-center bg-green-200 font-bold text-2xl p-1  mb-2'>
-                {tipoCaja === 'apertura' ? 'Apertura de la Caja' : tipoCaja === 'cierre' ? 'Cierre de la Caja' : 'Estado de la Caja'}
+              <h1 className='text-center bg-green-200 font-bold text-2xl p-1 mb-2'>
+                {tipoCaja === 'apertura' ? 'Apertura de la Caja' : 'Cierre de la Caja'}
               </h1>
               <h3 className='text-2xl font-semibold text-gray-800'>Caja Numero: #{idCaja}</h3>
               <p className="text-2xl font-semibold text-gray-800">Total: ${total}</p>
               <p className="text-lg font-medium text-gray-600 mt-2">
                 ({totalEnLetras})
               </p>
-              <p className='text-lg font-medium text-gray-600 mt-2 text-center   '> Fecha y Hora de {tipoCaja === 'apertura' ? 'Apertura' : tipoCaja === 'cierre' ? 'Cierre' : ''}: {formatearFecha()}</p>
+              <p className='text-lg font-medium text-gray-600 mt-2 text-center'> Fecha y Hora de {tipoCaja === 'apertura' ? 'Apertura' : 'Cierre'}: {formatearFecha()}</p>
 
               <Button
                 className="bg-red-400 p-2 border-4 rounded-xl flex items-center justify-center mx-auto font-extrabold text-lg hover:scale-105 hover:bg-red-500 mt-2"

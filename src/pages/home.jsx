@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MesaList from '../layout/MesaList';
 import ClientList from '../layout/ClientList';
 import clientesData from '../data/cliente.json';
-import Caja from '../components/Caja';
+import Caja from '../components/Caja/Caja';
 
 const Home = () => {
   const [clientes, setClientes] = useState(clientesData);
@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <div className='w-full'>
       <div className='relative z-50'><ClientList onDropCliente={handleClienteDrop} /></div>
-      <div className='ml-56 z-0'>
+      <div className='ml-32 xl:ml-56 z-0 '>
         <Caja />
         <MesaList clientes={clientes} onClienteDrop={handleClienteDrop} />
       </div>

@@ -1,10 +1,10 @@
-import Plus from '../assets/plus.svg';
-import React, { useState, useEffect, useRef } from 'react';
-import { Toast } from 'primereact/toast';
+import Plus from "../assets/plus.svg";
+import React, { useState, useEffect, useRef } from "react";
+import { Toast } from "primereact/toast";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
+import SliderCategories from "../components/ProducsCategories/SliderCategories";
 
 const backend = import.meta.env.VITE_BUSINESS_BACKEND;
-
 
 const ProductList = () => {
   const toast = useRef(null);
@@ -13,29 +13,63 @@ const ProductList = () => {
   const [showNewCategory, setShowNewCategory] = useState(false);
   const [showNewProduct, setShowNewProduct] = useState(false);
   const [selectedCategoria, setSelectedCategoria] = useState(null);
-  const [newCategoryName, setNewCategoryName] = useState('');
   const [newCategoryImage, setNewCategoryImage] = useState(null);
-  const [newProductName, setNewProductName] = useState('');
-  const [newProductPrice, setNewProductPrice] = useState('');
+  const [newProductName, setNewProductName] = useState("");
+  const [newProductPrice, setNewProductPrice] = useState("");
+  const [productos, setProductos] = useState([]); // Estado para productos
+  const [hasIva, setHasIva] = useState(false); // Estado para el IVA
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [selectedImage, setSelectedImage] = useState('');
+  const [loading, setLoading] = useState(false); // Estado de carga
 
   // Cargar las categorías al montar el componente
-  useEffect(() => {
-    fetch(backend + 'api/categorias')
-      .then(response => response.json())
-      .then(data => {
-        if (data && Array.isArray(data)) {
+  const fetchCategorias = async () => {
+    const localId = localStorage.getItem("localId");
+    if (localId) {
+      setLoading(true);
+      try {
+        const response = await fetch(`${backend}api/categorias/local/${localId}`);
+        const data = await response.json();
+        if (Array.isArray(data)) {
           setCategorias(data);
         } else {
-          console.error('Datos recibidos no son un array:', data);
+          console.error("Datos recibidos no son un array:", data);
         }
-      })
-      .catch(error => console.error('Error al cargar categorías:', error));
-  }, []);
+      } catch (error) {
+        console.error("Error al cargar categorías:", error);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      console.error("No se encontró localId en el almacenamiento local.");
+    }
+  };
+
+  // Llama a fetchCategorias cuando el componente se monta
+  useEffect(() => {
+    fetchCategorias();
+  }, [backend]);
 
   // Manejar el clic en una categoría
-  const handleCategoriaClick = (id) => {
+  const handleCategoriaClick = async (id) => {
     setActiveCategoriaId(activeCategoriaId === id ? null : id);
     setShowNewCategory(false);
+
+    if (activeCategoriaId !== id) {
+      try {
+        const response = await fetch(`http://localhost:5000/api/productos/categoria/${id}`);
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          setProductos(data);
+        } else {
+          console.error("Datos recibidos no son un array:", data);
+        }
+      } catch (error) {
+        console.error("Error al cargar productos:", error);
+      }
+    } else {
+      setProductos([]);
+    }
   };
 
   // Mostrar/ocultar el formulario de nueva categoría
@@ -56,103 +90,166 @@ const ProductList = () => {
     setSelectedCategoria(null);
   };
 
+
   // Crear nueva categoría
   const createCategory = async () => {
-    const formData = new FormData();
-    formData.append('nombre', newCategoryName);
-    if (newCategoryImage) {
-      formData.append('imagen', newCategoryImage);
+    if (!newCategoryName) {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "El nombre de la categoría es requerido.",
+        life: 3000,
+      });
+      return;
+    }
+
+    console.log(newCategoryName);
+    console.log(selectedImage); // Esto debe ser la URL de la imagen
+
+    const categorie = {
+      nombre: newCategoryName,
+      imagen: selectedImage,
+      localId: localStorage.getItem("localId")
     }
 
     try {
-      const response = await fetch(backend + 'api/categorias', {
-        method: 'POST',
-        body: formData,
+      const response = await fetch(backend + "api/categorias/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(categorie),
       });
+
 
       if (response.ok) {
         const newCategory = await response.json();
         setCategorias([...categorias, newCategory]);
-        setNewCategoryName('');
-        setNewCategoryImage(null);
+        setNewCategoryName("");
         setShowNewCategory(false);
-        toast.current.show({ severity: "success", summary: 'Categoría Creada', detail: `Nombre: ${newCategory.nombre}`, life: 15000 });
+        toast.current.show({
+          severity: "success",
+          summary: "Categoría Creada",
+          detail: `Nombre: ${newCategory.nombre}`,
+          life: 15000,
+        });
       } else {
-        toast.current.show({ severity: 'error', summary: 'Error', detail: 'No se pudo crear la categoría', life: 3000 });
-        console.error('Error al crear categoría:', response.statusText);
+        console.log(response)
+        throw new Error(response.statusText);
       }
     } catch (error) {
-      toast.current.show({ severity: 'error', summary: 'Error', detail: 'Error en la conexión', life: 3000 });
-      console.error('Error en la conexión:', error);
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "No se pudo crear la categoría",
+        life: 3000,
+      });
+      console.error("Error al crear categoría:", error);
     }
   };
 
+
   // Crear nuevo producto
   const createProduct = async () => {
+    if (!newProductName || !newProductPrice) {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "El nombre y precio del producto son requeridos.",
+        life: 3000,
+      });
+      return;
+    }
+
+    const iva = hasIva ? 19 : 0;
+
     const product = {
       nombre: newProductName,
       precio: parseFloat(newProductPrice),
+      iva: iva,
+      categoriaId: selectedCategoria, // ID de la categoría seleccionada
+      localId: localStorage.getItem("localId"), // Obtener el localId del almacenamiento local
     };
 
     try {
-      const response = await fetch(backend + `api/categorias/${selectedCategoria.id}/productos`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(product),
-      });
+      const response = await fetch(
+        backend + `api/productos/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(product),
+        }
+      );
 
       if (response.ok) {
         const newProduct = await response.json();
-        const updatedCategorias = categorias.map(categoria => {
-          if (categoria.id === selectedCategoria.id) {
-            return { ...categoria, productos: [...categoria.productos, newProduct] };
+        const updatedCategorias = categorias.map((categoria) => {
+          if (categoria._id === selectedCategoria) {
+            return {
+              ...categoria,
+              productos: [...categoria.productos, newProduct],
+            };
           }
           return categoria;
         });
         setCategorias(updatedCategorias);
-        setNewProductName('');
-        setNewProductPrice('');
+        setNewProductName("");
+        setNewProductPrice("");
         setShowNewProduct(false);
         setSelectedCategoria(null);
-        toast.current.show({ severity: "success", summary: 'Producto Creado', detail: `Nombre: ${newProduct.nombre}`, life: 15000 });
+        toast.current.show({
+          severity: "success",
+          summary: "Producto Creado",
+          detail: `Nombre: ${newProduct.nombre}`,
+          life: 15000,
+        });
       } else {
-        toast.current.show({ severity: 'error', summary: 'Error', detail: 'No se pudo crear el producto', life: 3000 });
-        console.error('Error al crear producto:', response.statusText);
+        throw new Error(response.statusText);
       }
     } catch (error) {
-      toast.current.show({ severity: 'error', summary: 'Error', detail: 'Error en la conexión', life: 3000 });
-      console.error('Error en la conexión:', error);
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "No se pudo crear el producto",
+        life: 3000,
+      });
+      console.error("Error al crear producto:", error);
     }
   };
 
+
   const handleDeleteProduct = async (categoriaId, productoId) => {
-    if (confirm('¿Deseas Eliminar el Producto Seleccionado?')) {
+    if (confirm("¿Deseas Eliminar el Producto Seleccionado?")) {
       try {
-        const response = await fetch(`${backend}api/categorias/${categoriaId}/productos/${productoId}`, {
-          method: 'DELETE',
-        });
+        const response = await fetch(
+          `${backend}api/productos/${productoId}`,
+          {
+            method: "DELETE",
+          }
+        );
 
         if (response.ok) {
-          const updatedCategorias = categorias.map(categoria => {
-            if (categoria.id === categoriaId) {
-              return {
-                ...categoria,
-                productos: categoria.productos.filter(producto => producto.id !== productoId),
-              };
-            }
-            return categoria;
+          fetchCategorias();
+          handleCategoriaClick();
+          toast.current.show({
+            severity: "success",
+            summary: "Producto Eliminado",
+            detail: "El producto ha sido eliminado",
+            life: 3000,
           });
-          setCategorias(updatedCategorias);
-          toast.current.show({ severity: 'success', summary: 'Producto Eliminado', detail: 'El producto ha sido eliminado', life: 3000 });
         } else {
-          toast.current.show({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el producto', life: 3000 });
-          console.error('Error al eliminar producto:', response.statusText);
+          throw new Error(response.statusText);
         }
       } catch (error) {
-        toast.current.show({ severity: 'error', summary: 'Error', detail: 'Error en la conexión', life: 3000 });
-        console.error('Error en la conexión:', error);
+        toast.current.show({
+          severity: "error",
+          summary: "Error",
+          detail: "Error al eliminar el producto",
+          life: 3000,
+        });
+        console.error("Error al eliminar producto:", error);
       }
     }
   };
@@ -160,23 +257,34 @@ const ProductList = () => {
   return (
     <>
       <Toast ref={toast} />
-      <div className="p-6 bg-gray-100">
+      <div className="p-6 bg-white">
         <div className="flex items-center justify-between mb-6">
-
-          <h1 className="text-3xl font-bold mb-6">Listado de Categorías/<span className="text-xl font-medium">Productos</span></h1>
+          <h1 className="text-xl md:text-3xl font-bold mb-6">
+            Listado de Categorías/
+            <span className="text-sm md:text-xl font-medium">Productos</span>
+          </h1>
           <button
             className="bg-green-200 p-2 border-4 border-green-400 rounded-xl font-bold text-gray-800 group hover:scale-105 duration-200 hover:bg-green-300 hover:border-green-500"
             onClick={handleNewCategory}
           >
             <img className="size-8 mx-auto" src={Plus} alt="plus" />
-            <span className="text-center group-hover:text-white">Crear Categoria</span>
+            <span className="text-sm md:text-center group-hover:text-white">
+              Crear Categoria
+            </span>
           </button>
         </div>
-        <div className="relative grid grid-cols-3 gap-8">
+
+
+        <div className="relative grid grid-cols-2 md:grid-cols-3 gap-8 p-1">
           {categorias.map((categoria) => (
-            <div key={categoria.id} className="mb-4 group">
-              <h2 className="text-2xl font-semibold mb-4 text-center group-hover:font-bold group-hover:bg-gray-200">{categoria.nombre}</h2>
-              <button className='w-full group-hover:scale-110 duration-150' onClick={() => handleCategoriaClick(categoria.id)}>
+            <div key={categoria._id} className="mb-4 group h-56">
+              <h2 className="text-lg md:text-2xl font-semibold mb-4 text-center">
+                {categoria.nombre}
+              </h2>
+              <button
+                className="w-full group-hover:scale-105 duration-150"
+                onClick={() => handleCategoriaClick(categoria._id)}
+              >
                 <img
                   src={categoria.imagen}
                   alt={categoria.nombre}
@@ -184,45 +292,63 @@ const ProductList = () => {
                 />
               </button>
 
-              {activeCategoriaId === categoria.id && (
-                <div className='border-8 border-gray-400 rounded-xl fixed top-1/2 z-30 h-96 overflow-auto left-1/2 bg-white p-8 transform -translate-y-1/2 -translate-x-1/2'>
-                  <ul className="space-y-2 w-[500px]">
-                    <button className="absolute top-2 left-2 block w-28 hover:bg-purple-600 bg-purple-800 font-bold text-white rounded-lg border-2 " onClick={() => handleCategoriaClick(categoria.id)}>Eliminar Categoria</button>
-                    <button className="absolute top-0 right-2 flex items-center justify-center bg-red-500 px-2 py-1 font-extrabold text-white rounded-full border-4 border-gray-800" onClick={() => handleCategoriaClick(categoria.id)}>X</button>
-                    <h2 className='font-bold underline m-4  text-center pt-12'> Lista de Productos de {categoria.nombre}</h2>
-                    <div className='px-4 py-2 grid grid-cols-4 gap-4 font-bold text-lg underline'>
-                      <span className='col-span-2'>Producto</span>
-                      <span>Precio</span>
-                      <span>Acciones</span>
+              {activeCategoriaId === categoria._id && (
+                <div className="border-8 border-gray-400 rounded-xl w-full  md:w-auto fixed top-1/2 z-30 h-96 overflow-auto left-1/2 bg-white p-2 md:p-8 transform -translate-y-1/2 -translate-x-1/2">
+                  <button className="absolute top-4 right-1 w-8 h-8 bg-red-400 font-bold rounded-full text-center hover:scale-105 hover:text-white" onClick={handleCategoriaClick}>X</button>
+                  <ul className="space-y-2 w-auto md:w-[550px]">
+                    <h2 className="font-bold text-lg md:text-xl bg-gray-100 underline m-4 flex items-center justify-center h-12 mt-2">
+                      Lista de Productos de {categoria.nombre}
+                    </h2>
+                    <div className="px-4 py-2 grid grid-cols-5 gap-4 font-bold text-sm md:text-lg underline">
+                      <span className="col-span-2">Producto</span>
+                      <span className="text-center">Precio</span>
+                      <span className="text-center">IVA</span>
+                      <span className="text-center">Acciones</span>
                     </div>
-                    {categoria.productos.map((producto) => (
-                      <li key={producto.id} className="p-4 grid grid-cols-4 gap-4 bg-white shadow-md">
-                        <span className="col-span-2 font-semibold">{producto.nombre}</span>
-                        <span className="text-gray-500">${producto.precio}</span>
+                    {productos.map((producto) => (
+                      <li
+                        key={producto._id}
+                        className="p-4 grid grid-cols-5 gap-2 bg-white shadow-md"
+                      >
+                        <span className="col-span-2 font-semibold">
+                          {producto.nombre}
+                        </span>
+                        <span className="text-gray-500 text-center">
+                          ${producto.precio}
+                        </span>
+                        <span className="text-gray-500 text-center">
+                          ${producto.iva}
+                        </span>
                         <button
-                          className='bg-red-200 p-1 font-bold rounded-full'
-                          onClick={() => handleDeleteProduct(categoria.id, producto.id)}
+                          className="bg-red-400 text-center font-bold rounded-lg"
+                          onClick={() =>
+                            handleDeleteProduct(categoria._id, producto._id)
+                          }
                         >
                           Eliminar
                         </button>
                       </li>
                     ))}
                   </ul>
-                  <button onClick={() => handleNewProduct(categoria)} className='flex items-center justify-center p-2 mt-6 rounded-xl border-4 font-bold bg-green-400 mx-auto'>
-                    <p className='space-x-2'>Agregar Más<span className='px-2'>{categoria.nombre}</span></p>
+                  <button
+                    onClick={() => handleNewProduct(categoria)}
+                    className="flex items-center justify-center p-2 mt-6 rounded-xl border-4 font-bold bg-green-400 mx-auto"
+                  >
+                    <p className="space-x-2">
+                      Agregar Más
+                      <span className="px-2">{categoria.nombre}</span>
+                    </p>
                   </button>
-
-                  
                 </div>
               )}
             </div>
           ))}
-
-          {/* Formulario para Nuevo Producto */}
           {showNewProduct && selectedCategoria && (
-            <div className={`absolute top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2 w-[500px] h-auto bg-white border-8 rounded-xl`}>
-              <h2 className="bg-green-200 text-center p-2 m-2 text-xl font-bold underline rounded-xl">Nuevo Producto en {selectedCategoria.nombre}</h2>
-              <button className="absolute top-4 right-4 w-8 h-8 bg-red-300 font-bold rounded-full text-center hover:scale-105 hover:text-white" onClick={handleCloseNewProduct}>X</button>
+            <div className={`absolute top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2 w-full md:w-[500px] h-auto bg-white border-8 rounded-xl`}>
+              <h2 className="bg-green-200 text-center p-1 mr-10 ml-2 text-base md:text-xl font-bold underline rounded-xl mt-4">
+                Nuevo Producto en {selectedCategoria.nombre}
+              </h2>
+              <button className="absolute top-2 right-1 w-8 h-8 bg-red-300 font-bold rounded-full text-center hover:scale-105 hover:text-white" onClick={handleCloseNewProduct}>X</button>
               <div className="flex flex-col items-center p-6">
                 <label className="block mb-2 font-bold">Nombre del Producto</label>
                 <input
@@ -238,6 +364,15 @@ const ProductList = () => {
                   onChange={(e) => setNewProductPrice(e.target.value)}
                   className="border-4 p-2 rounded mb-4 w-full"
                 />
+                <label className="flex items-center mb-4">
+                  <input
+                    type="checkbox"
+                    checked={hasIva}
+                    onChange={() => setHasIva(!hasIva)}
+                    className="mr-2"
+                  />
+                  Incluye IVA (19%)
+                </label>
                 <button
                   onClick={createProduct}
                   className="bg-green-200 p-2 border-4 border-green-400 rounded-xl font-bold text-gray-800 hover:scale-105 duration-200 hover:bg-green-300 hover:border-green-500"
@@ -250,7 +385,7 @@ const ProductList = () => {
 
           {/* Formulario para Nueva Categoría */}
           {showNewCategory && (
-            <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] bg-white border-8 rounded-xl p-6'>
+            <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full md:w-[500px] bg-white border-8 rounded-xl p-6'>
               <h2 className="bg-green-200 text-center p-2 m-2 text-xl font-bold underline rounded-xl">Nueva Categoría</h2>
               <button className="absolute top-4 right-4 w-8 h-8 bg-red-300 font-bold rounded-full text-center hover:scale-105 hover:text-white" onClick={() => setShowNewCategory(false)}>X</button>
               <div className="flex flex-col items-center">
@@ -261,15 +396,10 @@ const ProductList = () => {
                   onChange={(e) => setNewCategoryName(e.target.value)}
                   className="border p-2 rounded mb-4 w-full"
                 />
-                <label className="block mb-2">Imagen de la Categoría</label>
-                <input
-                  type="file"
-                  onChange={(e) => setNewCategoryImage(e.target.files[0])}
-                  className="border p-2 rounded mb-4 w-full"
-                />
+                <SliderCategories onSelect={setSelectedImage} />
                 <button
                   onClick={createCategory}
-                  className="bg-green-200 p-2 border-4 border-green-400 rounded-xl font-bold text-gray-800 hover:scale-105 duration-200 hover:bg-green-300 hover:border-green-500"
+                  className="bg-green-200 p-2 mt-2 border-4 border-green-400 rounded-xl font-bold text-gray-800 hover:scale-105 duration-200 hover:bg-green-300 hover:border-green-500"
                 >
                   Crear Categoría
                 </button>
@@ -277,6 +407,7 @@ const ProductList = () => {
             </div>
           )}
         </div>
+
       </div>
     </>
   );

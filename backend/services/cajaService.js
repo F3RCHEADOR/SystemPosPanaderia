@@ -1,49 +1,33 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import Caja from '../models/Caja.js'; // Asegúrate de que la ruta sea correcta
 
-// Obtén la ruta del archivo actual y construye la ruta al archivo de cajas
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const CAJAS_FILE = path.join(__dirname, '..', 'data', 'cajas.json');
-
-// Leer el archivo de cajas
-const readCajas = () => {
-  if (!fs.existsSync(CAJAS_FILE)) {
-    fs.writeFileSync(CAJAS_FILE, JSON.stringify([], null, 2));
-  }
-  const data = fs.readFileSync(CAJAS_FILE, 'utf-8');
-  return JSON.parse(data);
-};
-
-// Guardar el archivo de cajas
-const saveCajas = (cajas) => {
-  fs.writeFileSync(CAJAS_FILE, JSON.stringify(cajas, null, 2));
+// Crear una nueva caja
+export const createCaja = async ( consecutivo, tipoCaja, tipoMoneda, totalCaja) => {
+    const nuevaCaja = new Caja({ consecutivo, tipoCaja, tipoMoneda, totalCaja });
+    return await nuevaCaja.save();
 };
 
 // Obtener todas las cajas
-export const getCajas = () => {
-  const data = readCajas();
-  return data;
+export const getCajas = async () => {
+    return await Caja.find();
 };
 
-// Crear una nueva caja con un ID autoincremental
-export const createCaja = (tipoCaja, fecha, hora, tipoMoneda, totalCaja) => {
-  const data = readCajas();
-  
-  // Determina el nuevo ID (el último ID + 1)
-  const nuevoId = data.length > 0 ? data[data.length - 1].id + 1 : 1;
-  
-  const nuevoRegistro = {
-    id: nuevoId,
-    tipoCaja,
-    fecha,
-    hora,
-    tipoMoneda,
-    totalCaja
-  };
-  
-  data.push(nuevoRegistro);
-  saveCajas(data);
-  return nuevoRegistro;
+// Obtener una caja por ID
+export const getCajaById = async (id) => {
+    return await Caja.findById(id);
+};
+
+// Obtener todas las cajas por fecha
+export const getCajasPorFecha = async (fecha) => {
+    return await Caja.find({ fecha }); // Asegúrate de que la fecha esté en el formato correcto
+};
+
+// Actualizar una caja
+export const updateCaja = async (id, updatedData) => {
+    return await Caja.findByIdAndUpdate(id, updatedData, { new: true });
+};
+
+// Eliminar una caja
+export const deleteCaja = async (id) => {
+    const caja = await Caja.findByIdAndDelete(id);
+    return caja !== null; // Devuelve true si se eliminó
 };

@@ -32,13 +32,12 @@ const InvoiceDetail = ({ clientData, recibe, cambio, total }) => {
     `,
   });
 
-
   return (
     <div>
       <div ref={componentRef} className='w-48 p-2 text-xs'>
         <div className='flex flex-col items-center justify-center'>
           <img src={logoNegocio} className='w-auto h-12' alt="Logo de la empresa" />
-          <p>{tipoNegocio}:<span className='px-2 italic font-semibold'>{nombreNegocio}</span></p>
+          <p>{tipoNegocio}: <span className='px-2 italic font-semibold'>{nombreNegocio}</span></p>
         </div>
         <div className='flex items-center justify-evenly my-2'>
           <span>Tipo de Factura:</span>
@@ -46,7 +45,7 @@ const InvoiceDetail = ({ clientData, recibe, cambio, total }) => {
         </div>
         <div className='flex items-center justify-between'>
           <span>Fecha:</span>
-          <span className=''>{clientData.horaOcupado ? clientData.horaOcupado : clientData.horaLlegada}</span>
+          <span>{new Date(clientData.creado).toLocaleDateString()}</span>
         </div>
         <hr className='border-dashed my-2' />
 
@@ -57,11 +56,11 @@ const InvoiceDetail = ({ clientData, recibe, cambio, total }) => {
             <span className='text-center'>Precio</span>
           </li>
           {clientData && clientData.productos && clientData.productos.length > 0 ? (
-            clientData.productos.map((producto, index) => (
-              <li key={index} className='grid grid-cols-5 gap-2'>
-                <span className='col-span-3'>{producto.nombre}</span>
+            clientData.productos.map((producto) => (
+              <li key={producto._id} className='grid grid-cols-5 gap-2'>
+                <span className='col-span-3'>{producto.productoId.nombre}</span>
                 <span className='text-center'>{producto.cantidad}</span>
-                <span className='text-center'>{producto.precio}</span>
+                <span className='text-center'>${producto.productoId.precio}</span>
               </li>
             ))
           ) : (
@@ -73,7 +72,7 @@ const InvoiceDetail = ({ clientData, recibe, cambio, total }) => {
         <ul>
           <li className='grid grid-cols-5 gap-2'>
             <span className='col-span-3 font-bold'>Total:</span>
-            <span className='col-span-2 text-center font-bold'>{total}</span>
+            <span className='col-span-2 text-center font-bold'>${total}</span>
           </li>
           <li className='grid grid-cols-5 gap-2'>
             <span className='col-span-3'>Recibe:</span>
@@ -81,7 +80,7 @@ const InvoiceDetail = ({ clientData, recibe, cambio, total }) => {
           </li>
           <li className='grid grid-cols-5 gap-2'>
             <span className='col-span-3'>Cambio:</span>
-            <span className='col-span-2 text-center font-bold'>  {cambio === 0 ? 0 : (cambio ? cambio : 'Por determinar')}</span>
+            <span className='col-span-2 text-center font-bold'>{cambio === 0 ? 0 : (cambio ? cambio : 'Por determinar')}</span>
           </li>
         </ul>
 

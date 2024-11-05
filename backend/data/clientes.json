@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "codigo": "C001",
+    "horaLlegada": "10:02:22",
+    "productos": [
+      {
+        "productoId": "67167d3cefeb256e719c4525",
+        "cantidad": 2,
+        "valorTotal": 8000
+      }
+    ],
+    "tipoCliente": "Individual"
+  }
+]
