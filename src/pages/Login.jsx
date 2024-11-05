@@ -4,11 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
-import { data } from 'autoprefixer';
-
 
 const backend = import.meta.env.VITE_BUSINESS_BACKEND;
-
 
 const Login = () => {
     const toast = useRef(null);
@@ -17,36 +14,31 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    // Efecto para eliminar el token al montar el componente
     useEffect(() => {
-        localStorage.removeItem('token'); // Elimina el token
-    }, []); // El array vacío asegura que solo se ejecute una vez al montar
+        localStorage.removeItem('token');
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
     
         try {
-            const response = await axios.post(backend+'api/usuarios/login', {
+            const response = await axios.post(backend + 'api/usuarios/login', {
                 username,
                 password,
             });
-            console.log('Inicio de sesión exitoso:', response.data);
-            console.log(data)
-            // Guardar el token y el localId en localStorage
+
             localStorage.setItem('token', response.data.token);
-            localStorage.setItem('localId', response.data.localId); // Guardar el localId
+            localStorage.setItem('localId', response.data.localId);
     
-            // Mostrar el toast
             toast.current.show({ severity: "success", summary: 'Sesión Iniciada Con Éxito', life: 3000 });
     
-            // Redirigir después de 3 segundos
             setTimeout(() => {
-                navigate('/home'); // Redirige a otra ruta
+                navigate('/home');
             }, 2000);
         } catch (err) {
             if (err.response) {
-                setError(err.response.data.error); // Mostrar error del servidor
+                setError(err.response.data.error);
                 toast.current.show({ severity: "error", summary: err.response.data.error, life: 3000 });
             } else {
                 setError('Error en la conexión al servidor');
@@ -57,10 +49,13 @@ const Login = () => {
     return (
         <>
             <Toast ref={toast} />
-            <div className="flex items-center justify-center min-h-screen bg-gray-100">
-                <div className="bg-white p-6 rounded shadow-md w-96">
-                    <h2 className="text-xl font-bold mb-6">Iniciar Sesión</h2>
-                    {error && <p className="text-red-500 mb-4">{error}</p>}
+            <div className="flex items-center justify-center min-h-screen bg-gray-200">
+                <div className="bg-white shadow-lg rounded-lg w-96 p-6 transition transform hover:scale-105 duration-300">
+                    <div className="flex justify-center mb-4">
+                        <h1 className="text-2xl font-bold text-blue-600">DineDash</h1>
+                    </div>
+                    <h2 className="text-xl font-semibold text-center mb-6">Iniciar Sesión</h2>
+                    {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700">Usuario</label>
@@ -69,7 +64,7 @@ const Login = () => {
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 required
-                                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring focus:ring-blue-200"
                             />
                         </div>
                         <div className="mb-4">
@@ -79,15 +74,14 @@ const Login = () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
-                                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring focus:ring-blue-200"
                             />
                         </div>
                         <Button
                             type="submit"
                             label='Iniciar Sesión'
-                            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
+                            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300"
                         />
-
                     </form>
                 </div>
             </div>

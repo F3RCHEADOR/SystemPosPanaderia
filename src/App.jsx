@@ -8,6 +8,7 @@ import Inventories from "./pages/Inventories.jsx";
 import PaidPage from "./pages/PaidPage.jsx";
 import ContadorBilletes from "./pages/ContadorBilletes.jsx";
 import Ventas from "./pages/Ventas.jsx";
+import Informes from "./pages/Informes.jsx";
 import MenuVentas from "./pages/MenuVentas.jsx";
 import Login from "./pages/Login.jsx";
 import ConfigurationPage from "./pages/ConfigurationPage.jsx";
@@ -75,6 +76,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Ventas />
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/Informes"
+            element={
+              <ProtectedRoute>
+                <Informes />
               </ProtectedRoute>
             }
           />

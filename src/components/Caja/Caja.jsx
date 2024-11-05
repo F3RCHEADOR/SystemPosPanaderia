@@ -45,8 +45,8 @@ function Caja() {
         <button onClick={toggleMenu}>
           <img src={CajaRegistradora} alt="" className="size-20" />
         </button>
-        <div className={`${isMenuVisible ? 'block' : 'hidden'} absolute bg-white translate-y-20 mt-20 w-80 xl:w-[550px] h-32 xl:h-44 border-4 rounded-xl p-2 z-20`}>
-          <div className="grid grid-cols-4 gap-4 font-bold text-xs xl:text-sm text-center">
+        <div className={`${isMenuVisible ? 'block' : 'hidden'} absolute bg-white translate-y-20 mt-36 md:mt-20 w-56 xl:w-[550px]  xl:h-44 border-4 rounded-xl p-2 z-20`}>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 font-bold text-xs xl:text-sm text-center">
             <Link to="/AddClient" className="border-4 p-1 rounded-xl hover:scale-110 duration-200">
               <img src={Client} alt="Agregar Cliente" className="size-10 xl:size-20 mx-auto" />
               <span>Agregar Cliente</span>

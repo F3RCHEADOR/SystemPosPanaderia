@@ -10,7 +10,7 @@ const ClientInfo = ({ cliente, onClose, onDelete }) => {
   const valorAcumulado = cliente.productos.reduce((total, producto) => total + producto.valorTotal, 0);
 
   return (
-    <div className="fixed z-50 top-20 left-48 w-60 h-auto max-h-80 overflow-auto p-4 bg-white border-4 shadow-lg rounded-xl">
+    <div className="fixed z-50 top-20 md:left-48 w-60 h-auto max-h-80 overflow-auto p-4 bg-white border-4 shadow-lg rounded-xl">
       <button onClick={onClose} className="absolute top-2 right-2 text-gray-900 font-bold rounded-full p-2 bg-red-200">X</button>
       <img src={clienteImagen} alt={cliente._id} className="w-16 mx-auto" />
       <h2 className="text-lg font-semibold text-center">{cliente.nombre || 'Cliente Recurrente'}</h2> 

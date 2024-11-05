@@ -259,30 +259,30 @@ const ProductList = () => {
       <Toast ref={toast} />
       <div className="p-6 bg-white">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl font-bold mb-6">
+          <h1 className="text-xl md:text-3xl font-bold mb-6">
             Listado de Categorías/
-            <span className="text-xl font-medium">Productos</span>
+            <span className="text-sm md:text-xl font-medium">Productos</span>
           </h1>
           <button
             className="bg-green-200 p-2 border-4 border-green-400 rounded-xl font-bold text-gray-800 group hover:scale-105 duration-200 hover:bg-green-300 hover:border-green-500"
             onClick={handleNewCategory}
           >
             <img className="size-8 mx-auto" src={Plus} alt="plus" />
-            <span className="text-center group-hover:text-white">
+            <span className="text-sm md:text-center group-hover:text-white">
               Crear Categoria
             </span>
           </button>
         </div>
 
 
-        <div className="relative grid grid-cols-3 gap-8">
+        <div className="relative grid grid-cols-2 md:grid-cols-3 gap-8 p-1">
           {categorias.map((categoria) => (
-            <div key={categoria._id} className="mb-4 group">
-              <h2 className="text-2xl font-semibold mb-4 text-center group-hover:font-bold group-hover:bg-gray-200">
+            <div key={categoria._id} className="mb-4 group h-56">
+              <h2 className="text-lg md:text-2xl font-semibold mb-4 text-center">
                 {categoria.nombre}
               </h2>
               <button
-                className="w-full group-hover:scale-110 duration-150"
+                className="w-full group-hover:scale-105 duration-150"
                 onClick={() => handleCategoriaClick(categoria._id)}
               >
                 <img
@@ -293,13 +293,13 @@ const ProductList = () => {
               </button>
 
               {activeCategoriaId === categoria._id && (
-                <div className="border-8 border-gray-400 rounded-xl fixed top-1/2 z-30 h-96 overflow-auto left-1/2 bg-white p-8 transform -translate-y-1/2 -translate-x-1/2">
-                  <button className="absolute top-4 right-4 w-8 h-8 bg-red-400 font-bold rounded-full text-center hover:scale-105 hover:text-white" onClick={handleCategoriaClick}>X</button>
-                  <ul className="space-y-2 w-[550px]">
-                    <h2 className="font-bold text-xl bg-gray-100 underline m-4 flex items-center justify-center h-12 mt-2">
+                <div className="border-8 border-gray-400 rounded-xl w-full  md:w-auto fixed top-1/2 z-30 h-96 overflow-auto left-1/2 bg-white p-2 md:p-8 transform -translate-y-1/2 -translate-x-1/2">
+                  <button className="absolute top-4 right-1 w-8 h-8 bg-red-400 font-bold rounded-full text-center hover:scale-105 hover:text-white" onClick={handleCategoriaClick}>X</button>
+                  <ul className="space-y-2 w-auto md:w-[550px]">
+                    <h2 className="font-bold text-lg md:text-xl bg-gray-100 underline m-4 flex items-center justify-center h-12 mt-2">
                       Lista de Productos de {categoria.nombre}
                     </h2>
-                    <div className="px-4 py-2 grid grid-cols-5 gap-4 font-bold text-lg underline">
+                    <div className="px-4 py-2 grid grid-cols-5 gap-4 font-bold text-sm md:text-lg underline">
                       <span className="col-span-2">Producto</span>
                       <span className="text-center">Precio</span>
                       <span className="text-center">IVA</span>
@@ -320,7 +320,7 @@ const ProductList = () => {
                           ${producto.iva}
                         </span>
                         <button
-                          className="bg-red-400 p-1 font-bold rounded-full"
+                          className="bg-red-400 text-center font-bold rounded-lg"
                           onClick={() =>
                             handleDeleteProduct(categoria._id, producto._id)
                           }
@@ -344,11 +344,11 @@ const ProductList = () => {
             </div>
           ))}
           {showNewProduct && selectedCategoria && (
-            <div className={`absolute top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2 w-[500px] h-auto bg-white border-8 rounded-xl`}>
-              <h2 className="bg-green-200 text-center p-2 m-2 text-xl font-bold underline rounded-xl">
+            <div className={`absolute top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2 w-full md:w-[500px] h-auto bg-white border-8 rounded-xl`}>
+              <h2 className="bg-green-200 text-center p-1 mr-10 ml-2 text-base md:text-xl font-bold underline rounded-xl mt-4">
                 Nuevo Producto en {selectedCategoria.nombre}
               </h2>
-              <button className="absolute top-4 right-4 w-8 h-8 bg-red-300 font-bold rounded-full text-center hover:scale-105 hover:text-white" onClick={handleCloseNewProduct}>X</button>
+              <button className="absolute top-2 right-1 w-8 h-8 bg-red-300 font-bold rounded-full text-center hover:scale-105 hover:text-white" onClick={handleCloseNewProduct}>X</button>
               <div className="flex flex-col items-center p-6">
                 <label className="block mb-2 font-bold">Nombre del Producto</label>
                 <input
@@ -385,7 +385,7 @@ const ProductList = () => {
 
           {/* Formulario para Nueva Categoría */}
           {showNewCategory && (
-            <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] bg-white border-8 rounded-xl p-6'>
+            <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full md:w-[500px] bg-white border-8 rounded-xl p-6'>
               <h2 className="bg-green-200 text-center p-2 m-2 text-xl font-bold underline rounded-xl">Nueva Categoría</h2>
               <button className="absolute top-4 right-4 w-8 h-8 bg-red-300 font-bold rounded-full text-center hover:scale-105 hover:text-white" onClick={() => setShowNewCategory(false)}>X</button>
               <div className="flex flex-col items-center">
@@ -399,7 +399,7 @@ const ProductList = () => {
                 <SliderCategories onSelect={setSelectedImage} />
                 <button
                   onClick={createCategory}
-                  className="bg-green-200 p-2 border-4 border-green-400 rounded-xl font-bold text-gray-800 hover:scale-105 duration-200 hover:bg-green-300 hover:border-green-500"
+                  className="bg-green-200 p-2 mt-2 border-4 border-green-400 rounded-xl font-bold text-gray-800 hover:scale-105 duration-200 hover:bg-green-300 hover:border-green-500"
                 >
                   Crear Categoría
                 </button>

@@ -80,7 +80,7 @@ const NuevoClienteAside = ({ isEdit, clientData, productos }) => {
   return (
     <>
       <Toast ref={toast} />
-      <aside className='fixed h-full w-56 bg-white border-r-4 flex flex-col items-center justify-start overflow-auto'>
+      <aside className='fixed h-full w-40 md:w-56 bg-white border-r-4 flex flex-col items-center justify-start overflow-auto'>
         <h1 className='w-full text-center mt-4 font-bold bg-red-100'>
           {isEdit ? 'Editar Cliente' : 'Cliente Nuevo'}
         </h1>
@@ -95,12 +95,12 @@ const NuevoClienteAside = ({ isEdit, clientData, productos }) => {
           className="w-48 p-2 border-2 border-gray-400 rounded mb-4 px-2 text-center"
         />
 
-        <h2 className="text-lg font-bold mb-4">Selección:</h2>
-        <ul className="w-full px-4">
+        <h2 className="text-base md:text-lg font-bold mb-4">Selección:</h2>
+        <ul className="text-sm md:text-base w-full px-1 md:px-4">
           {Object.entries(productos).map(([id, { nombre, cantidad }]) => (
             cantidad > 0 && (
               <li key={id} className="flex justify-between items-center mb-2">
-                <span className="font-semibold text-base">{nombre}</span>
+                <span className="font-semibold ">{nombre}</span>
                 <span className="text-nowrap bg-green-300 p-1 font-bold">
                   {cantidad} x ${productos[id]?.precio || 0}
                 </span>
@@ -111,7 +111,7 @@ const NuevoClienteAside = ({ isEdit, clientData, productos }) => {
 
         <div className="w-full px-4 mb-2">
           <hr className="my-2" />
-          <div className="flex justify-between items-center font-bold text-xl">
+          <div className="flex justify-between items-center font-bold text-base md:text-xl">
             <span>Total:</span>
             <span>${total}</span>
           </div>

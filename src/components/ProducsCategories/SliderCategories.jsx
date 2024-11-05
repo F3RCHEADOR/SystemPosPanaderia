@@ -75,8 +75,6 @@ const SliderCategories = ({ onSelect }) => {
     return (
         <div className="w-full h-auto mb-8 xl:px-8">
             <h1 className="my-2.5 text-center text-lg font-bold">Imagen de la categoría</h1>
-
-
             <Slider {...sliderSettings}>
                 {categorias.map((categoria) => (
                     <div key={categoria.id} className={`p-4 m-1 border rounded-xl group ${selectedId === categoria.id ? 'border-green-500' : 'border-transparent'}`}>
